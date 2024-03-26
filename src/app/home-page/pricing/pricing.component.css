@@ -1,0 +1,17 @@
+.fa-check-circle {
+    color: orange;
+    margin-right: 5px;
+  }
+
+  ul {
+    text-align: justify!important;
+    margin-left: 74px;
+  }
+
+  ul li::marker {
+    content: '✓';
+    font-size: 22px;
+    color: blue;
+  }
+
+  

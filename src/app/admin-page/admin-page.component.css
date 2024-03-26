@@ -1,0 +1,107 @@
+.box {
+  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+  height: 535px;
+}
+
+.pie_box {
+  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+  height: auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.count-box {
+  align-items: center;
+  padding: 30px;
+  width: 100%;
+  cursor: pointer;
+  background: #fff;
+  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+}
+
+.user_Info {
+  justify-content: center !important;
+  width: 100%;
+}
+
+p {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.buttons {
+  text-align: end;
+}
+
+.btn {
+  font-weight: 500;
+}
+
+.role_Name {
+  font-size: 18px !important;
+  font-weight: 600;
+  color: blue;
+}
+
+.text_center {
+  text-align: center;
+}
+
+.download {
+  font-size: 24px !important;
+  margin-left: 80px;
+  border: 2px solid green;
+  border-radius: 38px;
+  color: #000000b5 !important;
+  padding: 3px;
+  line-height: normal !important;
+}
+
+.total_count {
+  font-size: 18px !important;
+  margin-top: -10px !important;
+}
+
+
+.stars-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.star-icon {
+  margin-right: 25px;
+  color: orange;
+  font-size: 28px;
+  margin-left: 4px;
+}
+
+.star-value {
+  position: relative;
+  bottom: 0;
+  margin-bottom: 0;
+  /* Reset default margin */
+  margin-left: 8px !important;
+}
+
+
+.star_box {
+  padding: 18px !important;
+}
+
+.star_download {
+  margin-left: 22px !important;
+}
+
+.feedback_boxes {
+  height: 45px;
+}
+
+.btn-warning {
+  color: white;
+}
+
+.mat-buttons {
+  margin-top: -42px;
+}

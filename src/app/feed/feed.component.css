@@ -1,0 +1,195 @@
+body {
+    margin-top: 20px;
+}
+
+.email {
+    font-size: 1em;
+}
+
+.header-boxs {
+    max-width: 97%;
+}
+
+.email .nav.nav-pills>li>a,
+.email .nav.nav-pills.nav-stacked>li>a {
+    border-top: 3px solid transparent;
+}
+
+.email .nav.nav-pills>li.active>a,
+.email .nav.nav-pills>li.active>a:hover,
+.email .nav.nav-pills.nav-stacked>li.active>a,
+.email .nav.nav-pills.nav-stacked>li.active>a:hover {
+    background-color: #f6f6f6;
+}
+
+.email .nav.nav-pills>li.active>a {
+    font-weight: 600;
+}
+
+.filters {
+    display: flex;
+}
+
+.input-box {
+    position: relative;
+  }
+  
+  .input-box i {
+    position: absolute;
+    right: 13px;
+    top: 15px;
+    color: #ced4da;
+  }
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 54%;
+    margin-left: 45%;
+}
+
+
+.email .nav.nav-pills>li>a:hover,
+.email .nav.nav-pills.nav-stacked>li>a:hover {
+    background-color: #f6f6f6;
+}
+
+.email .nav.nav-pills.nav-stacked>li.header {
+    color: #777;
+    text-transform: uppercase;
+    position: relative;
+    padding: 0px 0 10px 0;
+}
+
+.email table a {
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.email table tr.read>td {
+    background-color: #f6f6f6;
+    color: black;
+}
+
+.email table tr.read>td {
+    font-weight: 400;
+}
+
+.email table tr td>i.fa {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    text-align: center;
+}
+
+.email table tr td>i.fa-star {
+    color: #f39c12;
+}
+
+.email table tr td>i.fa-bookmark {
+    color: #e74c3c;
+}
+
+.email table tr>td.action {
+    padding-left: 0px;
+    padding-right: 2px;
+}
+
+.grid .grid-header>.grid-tools a {
+    color: #999999;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.grid .grid-header>.grid-tools a:hover {
+    color: #666666;
+}
+
+.grid .grid-body {
+    padding-top: 30px;
+    font-size: 0.9em;
+    line-height: 1.9em;
+}
+
+
+
+/* Cards */
+
+
+header {
+    background-color: darkslategrey;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.description {
+    font-size: 16px;
+    color: #666;
+    text-align: justify;
+    margin: 25px 10px;
+}
+
+.image-placeholder {
+    text-align: center;
+    margin: 20px 0;
+}
+
+p {
+    font-family: sans-serif;
+    color: black;
+}
+
+footer {
+    background-color: darkslategrey;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+.sponsor-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.sponsor-logo {
+    margin: 0 10px;
+    max-width: 100px;
+}
+
+.links {
+    color: blue;
+    cursor: pointer;
+}
+
+.spinner {
+  margin-left: 25%;
+}
+
+.center-content {
+    margin-top: 4%;
+    margin-left: 24%;
+    width: 75%;
+}
+
+/* @media only screen and (max-width: 1366px) and (min-width: 1100px) {
+    .email {
+        margin-left: 25%;
+    }
+} */
+
+
+@media (min-width: 1024px) {
+    .header-boxs {
+        /* margin-left: 25%;
+        max-width: 975px;  */
+     margin-left: 24%;
+     width: 75%
+    }
+  }
+  
+  

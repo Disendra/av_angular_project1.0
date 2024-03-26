@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container mt-5" *ngIf="searchBox">
+        <div class="row d-flex justify-content-center show-box">
+          <div class="col-md-6">
+            <div class="card">
+                <div class="input-box">
+                    <input type="text" class="form-control" [(ngModel)]="filterTerm" (input)="applyFilter()" />
+                    <i class="fa fa-search"></i>
+                  </div>
+                      
+              <div *ngFor="let item of pagedUserData" class="list" (click)="showDetails(item)">
+                <i class="fa fa-user-circle-o"></i>
+                <div class="d-flex flex-column ml-3">
+                  <span>{{ item.emailId }}</span>
+                  <small>{{ item.role }}</small>
+                </div>
+              </div>
+      
+              <div *ngIf="pagedUserData.length === 0 && filterTerm !== ''">
+                    <div class="centered-image">
+                        <img src="assets/img/oops.png" alt="" class="img-fluid no-records" height="250px">
+                    </div>
+                </div>
+              <div *ngIf="showFilters">
+                <mat-paginator  [length]="userData.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+                </mat-paginator>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow_Container">
+        <div class="arrow-Icon" *ngIf="showClickedData" (click)="onBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </div>
+      </div>
+
+      
+      <div class=" show-box center-content" *ngIf="showClickedData">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <p class="top-text">Congratulations! The individual you are seeking is a member of our community.</p>
+               <div class="our-team">
+                <div class="picture">
+                    <img class="img-fluid" src="assets/img/disendra-Img.png">
+                </div>
+    
+                <div *ngFor="let item of clickedUserData" class="team-content">
+                    <p class="user_Name">{{ formatUsername(item.emailId) }}</p>
+                    <span class="title">{{ companyName }}</span>
+                    <span class="title">{{ item.role }}</span>
+                </div>
+    
+                <ul class="social">
+                    <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
+                    <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-twitter" aria-hidden="true"></a></li>
+                    <!-- <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-google-plus" aria-hidden="true"></a></li> -->
+                    <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
+                </ul>
+            </div>
+            <p class="bottom-text">You have the opportunity to connect with your peers through one of their social platforms.</p>
+        </div>
+    </div>
+    <app-spinner *ngIf="showSpinner" class="spinner"></app-spinner>
+</body>

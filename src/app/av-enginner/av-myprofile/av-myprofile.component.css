@@ -1,0 +1,133 @@
+body{margin-top:20px;
+  background-color:#f2f6fc;
+  color:#69707a;
+  }
+  .img-account-profile {
+      height: 10rem;
+  }
+  .rounded-circle {
+      border-radius: 50% !important;
+  }
+  .card {
+      box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+  }
+  /* .card .card-header {
+      font-weight: 600;
+      font-size: 18px;
+  }
+  .card-header:first-child {
+      border-radius: 0.35rem 0.35rem 0 0;
+  }
+  .card-header {
+      margin-bottom: 0;
+      background-color: rgba(33, 40, 50, 0.03);
+      border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+  } */
+  .form-control, .dataTable-input {
+      display: block;
+      width: 100%;
+      padding: 0.875rem 1.125rem;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1;
+      color: #69707a;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #c5ccd6;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0.35rem;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .form-control::placeholder {
+    /* Adjust the padding or margin to move the placeholder text */
+    padding-left: 10px; /* Adjust this value as needed */
+}
+  
+  input {
+    height: 40px;
+  }
+
+h4 {
+  margin-bottom: 0px;
+  color: blue;
+}
+
+.btn {
+  width: 110px;
+  height: 38px;
+  color: white;
+  border: none;
+}
+
+.btn-warning {
+  background-color: orangered;
+}
+
+.btn-success {
+  background-color: green;
+}
+
+.p_headline, .p_details {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 5px; 
+}
+  /* border-left: 2px solid green; */
+  /* border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px; 
+} */
+
+
+.input-group {
+  position: relative;
+}
+
+.input-group .material-icons {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px; /* Adjust this value to change the position of the icon */
+  pointer-events: none; /* Ensures the icon does not intercept mouse events */
+  background: #2196f3;
+  color: white;
+  padding: 1px;
+  z-index: 1000; /* Ensure icons are positioned above input boxes */
+}
+
+.form-control {
+  padding-left: 40px; /* Adjust the padding on the right side */
+}
+
+.phone_codes {
+  padding-left: 10px;
+}
+
+input {
+  height: 45px;
+}
+
+  @media (min-width: 1024px) {
+    .container {
+      width: 78%;
+      margin-left: 22%;
+    }
+  }
+
+  @media (min-width: 1200px) and (max-width:1350px) { 
+    .profile_container {
+     margin-left: 2%;
+    }
+  }
+
+  @media (min-width: 1350px) { 
+    .profile_container {
+     margin-left: -13px;
+    }
+  }
+
+  

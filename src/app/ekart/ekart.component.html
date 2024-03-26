@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Font Awesome Icons</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+  <header class="header_section">
+    <div class="header_top">
+      <div class="container-fluid">
+        <div class="top_nav_container">
+          <div class="contact_nav">
+            <h1>AV Tech</h1>
+          </div>
+          <form class="search_form">
+            <input type="text" class="filter_box" placeholder="Search products..." name="searchText" [(ngModel)]="searchText"/>
+            <button class="" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </form>
+          <div class="user_option_box">
+            <a class="cart-link" (click)="onCart('insertProduct')">
+              <i class="fa fa-cart-plus" aria-hidden="true"></i>
+              <span>Seller</span>
+            </a>           
+              
+            <nav id="navbar" class="navbar">
+            <li class="dropdown"><a> <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"><span>{{ formatUsername(emailId) }}</span> <i class="bi bi-chevron-down"></i></a>
+              <ul>
+                <li><a (click)="onSelect('products')">Products</a></li>
+                <li><a (click)="onSelect('orders')">Orders</a></li>
+                <li><a (click)="onSelect('logout')">Logout<i class="fa fa-sign-out"></i></a></li>
+                <!-- <li><a href="#">Drop Down 4</a></li> -->
+              </ul>
+            </li>
+  </nav>
+
+             </div>
+        </div>
+
+      </div>
+    </div>
+  
+  </header>
+
+<!-- product section -->
+<section class="product_section layout_padding" *ngIf="showProducts && filteredProducts.length > 0">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2>Available Products</h2>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-lg-4" *ngFor="let product of filteredProducts">
+        <div class="box">
+          <div class="img-box">
+            <img [src]="product.imagePath" class="img-fluid rounded-3" alt="Shopping item">
+            <a class="add_cart_btn" (click)="selectedProduct(product)">
+              <span>Contact</span>
+            </a>
+          </div>
+          <div class="detail-box">
+            <h3 class="product_Name">{{ product.title }}</h3>
+            <p class="description" matTooltip="{{product.description}}"  [textContent]="product.description.length > 100 ? product.description.slice(0, 75) + '...' : product.description"></p>
+             <h3 class="product_Name">₹{{ product.price }}</h3>
+            <!-- <div class="product_info">
+              <h3><mat-icon class="location_Icon"> location_on</mat-icon> {{ product.location }} </h3>
+              <div class="star_container">
+                ₹{{ product.price }}
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn_box">
+      <a href="" class="view_more-link">View More</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<section *ngIf="showCart">
+  <div class="container h-100 py-2">
+    <div class="row d-flex justify-content-center h-100">
+      <div class="col-10">
+        <div *ngFor="let item of filteredProducts" class="card rounded-3 mb-2" style="box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;">
+          <div class="card-body p-4">
+            <div class="row d-flex justify-content-between align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img [src]="item.imagePath" class="img-fluid rounded-3 cart_Image" alt="Cotton T-shirt">
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <p class="lead fw-normal mb-2">{{ item.title }}</p>
+                <p><span class="text-muted">{{ item.description }}</span></p>
+              </div>
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                <h3 class="mb-0">₹{{ item.price }}</h3>
+                <h5 class="mb-0">{{ item.location }}</h5>
+              </div>
+              <div class="col-md-2 col-lg-2 col-xl-2 text-end">
+                <span><i class="fa fa-edit" (click)="editItem(item)"></i></span>
+                <span class="text-danger" (click)="deleteItem(item)"><i class="fa fa-trash-o"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row justify-content-center align-items-center" *ngIf="filteredProducts.length === 0" style="height: 70vh;">
+  <div class="col-sm-6 col-lg-3 text-center">
+    <img src="assets/img/ekart/empty_produts.png" class="img-fluid" alt="No products">
+  </div>
+</div>
+
+
+
+<!-- Dialog template -->
+<ng-template #seller>
+  <!-- <h4 matDialogTitle class="mb-0">Social Media Links</h4> -->
+  <mat-dialog-content class="d-flex align-items-center justify-content-center" style="overflow: hidden;">
+    <div class="container custom-dialog-container">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="email" class="form-control" [(ngModel)]="title" name="title">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea type="text" class="form-control" [(ngModel)]="description" name="description"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" class="form-control" [(ngModel)]="location" name="location">
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input type="number" class="form-control" [(ngModel)]="mobileNumber" name="mobileNumber">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" class="form-control" [(ngModel)]="price" name="price">
+          </div>
+        </div>
+      </div>
+      
+       <div class="form-group">
+        <label>Image</label><br>
+        <input type="file" (change)="onFileSelected($event)">
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="mat-buttons">
+    <button mat-dialog-close class="btn warning">Cancel</button>
+    <button [mat-dialog-close]="true" class="btn success" (click)="onUpload()">{{sellerButton}}</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+<ng-template #contact>
+<mat-dialog-content class="d-flex align-items-center justify-content-center popup">
+  <div *ngFor="let item of selectedItem">
+   <!-- <p> <mat-icon>person</mat-icon>{{ item.name }}</p> -->
+   <p class="seller_Name"><mat-icon class="person_Icon">person</mat-icon> {{ formatUsername(emailId) }}</p>
+   <p class="seller_Number"><mat-icon class="phone_Icon">phone</mat-icon> {{ item.mobileNumber }} </p>
+   <p class="seller_location"><mat-icon class="location_Icon"> location_on</mat-icon> {{ item.location }} </p>
+  </div>
+</mat-dialog-content>
+</ng-template>
+
+<app-spinner *ngIf="showSpinner"></app-spinner>
+  </body>
+</html>

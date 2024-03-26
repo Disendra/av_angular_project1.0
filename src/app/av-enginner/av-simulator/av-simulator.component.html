@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+<body>
+
+<div class="container" id="pdfContent">
+
+  <h1>QUATATION</h1>
+	<div class="row">
+
+		<div class="col-md-6">
+           <label>Quatation No:</label>
+		   <input type="text"><br><br>
+		   <label>Date:</label>
+		   <input class="input-date" type="date">
+		</div>
+
+        <div class="col-md-6 img-data">
+				<img [src]="imgData ? imgData : '../assets/img/camera-Icon.png'" width="100" class="custom-Img" 
+					 [class.rotate-image]="!fileSelected" [class.onSelected-Image]="fileSelected" 
+					 (click)="openFileInput()" *ngIf="!fileSelected">
+		
+				<img [src]="imgData" class="custom-Img" width="100" [class.rotate-image]="!fileSelected" [class.onSelected-Image]="fileSelected" 
+					 *ngIf="fileSelected">
+		
+				<input type="file" class="form-control" [(ngModel)]="seletedFile" style="display: none" 
+					   accept="image/*" (change)="onFileSelected($event)" #fileInput>
+ 
+		       </div>
+
+			</div>
+
+
+
+
+
+<br><br>	<div class="row">
+        <div class="col-md-6">
+			<div class="cart">
+            <div class="quotation-from">
+                <label>Quotation From</label><br>
+                <textarea class="form-control quotation"></textarea>
+            </div>
+			</div>
+        </div>
+
+        <div class="col-md-6">
+			<div class="cart">
+            <div class="quotation-to ">
+                <label>Quotation To</label><br>
+                <textarea class="form-control quotation"></textarea>
+            </div>
+			</div>
+        </div>
+     </div>
+
+
+
+<!-- <h2>HTML Table</h2> -->
+<br><br>
+<table>
+	<tr>
+		<th>SL.No</th>
+	  <th>Item</th>
+	  <th>Discription</th>
+	  <th>Make/Model</th>
+	  <th>Quantity</th>
+	  <th>unitCost</th>
+	  <th>Amount</th>
+	  <th>CGST</th>
+	  <th>SGST</th>
+	</tr>
+	<tr *ngFor="let company of items; let i = index">
+		<td><textarea style="width: 50px;">{{i+1}}</textarea></td>
+	  <td><textarea [(ngModel)]="company.item"></textarea></td>
+	  <td><textarea [(ngModel)]="company.discription"></textarea></td>
+	  <td><textarea [(ngModel)]="company.make"></textarea></td>
+	  <td><textarea [(ngModel)]="company.quantity" (ngModelChange)="calculateAmount(company)"></textarea></td>
+	  <td><textarea [(ngModel)]="company.unitCost" (ngModelChange)="calculateAmount(company)"></textarea></td>
+	  <td><textarea [(ngModel)]="company.total"></textarea></td>
+	  <td><textarea [(ngModel)]="company.cgst" (ngModelChange)="calculateGST(company)"></textarea></td>
+	  <td><textarea [(ngModel)]="company.sgst" (ngModelChange)="calculateGST(company)"></textarea></td>
+	</tr>
+  </table>
+
+  <div class="text-end mt-2">
+	<mat-icon (click)="removeRow()">remove_circle</mat-icon>
+	<mat-icon (click)="addRow()">add_box</mat-icon>
+  </div>
+
+
+  <div style="flex: 1;">
+	<p>Amount In Words : INR -: <strong>{{ grandTotalWords }}</strong></p>
+  </div>
+
+  <div class="calcualtions">
+  <p>Sub Total: {{overallTotal}}</p>
+  <p>Sub Total (CGST): {{overallCGST}}</p>
+  <p>Sub Total (SGST): {{overallSGST}}</p>
+  <p>Grand Total: {{Total}}</p>
+  </div><br><br>
+
+
+
+<aside>
+	<h1><span contenteditable>Additional Notes</span></h1>
+	<div contenteditable>
+		<p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
+	</div>
+</aside>
+
+<!-- <button (click)="downloadCard()" class="btn btn-success buttons">Download</button> -->
+<i class="fa fa-download mt-2" (click)="downloadCard()"></i>
+
+</div>
+</body>
+</html>

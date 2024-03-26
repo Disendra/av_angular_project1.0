@@ -1,0 +1,93 @@
+<!-- ======= Counts Section ======= -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+  <div *ngIf="cards">
+  <section id="counts" class="counts">
+    <div class="container" data-aos="fade-up">
+  
+    <div class="row gy-4">
+    <div class="col-lg-3 col-md-4" (click)="onClick('isCard')">
+      <div class="count-box" matTooltip="Design a personalized E-Business card and connect with your network in a flash.">
+        <div style="text-align: center;">
+        <img src="assets/img/av-profile/id-card.png" class="img-fluid custom-images" alt="">
+          <p class="tool-header">Bussiness Card</p>
+        </div>
+      </div>
+   </div>
+
+        <div class="col-lg-3 col-md-4" (click)="onClick('btu')">
+          <div class="count-box" matTooltip="Calculate how much heat is produced by all electronic equipment within an AV rack">
+            <div style="text-align: center;">
+            <img src="assets/img/av-profile/british-thermal-unit.png" class="img-fluid custom-images" alt="">
+              <p class="tool-header">BTU Calculator</p>
+            </div>
+          </div>
+       </div>
+
+       <div class="col-lg-3 col-md-4" (click)="onClick('ispowerCal')">
+        <div class="count-box" matTooltip="Calculate the total power required for all AV equipment in the AV rackeffective electrical planning and ensuring compatibility with equipment.">
+          <div style="text-align: center;">
+          <img src="assets/img/av-profile/power-claculator.png" class="img-fluid custom-images" alt="">
+            <p class="tool-header">Power Calculator</p>
+           </div>
+        </div>
+     </div>
+
+     <div class="col-lg-3 col-md-4" (click)="onClick('isSpl')">
+      <div class="count-box" matTooltip="This tool lets you calculate the sound pressure level (SPL) at the listening position from a single loudspeaker.">
+        <div style="text-align: center;">
+        <img src="assets/img/av-profile/spl-calculator.png" class="img-fluid custom-images" alt="">
+          <p class="tool-header">SPL Calculator</p>
+        </div>
+      </div>
+   </div>
+
+   <div class="col-lg-3 col-md-4" (click)="onClick('macFinder')">
+    <div class="count-box" matTooltip="This tool lets you calculate the sound pressure level (SPL) at the listening position from a single loudspeaker.">
+      <div style="text-align: center;">
+      <img src="assets/img/av-profile/mac_finder.png" class="img-fluid custom-images" alt="">
+        <p class="tool-header">Mac Finder</p>
+      </div>
+    </div>
+ </div>
+
+         <!-- <div class="col-lg-3 col-md-4" (click)="onClick('quatation')">
+          <div class="count-box">
+            <img src="assets/img/si-count.png" class="img-fluid" alt="">
+            <div style="text-align: center;">
+              <p style="font-weight: 500; font-size: 18px; margin-top: 10px;">Quatation</p>
+              <p>Calculate how much heat is generated and released by a piece of electronic equipment.</p>
+            </div>
+          </div>
+        </div> -->
+
+        </div>
+
+      </div>
+
+  </section><!-- End Counts Section -->
+</div>
+
+  <div class="arrow_Container">
+    <div class="arrow-Icon"  (click)="onClick('cards')" *ngIf="!cards">
+      <mat-icon>arrow_back</mat-icon>
+    </div>
+  </div>
+
+  <div>
+    <app-av-simulator *ngIf="isSimulator"></app-av-simulator>
+    <app-reports *ngIf="isReports || isSpl || isMacFinder " [toolType]="toolType"></app-reports>
+    <app-btu-calculator *ngIf="isBtuCalculator || isBussinessCard || ispowerCal" [toolType]="toolType"></app-btu-calculator>
+  </div>
+  
+</body>
+</html>

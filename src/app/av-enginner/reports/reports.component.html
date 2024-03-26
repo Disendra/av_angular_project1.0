@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div *ngIf="isSpl" class="btu-calculator-container">
+  <div class="container">
+    <h2>SPL Calculator</h2>
+    <div class="table" id="pdfContent">
+      <p>Inverse Square Law- When you double the distance, there will be a 6db loss in SPL</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Meters</th>
+            <th *ngFor="let value of meters">{{ value }}</th>
+          </tr>
+          <tr>
+            <th>SPL</th>
+            <th *ngFor="let value of spl">{{ value }}</th>
+          </tr>
+          <tr>
+            <th>Feet</th>
+            <th *ngFor="let value of feet">{{ value }}</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+<div class="row mt-2">
+  <div class="col-md-6">
+    <p>Enter starting SPL at 1 meter</p>
+  </div>
+  <div class="col-md-6" style="margin-left: -23%;">
+    <input type="text" class="form-control" [(ngModel)]="startingSPL">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <p>Enter distance (in feet) to determine loss</p>
+  </div>
+  <div class="col-md-6" style="margin-left: -13%;">
+    <input type="text" class="form-control" [(ngModel)]="distanceInFeet">
+  </div>
+</div>
+
+
+<div class="row mt-2">
+  <div class="col text-center">
+    <button class="btn btn-primary mb-2" (click)="totalSPL()">Calculate</button>
+  </div>
+</div>
+
+
+<h3 *ngIf="showSPL" class="text-center"> The SPL at {{distanceInFeet}} feet is {{sumOfSpl}}</h3>
+</div>
+ 
+</div>
+
+  <h3>What It Is</h3>
+  <p>
+    Electronic equipment, when powered on, generates heat whether it's active or
+    idle. This heat is measured in British Thermal Units (BTUs). One BTU is
+    approximately 1055 joules, and one watt per hour is equivalent to 3.4 BTUs.
+    It's crucial to calculate the total heat produced by all electronic
+    equipment in an active AV rack. <br /><br />
+    AV designers typically determine the total BTU for a system and share this
+    information with HVAC engineers. This allows designers to incorporate
+    appropriate cooling solutions to prevent equipment failure and balance HVAC
+    systems for user comfort. Equipment wattage details can often be found in
+    the owner's manual or on the device itself
+  </p>
+
+  <div class="container">
+    <div class="row">
+      <div class="cart cart1"><br>
+        <h2 style="text-align: center;"><br><br>Formula<br>f(x)</h2>
+      </div>
+      <div class="cart cart2"><br>
+        <p>The Formula for SPL is:<br>
+          <b>SPL = 20.log(d1/d2)</b> <br>Where: </p>
+        <ul>
+          <li><p>SPL = The Sound Pressure Level at a defined distance</p></li>
+          <li><p>d1 = distance at which the SPL is given</p></li>
+          <li><p>d2 = distance at which you want to know the SPL</p></li>
+        </ul>
+      </div>
+    </div>
+  </div> <br>
+
+</div>
+
+<div *ngIf="isMacFinder">
+  <div class="input-box">
+    <input type="text" class="mac_Search" name="search" [(ngModel)]="sysAddress" placeholder="Enter Mac address.." (keyup.enter)="getVendor(sysAddress)">
+    <i class="fa fa-search"></i>
+    </div>
+    <div *ngFor="let address of getVendorData" class="company_Name">
+      <h1 style="text-align: center;">{{ address.company }}</h1>
+    </div>    
+</div>
+<app-spinner *ngIf="showSpinner"></app-spinner>
+</body>
+</html>

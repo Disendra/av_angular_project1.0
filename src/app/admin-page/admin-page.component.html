@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Form</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+
+  <!-- <div class="container">
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="chart-container">
+                <div class="pie_box">
+                    <h1>Roles</h1>
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="chart-container">
+                <div class="pie_box">
+                    <h1>Rating</h1>
+                    <canvas id="myRatingChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+  
+  <!-- ======= Counts Section ======= -->
+<section id="counts" class="counts">
+  <div class="container" data-aos="fade-up">
+
+
+    <!-- Roles Section -->
+    <div class="count-box">
+    <div class="row gy-4">
+      <div *ngFor="let role of totalRoles" class="col-lg-3 col-md-3">
+        <div class="count-box">
+          <div class="row">
+            <div class="col-4">
+              <img src="assets/img/admin-page/role_Icon.png" class="img-fluid" alt=""/>
+            </div>
+            <div class="col-8" style="margin-left: -10px;">
+              <p class="role_Name">{{ toTitleCase(role.role) }}</p>
+              <p>{{ role.role_count }}</p>
+              <mat-progress-bar class="custom-color-progress" color="green" mode="determinate" [value]="calculateProgress(role.role_count)"></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-3 col-md-3">
+        <div class="count-box">
+          <div class="row">
+            <div class="col-4">
+              <img src="assets/img/admin-page/User_Group.png" class="img-fluid" alt=""/>
+            </div>
+            <div class="col-8">
+              <p class="total_count">{{ totalCount }}</p>
+              <i class="download fa fa-download" (click)="openDialogue('roles')"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    <!-- Social Media Section -->
+  <div class="count-box mt-3 text_center">
+    <div class="row gy-4">
+      <div *ngFor="let socialMedia of socialMediaCounts" class="col-lg-3 col-md-3">
+        <div class="count-box">
+          <div class="row">
+            <div class="col-4">
+              <img [src]="socialMedia.icon" class="img-fluid" alt=""/>
+            </div>
+            <div class="col-6">
+              <p class="role_Name">{{ socialMedia.name }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- FeedBack Section -->
+  <div class="count-box mt-3">
+    <div class="row gy-4 mt-1">
+      <div class="col-lg-4 col-md-3">
+        <p class="role_Name mb-0">FeedBack</p>
+        <div class="count-box star_box">
+           <div class="stars-container">
+            <div *ngFor="let value of ratings" class="star-item">
+              <mat-icon class="star-icon">star</mat-icon>
+              <p class="star-value">{{ value.rating }}</p>
+            </div>
+          </div>
+          <i class="download star_download fa fa-download" (click)="openDialogue('feedBack')"></i>
+        </div>
+      </div>
+
+
+      <div class="col-lg-3 col-md-3">
+        <p class="role_Name mb-0">Feed</p>
+        <div class="count-box">
+            <div class="row">
+                <div class="col-4 mt-3 feedback_boxes">
+                    <img  src="assets/img/social-media/feed.png" class="img-fluid" alt=""/>
+                </div>
+                <div class="col-8 mt-4">
+                  <p class="total_count">5500</p>
+                    <!-- <p>Your list is growing</p> -->
+                    <!-- <mat-progress-bar class="custom-color-progress" color="green" mode="determinate" value="40"></mat-progress-bar>                   -->
+                </div>
+            </div>
+        </div>
+      </div>
+      
+
+      <div class="col-lg-3 col-md-3">
+        <div class="count-box mt-4">
+            <div class="row">
+                <div class="col-4 mt-3 feedback_boxes" (click)="openDialogue('loginInfo')">
+                    <img  src="assets/img/download.png" class="img-fluid" alt=""/>
+                </div>
+                <div class="col-8 mt-3">
+                  <p class="role_Name">Login Info</p>
+                    <!-- <p>Your list is growing</p> -->
+                    <!-- <mat-progress-bar class="custom-color-progress" color="green" mode="determinate" value="40"></mat-progress-bar>                   -->
+                </div>
+            </div>
+        </div>
+      </div>
+   
+    </div>
+   </div> 
+   
+
+
+</div>
+
+</section><!-- End Counts Section -->
+
+  
+    <div class="container mt-2">
+        <div class="row justify-content-center">
+          <div class="col-md-6 box">
+            <h2 class="mb-2">Insert the Feed</h2>
+            <form>
+              <div class="form-group">
+                <label for="sender">Sender:</label>
+                <input type="text" class="form-control" id="sender" name="sender" required [(ngModel)]="sender">
+              </div>
+              <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" required [(ngModel)]="title">
+              </div>
+              <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="5" required [(ngModel)]="description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="link">Link:</label>
+                <input type="text" class="form-control" id="link" name="link" required [(ngModel)]="link">
+              </div>
+              
+              <div class="buttons">
+              <button type="submit" (click)="onClear()" class="btn btn-primary">Cancel</button>          
+              <button type="submit" (click)="onSubmit(sender,title,description,link)" class="btn btn-success">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- <div class="text mt-4">
+        <h2>User Information</h2>
+      </div> -->
+
+      
+      <!-- <div class="row gy-4 user_Info ml-0">
+        <div *ngFor="let item of items" class="col-lg-3 col-md-3">
+          <div class="count-box">
+            <div style="text-align: center;">
+              <img src="assets/img/download.png" (click)="downloadData(item.dataKey)" class="img-fluid custom-images" alt="">
+              <p class="tool-header">{{ item.name }}</p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+       <br>
+
+
+
+
+
+
+
+
+
+
+ <!-- Dialog template -->
+ <ng-template #myDialog>
+  <mat-dialog-content class="d-flex align-items-center justify-content-center">
+    <mat-form-field>
+      <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" [(ngModel)]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 10px;">
+      <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" [(ngModel)]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="mat-buttons">
+    <button mat-dialog-close class="btn btn-warning">Cancel</button>
+    <button [mat-dialog-close]="true" (click)="downloadData('userData')" class="btn btn-success">Download</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+
+<!-- <ng-template #myDialog>
+  <mat-dialog-content class="d-flex align-items-center justify-content-center">
+    <mat-form-field>
+      <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" [(ngModel)]="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field style="margin-left: 10px;">
+      <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" [(ngModel)]="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="mat-buttons">
+    <button mat-dialog-close class="btn btn-warning">Cancel</button>
+    <button [mat-dialog-close]="true" (click)="downloadData('loginData')" class="btn btn-success">Download</button>
+  </mat-dialog-actions>
+</ng-template> -->
+
+
+<ng-template #feedBack>
+  <mat-dialog-content class="d-flex align-items-center justify-content-center">
+    <div class="row">
+      <div class="col-lg-8 col-md-6">
+        <div class="d-flex">
+          <mat-form-field>
+            <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" [(ngModel)]="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field style="margin-left: 20px;">
+            <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" [(ngModel)]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <mat-form-field appearance="fill" style="width: 80%;">
+          <mat-label>Select Rating</mat-label>
+          <mat-select placeholder="Select" [(ngModel)]="selectedRating" multiple>
+            <mat-option *ngFor="let option of options" [value]="option">{{ option }} Stars</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="mat-buttons">
+    <button mat-dialog-close class="btn btn-warning">Cancel</button>
+    <button [mat-dialog-close]="true" (click)="downloadData('feedBack')" class="btn btn-success">Download</button>
+  </mat-dialog-actions>
+</ng-template>
+    <app-spinner *ngIf="showSpinner"></app-spinner>
+    
+</body>
+</html>

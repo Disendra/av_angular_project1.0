@@ -1,0 +1,145 @@
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    /* width: 65%; */
+}
+
+.container {
+    box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+}
+
+
+.table {
+    padding-left: 15%;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    /* background: #04AA6D;
+    color: white; */
+    text-align: center;
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) input {
+    background-color: #f2f2f2;
+}
+
+
+.text-cente {
+    text-align: center;
+}
+
+input {
+    width: 15%;
+    height: 35px;
+}
+
+
+.cart1 {
+    box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+    /* background: #ffa50029; */
+    margin-right: 8px;
+    /* height: 212px; */
+    width: 20%;
+}
+
+.cart2 {
+    box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+    width: 79%;
+}
+
+
+.input-box {
+    position: relative;
+}
+
+.input-box i {
+    position: absolute;
+    right: 13px;
+    top: 15px;
+    color: #ced4da;
+
+}
+
+.input-box {
+    box-sizing: border-box;
+    position: relative;
+    /* border: 2px solid #ccc; */
+    border-radius: 4px;
+    margin-left: 45%;
+    font-size: 16px;
+    background-color: white;
+    /* background-image: url(searchicon.png); */
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    right: 46%;
+    /* Adjust the right distance as needed */
+    transform: translateY(-50%);
+}
+
+.mac_Search {
+    width: 57%;
+    height: 47px;
+}
+
+.company_Name {
+    margin-left: 22%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media (max-width: 1200px) {
+    .btu-calculator-container {
+        margin-left: 13%;
+        /* border: 1px solid; */
+    }
+
+    .cart1 {
+        width: 19%;
+        height: 255px
+    }
+
+    .cart2 {
+        height: 0;
+    }
+
+    .table {
+        padding-left: 25%;
+    }
+
+}
+
+@media (min-width: 1201px) {
+    .btu-calculator-container {
+        margin-left: 25%;
+        /* border: 1px solid; */
+        width: 74%;
+    }
+}
+
+@media (max-width: 767px) {
+    .btu-calculator-container {
+        margin-left: 8%;
+        /* border: 1px solid; */
+        width: 88%;
+    }
+
+    .table {
+        padding-left: 25%;
+    }
+
+}

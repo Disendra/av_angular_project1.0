@@ -1,0 +1,124 @@
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+h1 {
+	text-align: center;
+	color: orange;
+}
+
+.input-date {
+	margin-left: 63px;
+}
+
+.quotation {
+	height: 68px;
+    width: 220px 
+}
+
+.cart {
+width: 220px;
+background: #ffa50073;
+}
+
+  /* td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+  } */
+
+  th {
+  background: orange;
+  border-color: #BBB;
+}
+  
+  .container {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: auto;
+	margin-right: auto;
+  }
+  
+  /* tr:nth-child(even) {
+	background-color: #dddddd;
+  } */
+
+.fa-download {
+  font-size: 24px;
+  float: inline-end;
+  color: green;
+}
+
+
+textarea {
+	height: 35px;
+	width: 102px;
+	border-color: #DDD;
+}
+
+.container {
+padding-top: 11px;
+border: 1px solid;
+/* box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9; */
+}
+
+  @media only screen and (min-width: 768px) {
+	.container {
+	  width: 750px; /* You can adjust the width based on your design */
+	}
+
+	.img-data {
+		padding-left: 32%;
+	}
+
+  }
+  
+  @media only screen and (min-width: 992px) {
+	.container {
+	  width: 970px; /* You can adjust the width based on your design */
+	}
+  
+	.img-data {
+	  padding-left: 35%;
+	}
+  
+	table {
+	  font-family: arial, sans-serif;
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+
+	.buttons {
+		float: right;
+	}
+  
+	th, td {
+	  /* border: 1px solid #dddddd; */
+	  text-align: left;
+	  /* padding: 8px; */
+	  max-width: 150px; /* Set a max-width for the table cells to prevent overflow */
+	  white-space: nowrap; /* Prevent text wrapping in cells */
+	  overflow: hidden;
+	  text-overflow: ellipsis; /* Show ellipsis for overflowing content */
+	}
+  }
+  
+  .calcualtions {
+  text-align: end;
+    line-height: 14px;
+    margin-top: 38px;
+  }
+
+  @media only screen and (min-width: 1200px) {
+	.container {
+		margin-left: 26%;
+		margin-top: 15px;
+	}
+
+	.img-data {
+	padding-left: 38%;
+	}
+  }
+  

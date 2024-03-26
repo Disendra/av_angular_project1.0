@@ -1,0 +1,11 @@
+@media (min-width: 1200px) { 
+.custom_Image {
+  width: 76%;
+}
+}
+
+@media (min-width: 1400px) { 
+  .custom_Image {
+    width: 61%;
+  }
+}
