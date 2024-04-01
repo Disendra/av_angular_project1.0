@@ -14,7 +14,7 @@ export class AvHeaderComponent {
   dialogRef: any;
   activeMenuItem: any;
   CickedsocialMedia : any;
-  userName : string = 'Disendra';
+  userName : any;
   showChatbot : boolean = false;
   showChatbotIcon : boolean = true;
   isDialogOpen: boolean = false;
@@ -24,14 +24,14 @@ export class AvHeaderComponent {
   panelOpenState = false
   isKnowledgeBaseExpanded: boolean = false
   isSimultor: boolean = false
-  isAbout: boolean = true;
-  isProfile: boolean = false;
+  isAbout: boolean = false;
+  isProfile: boolean = true;
   isFeed : boolean = false;
   profileWeight: number = 85;
   @ViewChild('myDialog') myDialog!: TemplateRef<any>
 
   constructor(private router: Router,private dialog: MatDialog,private authService : AuthServiceService, private popup:PopupService) { 
-    console.log(authService.getLoggedInEmail());
+     this.userName = authService.getLoginuserName();
   }
 
   onClick (type: any) {

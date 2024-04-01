@@ -13,8 +13,6 @@ import { PopupService } from 'src/app/services/popup.service'
 export class BtuCalculatorComponent implements OnInit {
   showRemoveIcon: boolean = false
   isBtu: boolean = false
-  isCard: boolean = false
-  linkCopied: boolean = false
   ispowerCal: boolean = false
   isDialogOpen: boolean = false
   dialogRef: any
@@ -24,18 +22,9 @@ export class BtuCalculatorComponent implements OnInit {
   thermalTotal: number = 0
   totalkWh: number = 0
   requiredCooling: any
-  urlLink: string = 'https://businnessCard:4300'
-  userName: string = 'Disendra Gosu'
-  mobileNumber: number = +91887837454
-  designation: string = 'Software Developer'
-  companyName: string = 'Softsol India LTD'
-  emailId: string = 'abc@gmail.com'
-  linkedIn: string = 'https://www.linkedin.com/in/disendra-yadav-b6b1a9220'
-  instagram: string = 'https://www.instagram.com/'
   @Input() toolType: any
-  @ViewChild('myDialog') myDialog!: TemplateRef<any>
 
-  constructor (private dialog: MatDialog, private popup: PopupService) {}
+  constructor () {}
 
   btuRows = [
     { company: '', equipment: '', watt: 0 },
@@ -70,28 +59,6 @@ export class BtuCalculatorComponent implements OnInit {
     } else {
       this.showRemoveIcon = false
     }
-  }
-
-  closePopup () {
-    this.popup.closeDialog()
-  }
-
-  shareOnSocialMedia () {
-    this.popup.openDialogWithTemplateRef(this.myDialog)
-  }
-
-  copyToClipboard () {
-    const tempInput = document.createElement('input')
-    tempInput.value = this.urlLink
-    document.body.appendChild(tempInput)
-    tempInput.select()
-    document.execCommand('copy')
-    document.body.removeChild(tempInput)
-    this.linkCopied = true
-
-    setTimeout(() => {
-      this.linkCopied = false
-    }, 3000)
   }
 
   refreshValues () {
@@ -144,25 +111,12 @@ export class BtuCalculatorComponent implements OnInit {
 
   ngOnInit (): void {
     this.handleMessageChange()
-    this.qrCodeData()
     this.calculateTotalWatt()
   }
 
   handleMessageChange () {
     this.isBtu = this.toolType === 'btu'
-    this.isCard = this.toolType === 'isCard'
     this.ispowerCal = this.toolType === 'ispowerCal'
-  }
-
-  qrCodeData () {
-    this.qrdata =
-      this.userName +
-      '\n' +
-      this.mobileNumber +
-      '\n' +
-      this.emailId +
-      '\n' +
-      this.designation
   }
 
   downloadReport (option: any) {
@@ -170,7 +124,7 @@ export class BtuCalculatorComponent implements OnInit {
     var header: any
     if (option === 'btu') {
       fileName = 'btu-Calculator.pdf'
-      header = 'Thermal Disspansion Details'
+      header = 'Thermal Dissipation Details'
     } else if (option === 'powerCal') {
       fileName = 'Power-Calculator.pdf'
       header = ' AV rack UPS power requirement'
@@ -225,40 +179,6 @@ export class BtuCalculatorComponent implements OnInit {
       })
     } else {
       console.error("Element with id 'pdfContent' not found.")
-    }
-  }
-
-  downloadCard () {
-    let fileName = 'Business-Card.png'
-    let element = document.querySelector(
-      '.container.card-Container'
-    ) as HTMLElement
-
-    if (element) {
-      // Apply border-radius style
-      element.style.borderRadius = '0px'
-
-      const canvas = document.createElement('canvas')
-      const context = canvas.getContext('2d')
-      const rect = element.getBoundingClientRect()
-
-      canvas.width = rect.width
-      canvas.height = rect.height
-
-      html2canvas(element).then(canvasContent => {
-        context?.drawImage(canvasContent, 0, 0)
-
-        const imgData = canvas.toDataURL('image/png')
-        const link = document.createElement('a')
-        link.href = imgData
-        link.download = fileName
-        link.click()
-
-        // Reset border-radius style after generating image
-        element.style.borderRadius = ''
-      })
-    } else {
-      console.error('Card container not found.')
     }
   }
 }

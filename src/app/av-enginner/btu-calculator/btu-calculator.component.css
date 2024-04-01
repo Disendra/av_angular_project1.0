@@ -111,59 +111,10 @@ tr:nth-child(even) input {
     padding: 13px;
 }
 
-/* Social Media Icons */
-
-.fa {
-    padding: 10px;
-    font-size: 30px;
-    width: 50px;
-    text-align: center;
-    border-radius: 49px;
-    text-decoration: none;
-    margin: 5px 2px;
-}
-
-.fa:hover {
-    opacity: 0.7;
-}
-
-.social-Icons {
-    margin-top: -35px;
-}
-
-.form-group {
-    margin-top: -15px;
-}
-
-.dialog-buttons {
-    margin-top: -40px;
-}
-
-
-.pageLink-header {
-    margin-left: -15px;
-    margin-top: -35px;
-}
-
-.fa-telegram {
-    background: #3B5998;
-    color: white;
-}
-
-.fa-whatsapp {
-    background: green;
-    color: #fff;
-}
 
 h3 {
     font-weight: 500;
 }
-
-.card-buttons {
-    padding-left: 69%;
-    padding-top: 1%;
-}
-
 
 input {
     border: none;
@@ -280,6 +231,13 @@ input {
 
 }
 
+
+@media only screen and (min-width: 1367px) {
+    .card-Container {
+        width: 33%!important;
+}
+}
+
 @media (min-width: 1201px) {
     .container {
         margin-left: 25%;
@@ -298,84 +256,4 @@ input {
     .buttons {
         padding-left: 24%;
     }
-}
-
-
-@media print {
-    .print-only {
-        display: block;
-    }
-
-    .buttons {
-        display: none;
-    }
-
-    .tool-data {
-        display: none;
-    }
-
-    .cart {
-        display: none;
-    }
-
-    .results {
-        line-height: 15px;
-        padding-left: 50px;
-    }
-
-    .icons {
-        display: none;
-    }
-
-    #header {
-        display: none;
-    }
-
-}
-
-/* Bussiness Card */
-.card-Container {
-    margin-top: 10%;
-    height: 275px;
-    width: 36%;
-    border-radius: 15px;
-    margin-left: 41%;
-    box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
-    background: black;
-    display: flex;
-    align-items: center;
-}
-
-.text-container {
-    color: white;
-    line-height: 15px;
-    margin-left: 25px;
-}
-
-qrcode {
-    margin-left: 45px;
-}
-
-.userName {
-    font-size: 20px;
-    font-family: 'Source Code Pro', monospace;
-}
-
-.designation {
-    color: #ff1ead;
-}
-
-.fa-download {
-    color: green;
-}
-
-.fa-share-alt {
-    color: darkblue;
-}
-
-.cancel_Icon {
-    margin-left: 94%;
-    margin-bottom: 15px;
-    color: red;
-    cursor: pointer;
 }

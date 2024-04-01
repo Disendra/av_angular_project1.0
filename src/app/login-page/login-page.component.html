@@ -31,11 +31,14 @@
 		  <div class="pass-link"><a href="#">Forgot password?</a></div>
 		  <div class="field btn">
 			<div class="btn-layer"></div>
-			<input type="submit" (click)="onSubmit(emailId,password)" value="Login">
+			<input type="submit" (click)="onSubmit()" [disabled]="!emailId || !password" value="Login">
 		  </div>
 		  <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
 		</form>
 		<form action="#" class="signup" *ngIf="isSignup">
+			<div class="field signup_field">
+				<input type="text" placeholder="UserName" name="userName" [(ngModel)]="userName" required>
+			  </div>
 		  <div class="field signup_field">
 			<input type="text" placeholder="Email Address" name="emailId" [(ngModel)]="emailId" required pattern="[a-zA-Z0-9._%+-]+@gmail\.com$">
 		  </div>
@@ -60,7 +63,7 @@
             <p class="invalid_msg">{{ invalidMsg }}</p>
 		  <div class="field btn">
 			<div class="btn-layer"></div>
-			<input type="submit" (click)="onSignUp(emailId,password,role, reEnteredPswd)" value="Signup">
+			<input type="submit" (click)="onSignUp()" value="Signup">
 		  </div>
 		</form>
 	  </div>

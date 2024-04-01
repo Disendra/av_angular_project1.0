@@ -73,11 +73,6 @@ export class AvDirectoryComponent implements OnInit {
     this.searchBox = false
     this.showClickedData = true
     console.log('Clicked Item Details:', item)
-    this.clickedUserData = [item]
-  }
-
-  formatUsername (emailId: string): string {
-    const username = emailId.split('@')[0] // Extract username
-    return username.charAt(0).toUpperCase() + username.slice(1).toLowerCase() // Convert to title case
+    this.clickedUserData = [item];
   }
 }

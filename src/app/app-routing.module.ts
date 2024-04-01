@@ -5,14 +5,16 @@ import { LoginPageComponent } from './login-page/login-page.component'
 import { AvEnginnerComponent } from './av-enginner/av-enginner.component'
 import { AdminPageComponent } from './admin-page/admin-page.component'
 import { EkartComponent } from './ekart/ekart.component'
+import { BussinessCardComponent } from './bussiness-card/bussiness-card.component'
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'home-page', component: HomePageComponent },
+  { path: 'home-page', component: HomePageComponent },  
   { path: 'login-page/:value', component: LoginPageComponent },
   { path: 'ekart-page', component: EkartComponent },
   { path: 'avEngineer-dashboard', component: AvEnginnerComponent },
-  { path: 'admin-page', component: AdminPageComponent }
+  { path: 'admin-page', component: AdminPageComponent },
+  { path: 'bussiness-card/:emailId/:timeStamp', component: BussinessCardComponent },
   // { path: 'av-about', component: AvAboutComponent} 
 ]   
 

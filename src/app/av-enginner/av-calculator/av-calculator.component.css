@@ -68,6 +68,15 @@
   text-align: center;
 }
 
+.bottom-text {
+  position: absolute;
+  color: black;
+  left: 50%;
+  bottom: 0;
+}
+
+
+
 @media (min-width: 1275px) {
   .counts {
     margin-left: 23%;

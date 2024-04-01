@@ -1,0 +1,163 @@
+.header-boxs {
+    max-width: 97%;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 63%;
+    margin-top: -1%;
+    margin-bottom: 1%;
+    margin-left: 38%;
+}
+
+.input-box {
+    position: relative;
+}
+
+.textarea_tools {
+    margin-left: auto;
+    width: auto;
+}
+
+.input-box i {
+    position: absolute;
+    right: 13px;
+    top: 12px;
+    color: #000000b3;
+}
+
+.input-box .txt_Icons {
+    position: relative;
+    left: 7px;
+    top: -30px;
+}
+
+.txt_link {
+    margin-left: 4px;
+}
+
+.pop_txtarea {
+    margin-bottom: -40px;
+    margin-top: -27px;
+}
+
+/* .upload_button {
+    background-color: blue;
+    color: white;
+} */
+
+.upload_button {
+    padding: 5px;
+    background: lightseagreen;
+    margin-right: 8px;
+    color: white;
+}
+
+.popup_box {
+    width: 500px;
+    margin-left: -36px;
+    margin-top: -20px;
+    left: -40px;
+    margin-right: -24px;
+}
+
+.question, .answer {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.answer {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.comments {
+    margin-left: 20px;
+}
+
+.vote {
+    font-size: 20px;
+}
+
+.url_box {
+margin-bottom: 40px;
+margin-top: -15px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile {
+    font-weight: bold;
+}
+
+.username {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.posted_Date {
+    text-align: end;
+    margin-top: -4%;
+}
+
+.btn {
+    padding: 5px;
+    width: auto;
+    color: white;
+    border: none;
+}
+
+.main_question {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.vote .btn {
+    display: inline-flex;
+}
+
+.btn-outline-success {
+    background-color: green;
+}
+
+.btn-outline-danger {
+    background-color: red;
+}
+
+.btn-outline-primary {
+    background-color: blue;
+}
+
+.btn-primary {
+    background: blue;
+    margin-top: -25px !important;
+}
+
+textarea {
+    min-height: 150px;
+}
+
+@media (min-width: 1024px) {
+    .header-boxs {
+        /* margin-left: 25%;
+        max-width: 975px;  */
+        margin-left: 24%;
+        width: 75%
+    }
+}

@@ -41,7 +41,13 @@ body {
     color: #ced4da;
   }
 
-.input-group {
+  p, .input-group {
+    display: inline-block;
+    vertical-align: top; /* Align the elements at the top */
+  }
+  
+
+  .input-group {
     position: relative;
     display: flex;
     flex-wrap: wrap;

@@ -23,14 +23,14 @@
           <div class="user_option_box">
             <a class="cart-link" (click)="onCart('insertProduct')">
               <i class="fa fa-cart-plus" aria-hidden="true"></i>
-              <span>Seller</span>
+              <span>Post Ad</span>
             </a>           
               
             <nav id="navbar" class="navbar">
-            <li class="dropdown"><a> <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"><span>{{ formatUsername(emailId) }}</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a> <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"><span>{{ userName }}</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a (click)="onSelect('products')">Products</a></li>
-                <li><a (click)="onSelect('orders')">Orders</a></li>
+                <!-- <li><a (click)="onSelect('products')">Products</a></li> -->
+                <li><a (click)="onSelect('myPosts')">My Posts</a></li>
                 <li><a (click)="onSelect('logout')">Logout<i class="fa fa-sign-out"></i></a></li>
                 <!-- <li><a href="#">Drop Down 4</a></li> -->
               </ul>
@@ -57,12 +57,12 @@
           <div class="img-box">
             <img [src]="product.imagePath" class="img-fluid rounded-3" alt="Shopping item">
             <a class="add_cart_btn" (click)="selectedProduct(product)">
-              <span>Contact</span>
+              <span class="txt_white">Contact</span>
             </a>
           </div>
           <div class="detail-box">
             <h3 class="product_Name">{{ product.title }}</h3>
-            <p class="description" matTooltip="{{product.description}}"  [textContent]="product.description.length > 100 ? product.description.slice(0, 75) + '...' : product.description"></p>
+            <p class="description" matTooltip="{{product.description}}"  [textContent]="product.description.length > 50 ? product.description.slice(0, 50) + '...' : product.description"></p>
              <h3 class="product_Name">₹{{ product.price }}</h3>
             <!-- <div class="product_info">
               <h3><mat-icon class="location_Icon"> location_on</mat-icon> {{ product.location }} </h3>
@@ -83,10 +83,12 @@
 
 
 
-
-
-
 <section *ngIf="showCart">
+  <div class="arrow_Container">
+    <div class="arrow-Icon" (click)="onSelect('products')">
+      <mat-icon>arrow_back</mat-icon>
+    </div>
+  </div>
   <div class="container h-100 py-2">
     <div class="row d-flex justify-content-center h-100">
       <div class="col-10">
@@ -98,13 +100,15 @@
               </div>
               <div class="col-md-3 col-lg-3 col-xl-3">
                 <p class="lead fw-normal mb-2">{{ item.title }}</p>
-                <p><span class="text-muted">{{ item.description }}</span></p>
+                <!-- <p><span class="text-muted">{{ item.description }}</span></p> -->
+                <p class="cart_description" matTooltip="{{item.description}}"  [textContent]="item.description.length > 50 ? item.description.slice(0, 50) + '...' : item.description"></p>
               </div>
               <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                 <h3 class="mb-0">₹{{ item.price }}</h3>
                 <h5 class="mb-0">{{ item.location }}</h5>
               </div>
               <div class="col-md-2 col-lg-2 col-xl-2 text-end">
+                <input class="checkbox" matTooltip="Sold Out"  (click)="checkboxClicked($event,item)" type="checkbox">
                 <span><i class="fa fa-edit" (click)="editItem(item)"></i></span>
                 <span class="text-danger" (click)="deleteItem(item)"><i class="fa fa-trash-o"></i></span>
               </div>
@@ -130,41 +134,41 @@
   <mat-dialog-content class="d-flex align-items-center justify-content-center" style="overflow: hidden;">
     <div class="container custom-dialog-container">
       <div class="form-group">
-        <label>Title</label>
-        <input type="email" class="form-control" [(ngModel)]="title" name="title">
+        <label>Title</label><label class="red-asterisk">*</label>
+        <input type="text" maxlength="75" class="form-control" [(ngModel)]="title" name="title">
       </div>
       <div class="form-group">
-        <label>Description</label>
-        <textarea type="text" class="form-control" [(ngModel)]="description" name="description"></textarea>
+        <label>Description</label><label class="red-asterisk">*</label>
+        <textarea type="text" maxlength="400" class="form-control" [(ngModel)]="description" name="description"></textarea>
       </div>
       <div class="form-group">
-        <label>Location</label>
-        <input type="text" class="form-control" [(ngModel)]="location" name="location">
+        <label>Location</label><label class="red-asterisk">*</label>
+        <input type="text" maxlength="50" class="form-control" [(ngModel)]="location" name="location">
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="mobile">Mobile</label>
-            <input type="number" class="form-control" [(ngModel)]="mobileNumber" name="mobileNumber">
+            <label for="mobile">Mobile</label><label class="red-asterisk">*</label>
+            <input type="number" onKeyPress="if(this.value.length==10) return false;" class="form-control" [(ngModel)]="mobileNumber" name="mobileNumber">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="price">Price</label>
-            <input type="number" class="form-control" [(ngModel)]="price" name="price">
+            <label for="price">Price</label><label class="red-asterisk">*</label>
+            <input type="number" onKeyPress="if(this.value.length==8) return false;" class="form-control" [(ngModel)]="price" name="price">
           </div>
         </div>
       </div>
       
        <div class="form-group">
-        <label>Image</label><br>
+        <label>Image</label><br><label class="red-asterisk">*</label>
         <input type="file" (change)="onFileSelected($event)">
       </div>
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end" class="mat-buttons">
     <button mat-dialog-close class="btn warning">Cancel</button>
-    <button [mat-dialog-close]="true" class="btn success" (click)="onUpload()">{{sellerButton}}</button>
+    <button [mat-dialog-close]="true" class="btn success" [disabled]="!this.emailId || !this.title || !this.description || !this.location ||  mobileNumber.toString().length !== 10 ||!this.price || !this.showFile"  (click)="onUpload()">{{sellerButton}}</button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -173,7 +177,7 @@
 <mat-dialog-content class="d-flex align-items-center justify-content-center popup">
   <div *ngFor="let item of selectedItem">
    <!-- <p> <mat-icon>person</mat-icon>{{ item.name }}</p> -->
-   <p class="seller_Name"><mat-icon class="person_Icon">person</mat-icon> {{ formatUsername(emailId) }}</p>
+   <p class="seller_Name"><mat-icon class="person_Icon">person</mat-icon> {{ item.userName }}</p>
    <p class="seller_Number"><mat-icon class="phone_Icon">phone</mat-icon> {{ item.mobileNumber }} </p>
    <p class="seller_location"><mat-icon class="location_Icon"> location_on</mat-icon> {{ item.location }} </p>
   </div>

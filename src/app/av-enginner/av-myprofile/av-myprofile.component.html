@@ -1,244 +1,4 @@
-  <!-- ======= Contact Section ======= -->
-  <section id="contact" style="display: none;" class="contact">
-
-    <div class="container" data-aos="fade-up">
-  
-      <div class="section-title">
-        <h2>My Profile</h2>
-        </div>
-  
-      <div class="row gy-4">
-  
-        <div class="col-lg-12">
-          <form method="post" class="php-email-form">
-            <div class="row gy-4">
-    
-              <div class="col-md-12 profile-textarea">
-                <label>Profile Headline</label>
-                <textarea class="form-control" name="message" rows="3" placeholder="Message" required></textarea>
-              </div>
-  
-              <div class="section-1">
-           <label class="mb-0">Personal Details</label>
-              <div class="row">
-                 <div class="col-md-4">
-                <input type="email" class="form-control" name="firstName" placeholder="First Name" required>
-              </div>
-              <div class="col-md-4">
-                <input type="text" class="form-control" name="middleName" placeholder="Middle Name" required>
-              </div>
-              <div class="col-md-4">
-                <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
-              </div>
-                
-                <div class="row mt-2">
-                  <div class="col-md-4">
-                 <input type="email" class="form-control" name="firstName" placeholder="Email Id" required>
-               </div>
-               <div class="col-md-4">
-                 <input type="text" class="form-control" name="middleName" placeholder="Mobile Number" required>
-               </div>
-               <div class="col-md-4">
-                <select class="form-control form-dropdown" name="gender" style="height: 41px;">
-                  <option value="" selected disabled>Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-              </select>
-             </div>
-           </div>
-  </div>
-              </div>
-  
-  
-              <div class="section-1">
-           <label class="mb-0">Educational Details(Highest)</label>
-           <div class="row">
-              <div class="col-md-4">
-             <input type="email" class="form-control" name="firstName" placeholder="University/Institute" required>
-           </div>
-           <div class="col-md-4">
-             <input type="text" class="form-control" name="middleName" placeholder="Degree" required>
-           </div>
-           <div class="col-md-4">
-             <input type="text" class="form-control" name="lastName" placeholder="Year" required>
-           </div>
-             </div>
-      </div>
-  
-  
-             <label class="mb-0">Experience(Latest)</label>
-             <div class="row">
-                <div class="col-md-4">
-               <input type="email" class="form-control" name="firstName" placeholder="Job Tittle" required>
-             </div>
-             <div class="col-md-4">
-               <input type="text" class="form-control" name="middleName" placeholder="Company Name" required>
-             </div>
-             <div class="col-md-4">
-               <input type="text" class="form-control" name="lastName" placeholder="Location" required>
-             </div>
-               </div>
-  
-               <div class="row mt-2">
-                <div class="col-md-4">
-                  <select class="form-control form-dropdown border" name="role" required>
-                    <option *ngFor="let item of empType" [value]="item.value">
-                        {{ item.label }}
-                    </option>
-                </select>  
-              </div>
-
-             
-             <div class="col-md-4">
-             <div class="row date-Input">
-              <input type="date" class="form-control form-date experience-row ml-2" name="middleName" pattern="\d{2}/\d{2}/\d{4}"  placeholder="Start" oninput="this.value = this.value.toUpperCase();" required>
-              <input type="date" class="form-control form-date experience-row ml-2" name="middleName" pattern="\d{2}/\d{2}/\d{4}" style="width: 45%;" placeholder="End" oninput="this.value = this.value.toUpperCase();" required>
-               </div>
-             </div>
-             <!-- <div class="col-md-3">
-              <input type="date" class="form-control form-date" name="middleName" pattern="\d{2}/\d{2}/\d{4}" placeholder="DD/MM/YYYY" oninput="this.value = this.value.toUpperCase();" required>
-             </div> -->
-             <!-- <div class="col-md-3">
-              <input type="date" class="form-control form-date" name="middleName" pattern="\d{2}/\d{2}/\d{4}" placeholder="DD/MM/YYYY" oninput="this.value = this.value.toUpperCase();" required>
-             </div> -->
-             <div class="col-md-4">
-              <select class="form-control form-dropdown border" name="role" required>
-                <option value="" disabled selected>Total Experience</option>
-                <option *ngFor="let number of numbers" [value]="number">
-                  {{ number }}
-                </option>
-            </select>  
-          </div>
-               </div>
-    
-                <!-- <label class="mb-0">Address</label>
-               <div class="form-group col-md-4 mt-3">
-                <textarea class="form-control" style="height: 93px;" name="degree" placeholder="Address" maxlength="15"></textarea>
-               </div> -->
-  
-  
-               <!-- <div class="form-group col-md-8 mt-3">
-                <div class="form-group col-md-6"> 
-                    <select #country name="country" class="form-control" id="country" (change)="onCountryChange($event)">
-                        <option [value]="null">Select Your Country</option>
-                        <option *ngFor="let country of countries" [value]="country | json">
-                            {{ country.name }}
-                        </option>
-                    </select>
-                </div>
-            
-                <div class="form-group col-md-6">
-                    <select #state name="state" id="state" class="form-control" (change)="onStateChange($event)">
-                        <option [value]="null">Select Your State</option>
-                        <option *ngFor="let state of states" [value]="state | json">
-                            {{ state.name }}
-                        </option>
-                    </select>
-                </div> 
-               </div> -->
-            
-  
-  
-  
-              <br>
-              <label class="mb-0 adress-box">Address</label>
-              <div class="row">
-                <!-- Address Box -->
-                <div class="form-group col-md-4 mt-3">
-                  <textarea class="form-control address-box" name="degree" placeholder="Address" maxlength="15"></textarea>
-                    <!-- Your address box code goes here -->
-                </div>
-            
-                <!-- Country and State Selectors -->
-                <div class="form-group col-md-8 mt-3">
-                    <div class="row">
-                        <!-- Country Selector -->
-                        <div class="form-group col-md-6">
-                            <select #country name="country" class="form-control form-dropdown border" name="role" id="country" (change)="onCountryChange($event)">
-                                <option [value]="null">Select Your Country</option>
-                                <option *ngFor="let country of countries" [value]="country | json">
-                                    {{ country.name }}
-                                </option>
-                            </select>
-                        </div>
-            
-                        <!-- State Selector -->
-                        <div class="form-group col-md-6">
-                            <select #state name="state" id="state" class="form-control form-dropdown border" name="role" (change)="onStateChange($event)">
-                                <option [value]="null">Select Your State</option>
-                                <option *ngFor="let state of states" [value]="state | json">
-                                    {{ state.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-              
-  
-      <div class="row mt-2">
-          <!-- City Selector -->
-          <div class="form-group col-md-6">
-            <select #city name="city" id="city" class="form-control form-dropdown border" name="role" (change)="onCityChange($event)">
-                <option [value]="null">Select Your City</option>
-                <option *ngFor="let city of cities" [value]="city | json">
-                    {{ city.name }}
-                </option>
-            </select>
-        </div>
-  
-          <!-- State Selector -->
-          <div class="form-group col-md-6">
-            <input type="text" class="form-control form-date" name="lastName" placeholder="PinCode" required>
-          </div>
-      </div>
-  </div>
-  
-  
-  
-  
-            </div>
-            
-  
-                    <!-- <div class="form-group col-md-6">
-                        <select #city name="city" id="city" class="form-control" (change)="onCityChange($event)">
-                            <option [value]="null">Select Your City</option>
-                            <option *ngFor="let city of cities" [value]="city | json">
-                                {{ city.name }}
-                            </option>
-                        </select>
-                    </div> -->
-                   
-  
-  
-               
-  
-  
-  
-                <!-- <button type="submit">Send Message</button> -->
-                <div class="container buttons mt-4">
-                   <button type="button" class="btn warning">Cancel</button>
-                   <button class="btn success">Save</button>
-                  </div>
-              </div>
-  
-          </form>
-  
-        </div>
-  
-      </div>
-  
-    </div>
-  
-  </section><!-- End Contact Section -->
-
-
-
-
-
-
-
-
-  
+ 
   <section id="contact" class="container">
     <div class="container-xl px-4 profile_container">
       <div class="row">
@@ -249,7 +9,7 @@
             <div class="card-body">
               <form>
                 
-                <h4>Personal Details</h4>
+                <h4>PERSONAL DETAILS</h4>
                 <div class="row gx-3 mt-2">
                   <div class="col-md-6">
                       <label for="inputFirstName">Full Name</label>
@@ -277,16 +37,21 @@
 
                       <div class="row">
                         <label>Phone</label>
-                        <div class="col-md-4">
-                          <select #country name="country" class="form-control phone_codes" id="country" (change)="onCountryChange($event)">
+                        <div class="col-md-3">
+                          <div class="input-group">
+                            <input class="form-control std_code" id="inputLastName" maxlength="66" name="countryCode" [(ngModel)]="countryCode" type="text">
+                            <!-- <span class="material-icons">location_on</span> -->
+                            <img src="assets/img/av-profile/indian-flag.png" class="img-fluid material-icons" alt="">
+                        </div>
+                          <!-- <select #country name="country" class="form-control phone_codes" id="country" (change)="onCountryChange($event)">
                             <option [value]="null">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STD Codes</option>
                             <option *ngFor="let country of countries">
                                {{country.phonecode}} {{ country.name }}
                             </option>
-                        </select>
+                        </select> -->
                         
                           </div>
-                          <div class="col-md-8 ml-4">
+                          <div class="col-md-9 ml-4">
 
                       <!-- <input class="form-control" id="inputFirstName" placeholder="Enter phone number" type="text"> -->
                       <div class="input-group">
@@ -321,7 +86,7 @@
                   </div>
                   </div><br>
                 <!-- Experience Details -->               
-                  <h4>Experience(Latest)</h4>
+                  <h4>EXPERIENCE(Latest)</h4>
                   <div class="row gx-3 mb-1 mt-2">
                     <div class="col-md-4">
                       <label>Job Title</label>
@@ -350,8 +115,8 @@
                   </div><br>   
              
                 <!-- Address Details -->
-                <h4>Address</h4>
-                  <div class="row gx-3">                
+                <h4>ADDRESS</h4>
+                  <div class="row gx-3 mt-2">                
                     <div class="col-md-6">
                       <label>Adress1</label>
                       <!-- <input class="form-control" id="inputFirstName" placeholder="Enter Adress1" type="text"> -->

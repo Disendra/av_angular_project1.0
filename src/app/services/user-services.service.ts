@@ -6,8 +6,10 @@ import { Injectable } from '@angular/core'
 })
 export class UserServicesService {
   // url = 'https://av-nodejs.onrender.com'
-
+  
   url = 'http://localhost:3000'
+
+  // url = 'http://10.58.146.67:3000'
 
   constructor (private http: HttpClient) {}
 
@@ -27,6 +29,10 @@ export class UserServicesService {
     return this.http.post(`${this.url}/updateCart`, data)
   }
 
+  soldOut(data: any) {
+    return this.http.post(`${this.url}/soldOutProduct`, data)
+  }
+
   deleteCartData(data : any) {
     return this.http.post(`${this.url}/deleteCartRecords`, data)
   }
@@ -38,4 +44,9 @@ export class UserServicesService {
   getFeedBackData () {
     return this.http.get(`${this.url}/getFeedBackData`)
   }
+
+  getBussinessCard(emailId: string) {
+    return this.http.get<any>(`${this.url}/getBussinessCard/${emailId}`)
+  }
+
 }

@@ -11,20 +11,22 @@ import { image } from 'html2canvas/dist/types/css/types/image'
   styleUrls: ['./ekart.component.css']
 })
 export class EkartComponent implements OnInit {
-  userName = 'Disendra'
+  userName : any;
   title!: string
   description!: string
   location!: string
   selectedFile: any
   mobileNumber!: number
+  selectedFileName :any;
   slNo!: number
   price!: number
   products: any[] = []
   showUpload: boolean = false
   showContact: boolean = false
-  showSpinner: boolean = false
+  showSpinner: boolean = false;
+  showFile : boolean = true;
   showCart: boolean = false
-  showProducts: boolean = true
+  showProducts: boolean = true;
   selectedItem: any
   searchText: string = ''
   sellerButton: string = 'Upload'
@@ -41,7 +43,7 @@ export class EkartComponent implements OnInit {
   ) {}
   ngOnInit (): void {
     this.emailId = this.authService.getLoggedInEmail()
-
+    this.userName = this.authService.getLoginuserName();
     this.getCartData()
   }
 
@@ -77,13 +79,12 @@ export class EkartComponent implements OnInit {
   ]
 
   onSelect (option: any): void {
-    if (option === 'orders') {
+    if (option === 'myPosts') {
       this.getUploadProducts()
       this.showCart = true
       this.showProducts = false
     } else if (option === 'products') {
-      this.showProducts = true
-      this.showCart = false
+      window.location.reload();
     } else {
       this.logOut()
     }
@@ -114,19 +115,7 @@ export class EkartComponent implements OnInit {
   onUpload () {
     if (this.insertionType === 'insertProduct') {
       this.showSpinner = true // Show spinner before making HTTP request
-      if (
-        !this.emailId ||
-        !this.title ||
-        !this.description ||
-        !this.location ||
-        !this.mobileNumber ||
-        !this.price ||
-        !this.selectedFile
-      ) {
-        alert('Please fill in all required fields.')
-        this.showSpinner = false // Hide spinner if validation fails
-        return
-      }
+      // this.showFile = true;
       const formData = new FormData()
       formData.append('emailId', this.emailId)
       formData.append('title', this.title)
@@ -135,6 +124,7 @@ export class EkartComponent implements OnInit {
       formData.append('mobileNumber', this.mobileNumber.toString()) // Convert number to string
       formData.append('price', this.price.toString()) // Convert number to string
       formData.append('image', this.selectedFile)
+      formData.append('userName',this.userName);
       this.userService.insertCart(formData).subscribe((response: any) => {
         console.log('Response from server:', response)
         this.showSpinner = false // Hide spinner after receiving response
@@ -152,18 +142,6 @@ export class EkartComponent implements OnInit {
 
   updateProducts () {
     this.showSpinner = true // Show spinner before making HTTP request
-    if (
-      !this.emailId ||
-      !this.title ||
-      !this.description ||
-      !this.location ||
-      !this.mobileNumber ||
-      !this.price
-    ) {
-      alert('Please fill in all required fields.')
-      this.showSpinner = false // Hide spinner if validation fails
-      return
-    }
     const formData = new FormData()
     formData.append('emailId', this.emailId)
     formData.append('title', this.title)
@@ -184,6 +162,29 @@ export class EkartComponent implements OnInit {
       }
     })
   }
+
+
+  checkboxClicked(event: MouseEvent,item:any) {
+    let productStatus = 'soldOut'
+    const confirmation = confirm('Are you sure your product as SoldOut?')
+    if (!confirmation) {
+      return;
+    }
+    else {
+      const soldOutData = {
+          'slNo' : item.slNo,
+          'productStatus' : productStatus
+      }
+      this.userService.soldOut(soldOutData).subscribe(
+        (response:any) => {
+          alert(response.message);
+          window.location.reload();
+        }
+      )
+    } 
+
+  }
+
 
   get filteredProducts () {
     return this.products.filter(product =>
@@ -214,24 +215,17 @@ export class EkartComponent implements OnInit {
     })
   }
 
-  // emailId, title, description, location, mobileNumber, price,slNo
-
   editItem (item: any) {
-    this.sellerButton = 'Update'
-    console.log(item)
-    ;(this.emailId = item.emailId),
+    this.sellerButton = 'Update';
+    console.log(item);
+    (this.emailId = item.emailId),
       (this.title = item.title),
       (this.description = item.description),
       (this.location = item.location),
       (this.mobileNumber = item.mobileNumber),
       (this.price = item.price),
-      (this.slNo = item.slNo)
+      (this.slNo = item.slNo),
     this.onCart('updateProduct')
-  }
-
-  formatUsername (emailId: string): string {
-    const username = emailId.split('@')[0] // Extract username
-    return username.charAt(0).toUpperCase() + username.slice(1).toLowerCase() // Convert to title case
   }
 
   selectedProduct (index: any) {
@@ -244,6 +238,7 @@ export class EkartComponent implements OnInit {
     if (type === 'insertProduct') {
       this.sellerButton = 'Submit'
       this.insertionType = type
+      this.clearInputs();
     } else {
       this.insertionType = type
       this.sellerButton = 'Update'
@@ -257,6 +252,14 @@ export class EkartComponent implements OnInit {
     } else {
       console.error('TemplateRef is undefined')
     }
+  }
+
+  clearInputs() {
+    this.title = '',
+    this.description = '',
+    this.price = 0,
+    this.mobileNumber = 0,
+    this.location = ''
   }
 
   logOut () {

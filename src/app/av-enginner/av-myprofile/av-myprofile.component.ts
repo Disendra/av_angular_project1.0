@@ -13,24 +13,76 @@ export class AvMyprofileComponent {
   selectedCountry: any;
   selectedState: any;
   selectedCity: any;
+
+  userName : any;
+  userEmailId :any;
+  countryCode : string = '+91';
+  mobileNumber : any;
+  dateOfBirth : any;
+  gender : any
+  jobTitle : any;
+  companyName : any;
+  location : any;
+  adress1 : any;
+  address2 : any;
+  userCountry : any;
+  stateSelected : any;
+  citySelected : any;
+  zipcode : any;
+  
   @ViewChild('country') country!: ElementRef;
   @ViewChild('city') city!: ElementRef;
   @ViewChild('state') state!: ElementRef;
 
-  empType = [
-    { value: 'default', label: 'Select Employment Type', disabled: true },
-    { value: 'fTime', label: 'Full time' },
-    { value: 'pTime', label: 'Part time' },
-    { value: 'selfEmp', label: 'Self Employed' },
-    { value: 'freelancer', label: 'Freelancer' },
-    { value: 'trainee', label: 'Internship & Traineee' }
-  ];
-
-  numbers: number[] = Array.from({ length: 40 }, (_, index) => index + 1);
-
   constructor() {
     console.log(this.countries);
   }
+
+
+
+
+
+
+
+  onGenderChange(selectedGender: string) {
+    console.log('Selected Gender:', selectedGender);
+  }
+
+
+
+
+  onSubmit() {
+    alert(this.countryCode);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   onCountryChange(event: any) {
     const countryValue = event.target.value;

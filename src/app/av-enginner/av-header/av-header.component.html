@@ -20,7 +20,8 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-8 text-center">
-              <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"  [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}">
+              <!-- <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"  [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}"> -->
+              <img src="assets/img/empty_Image.png" alt="" class="img-fluid rounded-circle"  [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}">
               <button class="profile_Weight" [ngClass]="{'red': profileWeight <= 40, 'blue': profileWeight > 40 && profileWeight <= 80, 'green': profileWeight > 80}">{{ profileWeight }}%</button>
             </div>
           </div>        
@@ -41,7 +42,7 @@
           <li><a class="nav-link scrollto" (click)="onClick('about')" [class.active]="activeMenuItem === 'about'"><i class="bi bi-person"></i> <span>About</span></a></li>
           <li><a class="nav-link scrollto" (click)="onClick('feed')" [class.active]="activeMenuItem === 'feed'"><i class="bi bi-envelope"></i> <span>Feed</span></a></li>
           <li><a class="nav-link scrollto" (click)="onClick('directory')" [class.active]="activeMenuItem === 'directory'"><i class="bi bi-person-check"></i> <span>Directory</span></a></li>
-          <li><a class="nav-link scrollto" (click)="onClick('knowledge')" [class.active]="activeMenuItem === 'knowledge'"><i class="bi bi-layers"></i> <span>Knowledge Base</span></a></li>
+          <li><a class="nav-link scrollto" (click)="onClick('knowledge')" [class.active]="activeMenuItem === 'knowledge'"><i class="bi bi-layers"></i> <span>AV Calculators</span></a></li>
           <li><a class="nav-link scrollto" (click)="getCart()" [class.active]="activeMenuItem === 'eCart'"><i class="bi bi-cart"></i> <span>EKart</span></a></li>
           <li><a class="nav-link scrollto" (click)="onClick('community')" [class.active]="activeMenuItem === 'community'"><i class="bi bi-people"></i> <span>Community</span></a></li>
         </ul>
@@ -55,7 +56,7 @@
     <app-av-about *ngIf="isAbout"></app-av-about>
     <app-av-myprofile *ngIf="isProfile"></app-av-myprofile>
     <app-av-directory *ngIf="isDirectory"></app-av-directory>
-    <app-av-btu *ngIf="isCommunity"></app-av-btu>
+    <app-community-page *ngIf="isCommunity"></app-community-page>
     <app-feed *ngIf="isFeed"></app-feed>
   </div>
   

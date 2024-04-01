@@ -32,7 +32,6 @@ import { MatListModule } from '@angular/material/list';
 import { AvSimulatorComponent } from './av-enginner/av-simulator/av-simulator.component';
 import { AvMyprofileComponent } from './av-enginner/av-myprofile/av-myprofile.component';
 import { AvCalculatorComponent } from './av-enginner/av-calculator/av-calculator.component';
-import { AvBtuComponent } from './av-enginner/av-btu/av-btu.component';
 import { BtuCalculatorComponent } from './av-enginner/btu-calculator/btu-calculator.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AvDirectoryComponent } from './av-enginner/av-directory/av-directory.component';
@@ -55,6 +54,8 @@ import { ReportsComponent } from './av-enginner/reports/reports.component';
 import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { BussinessCardComponent } from './bussiness-card/bussiness-card.component';
+import { CommunityPageComponent } from './community-page/community-page.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,6 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
     AvSimulatorComponent,
     AvMyprofileComponent,
     AvCalculatorComponent,
-    AvBtuComponent,
     BtuCalculatorComponent,
     AvDirectoryComponent,
     FeedbackPageComponent,
@@ -90,7 +90,9 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
     FeedComponent,
     AdminPageComponent,
     EkartComponent,
-    ReportsComponent
+    ReportsComponent,
+    BussinessCardComponent,
+    CommunityPageComponent
   ],
   imports: [
     BrowserModule,

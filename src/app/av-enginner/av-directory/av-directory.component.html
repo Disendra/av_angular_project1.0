@@ -18,7 +18,7 @@
               <div *ngFor="let item of pagedUserData" class="list" (click)="showDetails(item)">
                 <i class="fa fa-user-circle-o"></i>
                 <div class="d-flex flex-column ml-3">
-                  <span>{{ item.emailId }}</span>
+                  <span>{{ item.userName }}</span>
                   <small>{{ item.role }}</small>
                 </div>
               </div>
@@ -53,7 +53,7 @@
                 </div>
     
                 <div *ngFor="let item of clickedUserData" class="team-content">
-                    <p class="user_Name">{{ formatUsername(item.emailId) }}</p>
+                    <p class="user_Name">{{ (item.userName) }}</p>
                     <span class="title">{{ companyName }}</span>
                     <span class="title">{{ item.role }}</span>
                 </div>
@@ -65,8 +65,7 @@
                     <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
                 </ul>
             </div>
-            <p class="bottom-text">You have the opportunity to connect with your peers through one of their social platforms.</p>
-        </div>
+          </div>
     </div>
     <app-spinner *ngIf="showSpinner" class="spinner"></app-spinner>
 </body>

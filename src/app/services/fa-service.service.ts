@@ -6,10 +6,9 @@ import { Injectable } from '@angular/core'
   providedIn: 'root'
 })
 export class FaServiceService {
-  // url = 'https://av-node.onrender.com'
-//  # url = 'https://av-nodejs.onrender.com';
+  //  url = 'https://av-nodejs.onrender.com';
   url = 'http://localhost:3000';
-    // url = 'http://192.168.233.166:3000'
+  // url = 'http://10.58.146.67:3000'
   macVendor = 'https://macvendorlookup.com/api/v2'
 
 
@@ -18,60 +17,64 @@ export class FaServiceService {
   login (emailId: string, password: string) {
     return this.http.post(`${this.url}/login`, { emailId, password })
   }
-
-  createUser (emailId: string, password: string, role: any) {
-    return this.http.post(`${this.url}/insertData`, { emailId, password, role })
+  
+  createUser (data: any) {
+    return this.http.post(`${this.url}/insertData`, data)
   }
 
-getUserDetails() {
-  return this.http.get(`${this.url}/getLoginData`);
-}
+  contactUs (data: any) {
+    return this.http.post(`${this.url}/contactUs`, data)
+  }
 
 
-getFeedData() {
-  return this.http.get(`${this.url}/getFeedData`);
-}
+  getUserDetails() {
+    return this.http.get(`${this.url}/getLoginData`);
+  }
 
-getMacData(sysAdress:any) {
-  return this.http.get(`${this.macVendor}/${sysAdress}`)
-}
+  getFeedData() {
+    return this.http.get(`${this.url}/getFeedData`);
+  }
 
-insertFeedData(sender:any, title:any, description:any,link:any ) {
-  return this.http.post(`${this.url}/insertFeed`, { sender, title, description,link })
-}
+  getMacData(sysAdress:any) {
+    return this.http.get(`${this.macVendor}/${sysAdress}`)
+  }
 
-getRoles() {
-  return this.http.get(`${this.url}/countByRoles`);
-}
+  insertFeedData(sender:any, title:any, description:any,link:any ) {
+    return this.http.post(`${this.url}/insertFeed`, { sender, title, description,link })
+  }
 
-downloadExcel(url: string, fileName: string): void {
-  this.http.get(url, { responseType: 'blob' })
-    .subscribe((data: Blob) => {
-      const downloadLink = document.createElement('a');
-      const fileURL = window.URL.createObjectURL(data);
-      downloadLink.href = fileURL;
-      downloadLink.setAttribute('download', fileName);
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-    });
-}
+  getRoles() {
+    return this.http.get(`${this.url}/countByRoles`);
+  }
 
-
-downloadFeedback(tableName :any, startDate: Date, endDate: Date,rating: any): void {
-  const formattedStartDate = formatDate(startDate, 'yyyy-MM-dd', 'en-US');
-  const formattedEndDate = formatDate(endDate, 'yyyy-MM-dd', 'en-US');
-  const url = `${this.url}/downloadFeedBack?tableName=${ tableName }&startDate=${formattedStartDate}&endDate=${formattedEndDate}&rating=${rating}`;
-  this.downloadExcel(url, 'userData.xlsx');
-}
+  downloadExcel(url: string, fileName: string): void {
+    this.http.get(url, { responseType: 'blob' })
+      .subscribe((data: Blob) => {
+        const downloadLink = document.createElement('a');
+        const fileURL = window.URL.createObjectURL(data);
+        downloadLink.href = fileURL;
+        downloadLink.setAttribute('download', fileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+      });
+  }
 
 
-downloadLoginInfoExcel(): void {
-  this.downloadExcel(`${this.url}/downloadLoginInfo`, 'userData.xlsx');
-}
+  downloadFeedback(tableName :any, startDate: Date, endDate: Date,rating: any): void {
+    const formattedStartDate = formatDate(startDate, 'yyyy-MM-dd', 'en-US');
+    const formattedEndDate = formatDate(endDate, 'yyyy-MM-dd', 'en-US');
+    const url = `${this.url}/downloadFeedBack?tableName=${ tableName }&startDate=${formattedStartDate}&endDate=${formattedEndDate}&rating=${rating}`;
+    this.downloadExcel(url, 'userData.xlsx');
+  }
 
-downloadTodayLoginInfoExcel(): void {
-  this.downloadExcel(`${this.url}/downloadTodayLogin`, 'userData.xlsx');
-}
+
+  downloadLoginInfoExcel(): void {
+    this.downloadExcel(`${this.url}/downloadLoginInfo`, 'userData.xlsx');
+  }
+
+  downloadTodayLoginInfoExcel(): void {
+    this.downloadExcel(`${this.url}/downloadTodayLogin`, 'userData.xlsx');
+  }
 
 // downloadFeedBackExcel(): void {
 //   this.downloadExcel(`${this.url}/downloadFeedback`, 'userData.xlsx');

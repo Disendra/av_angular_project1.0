@@ -633,6 +633,7 @@ section {
 .values .box img {
   padding: 30px 50px;
   transition: 0.5s;
+  margin-bottom: -22px;
   transform: scale(1.1);
 }
 
@@ -662,7 +663,7 @@ section {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 10px;
+  /* padding: 10px; */
   width: 100%;
   background: #fff;
   box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
@@ -874,7 +875,7 @@ section {
 
 .services .service-box.blue:hover {
   /* background: #2db6fa; */
-    background: red;
+  background: red;
 }
 
 .services .service-box.orange {
@@ -892,7 +893,7 @@ section {
 
 .services .service-box.orange:hover {
   /* background: #f68c09; */
-   background: green;
+  background: green;
 }
 
 .services .service-box.green {

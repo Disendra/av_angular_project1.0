@@ -140,11 +140,11 @@ a:focus {
 }
 
 .contact_nav a i {
-  color: #f3c93e;
+  color: #6D67E4;
 }
 
 .contact_nav a:hover {
-  color: #f3c93e;
+  color: #6D67E4;
 }
 
 .search_form {
@@ -169,7 +169,7 @@ a:focus {
   border: none;
   outline: none;
   color: #ffffff;
-  background-color: #f3c93e;
+  background-color: #6D67E4;
   border-radius: 0 5px 5px 0;
 }
 
@@ -185,7 +185,7 @@ a:focus {
 .user_option_box a {
   color: #ffffff;
   margin-left: 25px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .user_option_box a i {
@@ -355,7 +355,7 @@ a:focus {
 }
 
 .product_section .box .img-box .add_cart_btn:hover {
-  background-color: #f3c93e;
+  background-color: #6D67E4;
   color: #ffffff;
 }
 
@@ -420,12 +420,16 @@ a:focus {
 .product_section .btn_box .view_more-link {
   display: inline-block;
   padding: 10px 45px;
-  background-color: #f3c93e;
+  background-color: #6D67E4;
   color: #ffffff;
   border-radius: 5px;
   border: 1px solid #f3c93e;
   -webkit-transition: all .3s;
   transition: all .3s;
+}
+
+.fa-cart-plus {
+  color: #6D67E4 !important;
 }
 
 .product_section .btn_box .view_more-link:hover {
@@ -435,6 +439,10 @@ a:focus {
 
 h1 {
   font-weight: 500;
+}
+
+.txt_white {
+  color: white;
 }
 
 .rounded-circle {
@@ -482,7 +490,15 @@ label {
 }
 
 .dropdown a {
-  color: black!important;
+  color: black !important;
+}
+
+.checkbox {
+  transform: scale(1.5);
+  /* margin-right: 15px; */
+  position: relative;
+  right: 15px;
+  bottom: 2px;
 }
 
 select {
@@ -512,9 +528,9 @@ li::marker {
 
 
 .fa-sign-out {
-  color: red!important;
-  font-size: 22px!important;
-  margin-left: 5px!important;
+  color: red !important;
+  font-size: 22px !important;
+  margin-left: 5px !important;
 }
 
 .seller_Number, .seller_location {
@@ -524,9 +540,9 @@ li::marker {
 
 .popup {
   overflow: hidden;
-  width: 310px;
-  height: 180px;
-  border-bottom: 4px solid #2db6fa;
+  width: 218px;
+  height: 137px;
+  border-bottom: 4px solid #6D67E4;
 }
 
 .product_Name {
@@ -537,11 +553,23 @@ li::marker {
   margin-bottom: 8px;
 }
 
+.arrow_Container {
+  padding-left: 1%;
+}
+
 span {
   color: black;
 }
 
 .description {
   text-align: center;
+  font-size: 14px;
+}
+
+textarea {
+  max-height: 100px;
+}
+
+.cart_description {
   font-size: 14px;
 }

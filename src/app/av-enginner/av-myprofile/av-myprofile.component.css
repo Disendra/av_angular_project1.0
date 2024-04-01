@@ -91,12 +91,12 @@ h4 {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 10px; /* Adjust this value to change the position of the icon */
-  pointer-events: none; /* Ensures the icon does not intercept mouse events */
-  background: #2196f3;
-  color: white;
+  left: 10px;
+  pointer-events: none;
+  /* background: black; */
+  /* color: white; */
   padding: 1px;
-  z-index: 1000; /* Ensure icons are positioned above input boxes */
+  z-index: 1000;
 }
 
 .form-control {
@@ -109,6 +109,16 @@ h4 {
 
 input {
   height: 45px;
+}
+
+.img-fluid {
+  height: 25px;
+}
+
+.std_code {
+padding-left: 55px;
+font-weight: 600;
+color: black;
 }
 
   @media (min-width: 1024px) {

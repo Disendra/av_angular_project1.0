@@ -75,13 +75,26 @@ strong {
 }
 
 .arrow-Icon {
-    color: orange;
+    color: white;
     cursor: pointer;
     margin-top: 7px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* background-color: #ccc; */
+    display: flex;
+    background: black;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.red-asterisk {
+    color: red!important;
 }
 
 .no-records {
-    width: 250px;
+    width: 450px;
 }
 
 h3 {
@@ -108,6 +121,13 @@ a {
 
 .btn-success {
     border: 2px solid green;
+}
+
+.cancel_Icon {
+    margin-left: 94%;
+    margin-bottom: 15px;
+    color: red;
+    cursor: pointer;
 }
 
 .final_count {

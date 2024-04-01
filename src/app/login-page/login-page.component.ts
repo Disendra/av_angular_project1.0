@@ -14,6 +14,7 @@ import { GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-socia
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+  userName : any;
   emailId: any;
   password: any;
   invalidMsg : any;
@@ -72,17 +73,19 @@ export class LoginPageComponent implements OnInit {
     this.isSignup = false
   }
 
-  onSubmit(emailId: string, password: string) {
+  onSubmit() {
     this.showSpinner = true;
-
-    if (emailId === 'abc@gmail.com' && password === '1234') {
+    if (this.emailId === 'abc@gmail.com' && this.password === '1234') {
         this.router.navigate(['/admin-page']);
     } else {
-        this.faService.login(emailId, password).subscribe(
+        this.faService.login(this.emailId, this.password).subscribe(
             (response: any) => {
                 console.log('Response from server:', response);
                 if (response.status) {
+                  let emailId = response.records[0].emailId; // Corrected
+                   let userName = response.records[0].userName; // Corrected
                     this.authService.saveLoggedInEmail(emailId);
+                    this.authService.saveUserName(userName);
                     if (this.receivedValue === 'Dashboard') {
                         this.router.navigate(['/avEngineer-dashboard']);
                     } else {
@@ -105,26 +108,26 @@ export class LoginPageComponent implements OnInit {
     }
 }
 
-onSignUp(emailId: string, password: string, role: any, reEnteredPswd: any) {
+onSignUp() {
   this.invalidMsg = ''; 
   let isValid = true;
 
-  if (!this.isValidEmail(emailId)) {
+  if (!this.isValidEmail(this.emailId)) {
     this.invalidMsg = 'Please enter a valid email address.';
     isValid = false;
   }
 
-  if (password !== reEnteredPswd) {
+  if (this.password !== this.reEnteredPswd) {
     this.invalidMsg = 'Passwords do not match.';
     isValid = false;
   }
 
-  if(!this.isValidPassword(role)) {
+  if(!this.isValidPassword(this.role)) {
     this.invalidMsg = 'Plese Select the Role';
     isValid = false;
   }
 
-  if (!this.isValidPassword(password)) {
+  if (!this.isValidPassword(this.password)) {
     this.invalidMsg = 'Password must be at least 8 characters long.';
     isValid = false;
   }
@@ -138,11 +141,23 @@ onSignUp(emailId: string, password: string, role: any, reEnteredPswd: any) {
 onConfirmSignUp() {
   if (this.receiveEmailsChecked && this.nameSearchableChecked) {
     this.showSpinner = true;
-    this.faService.createUser(this.emailId, this.password, this.role).subscribe(
+    
+    const userData = {
+      userName : this.userName,
+      emailId: this.emailId,
+      password : this.password,
+      role : this.role 
+    }
+
+    this.faService.createUser(userData).subscribe(
       (response: any) => {
         console.log('Response from server:', response);
         if (response && response.status) {
           this.invalidMsg = '';
+            let emailId = this.emailId; // Corrected
+            let userName = this.userName; // Corrected
+            this.authService.saveLoggedInEmail(emailId);
+            this.authService.saveUserName(userName);
           alert(response.message);
           if (this.receivedValue === 'Dashboard') {
             this.router.navigate(['/avEngineer-dashboard']);

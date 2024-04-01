@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+  <body>
+<!-- your-component.component.html -->
+<div class="header-boxs">
+    <div class="container">
+        <h2>Welcome to Our Community!!</h2>
+        <div class="input-group">
+            <div class="input-box input-group">
+                <div class="upload_button" (click)="postQuetion()">
+                <mat-icon>upload</mat-icon>
+                </div>
+              <input type="text" class="form-control input-sm" [(ngModel)]="searchQuetion" placeholder="Search by Question ..."/>
+            <i class="fa fa-search"></i>
+          </div>
+          </div>
+
+        <div class="question" *ngFor="let question of filteredEmails">
+            <div class="profile">
+                <img [src]="question.profile.image" alt="Profile Picture">
+                <div class="username">{{ question.profile.username }}</div>
+            </div>
+            <div class="posted_Date">
+                <p>{{ question.postedDate }}</p>
+            </div>
+            <div class="content">
+                <p class="main_question">{{ question.question }}</p>
+                <div class="comments">
+                    <p>Answers:</p>
+                    <ul>
+                        <li *ngFor="let answer of question.answers">{{ answer }}</li>
+                    </ul>
+                </div>
+                <div class="vote">
+                    <button class="btn btn-outline-success"><mat-icon>thumb_up</mat-icon><span><span>{{ question.voteCount.up }}</span></span></button>                      
+                    <button class="btn btn-outline-danger"><mat-icon>thumb_down</mat-icon><span>{{ question.voteCount.down }}</span></button>
+                    <button class="btn btn-outline-primary" (click)="expandQuestion(question.slNo)"><mat-icon>comment</mat-icon></button>                       
+                </div>
+            </div>
+            <div *ngIf="isExpanded(question.slNo)" class="share-container">
+                <div class="row mt-2 input-box input-group textarea_tools">
+                   <div class="col">
+                       <textarea cols="100" class="form-control input-sm" placeholder="Share your Answer here..."></textarea>
+                       <mat-icon class="txt_Icons">insert_photo</mat-icon>
+                       <mat-icon class="txt_Icons txt_link">link</mat-icon>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col text-center">
+                       <button class="btn btn-primary">Submit</button>
+                   </div>
+               </div>
+           </div>
+        </div>        
+    </div>
+</div>
+
+<!-- matTooltip -->
+
+ <ng-template #myDialog>
+    <mat-dialog-content>
+      <mat-icon class="cancel_Icon" (click)="closePopup()">cancel_presentation</mat-icon>
+      <div class="form-group">
+        <mat-form-field class="popup_box">
+            <div class="row mt-2 input-box input-group textarea_tools">
+            <div class="col pop_txtarea">
+                <textarea cols="100" class="form-control input-sm" name="userQuestion" [(ngModel)]="userQuestion" placeholder="Share your Question here..."></textarea>
+                <mat-icon class="txt_Icons">insert_photo</mat-icon>
+                <mat-icon class="txt_Icons txt_link" (click)="urlExpand()">link</mat-icon>
+                <div class="url_box" *ngIf="showUrlBox">
+                <input type="text" class="form-control input-sm" name="questionURl" [(ngModel)]="questionURl" placeholder="Enter URL">
+                </div>
+            </div>
+            </div>
+        </mat-form-field>   
+            <div class="col text-end" style="margin-bottom: -15px;">
+                <button class="btn btn-primary">Submit</button>
+        </div>        
+      </div>
+    </mat-dialog-content>
+  </ng-template>
+
+
+
+  </body>
+</html>

@@ -150,36 +150,6 @@
 
 </div><br>
 
-<div *ngIf="isCard">
-  <div class="container card-Container" id="pdfContent">
-    <qrcode [qrdata]="qrdata" [width]="125" [errorCorrectionLevel]="'M'"></qrcode>
-    <div class="text-container">
-      <p class="userName">{{ userName }}</p>
-      <p class="designation">{{ designation }}</p>
-      <p>{{ companyName }}</p>
-    </div> 
-  </div>
-
-  <div class="card-buttons">
-    <a (click)="shareOnSocialMedia()" class="fa fa-share-alt"></a>
-    <a (click)="downloadCard()" class="fa fa-download"></a>
-  </div>
-
-  <ng-template #myDialog>
-    <mat-dialog-content>
-      <mat-icon class="cancel_Icon" (click)="closePopup()">cancel_presentation</mat-icon>
-      <div class="form-group">
-        <mat-form-field style="width: 400px;">
-          <input matInput [(ngModel)]="urlLink" placeholder="Add Profile URL*">
-          <button mat-icon-button matSuffix (click)="copyToClipboard()" matTooltip="copyLink">
-            <mat-icon>content_copy</mat-icon>
-          </button>
-        </mat-form-field>      
-        <div *ngIf="linkCopied">Link copied!</div>      
-      </div>
-    </mat-dialog-content>
-  </ng-template>
-</div>
 
     </body>
 </html>

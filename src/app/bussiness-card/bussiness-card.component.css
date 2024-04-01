@@ -1,0 +1,158 @@
+.text-container {
+    color: white;
+    line-height: 15px;
+    margin-left: 25px;
+}
+
+.card-Container,
+.custom-card-Container {
+    margin-top: 7%;
+    height: 275px;
+    width: 36%;
+    border-radius: 15px;
+    margin-left: 41%;
+    box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
+    background: black;
+    display: flex;
+    align-items: center;
+}
+
+.custom-card-Container {
+    margin-top: 13%;
+    margin-left: auto;
+}
+
+.form-group {
+    margin-top: -15px;
+}
+
+qrcode {
+    margin-left: 45px;
+}
+
+.userName {
+    font-size: 20px;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.designation {
+    color: #ff1ead;
+}
+
+.card-buttons {
+    padding-left: 69%;
+    padding-top: 1%;
+}
+
+
+/* Social Media Icons */
+
+.fa {
+    padding: 10px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    border-radius: 49px;
+    text-decoration: none;
+    margin: 5px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.social-Icons {
+    margin-top: -35px;
+}
+
+.form-group {
+    margin-top: -15px;
+}
+
+.dialog-buttons {
+    margin-top: -40px;
+}
+
+
+.pageLink-header {
+    margin-left: -15px;
+    margin-top: -35px;
+}
+
+.fa-telegram {
+    background: #3B5998;
+    color: white;
+}
+
+.fa-whatsapp {
+    background: green;
+    color: #fff;
+}
+
+
+
+.fa-download {
+    color: green;
+}
+
+.fa-share-alt {
+    color: darkblue;
+}
+
+.custom-body {
+    overflow: hidden;
+}
+
+.copied_link {
+    color: green;
+}
+
+@media (max-width: 1200px) {
+
+    .card-Container, .custom-card-Container {
+        margin-top: 15% !important;
+        height: 241px !important;
+        width: 54% !important;
+        margin-left: 29% !important
+    }
+
+    .buttons {
+        padding-left: 37%;
+    }
+
+
+    .cart1 {
+        width: 19%;
+        height: 255px
+    }
+
+    .cart2 {
+        height: 0;
+    }
+
+}
+
+
+@media only screen and (min-width: 1367px) {
+    .card-Container, .custom-card-Container {
+        width: 33% !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .card-Container, .custom-card-Container {
+        margin-top: 50% !important;
+        height: 225px !important;
+        width: 85% !important;
+        margin-left: 9% !important;
+    }
+
+    qrcode {
+        padding: 10px;
+        margin-left: 0px;
+    }
+
+    .text-container {
+        margin-left: 0px;
+    }
+}
