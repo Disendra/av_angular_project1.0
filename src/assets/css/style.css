@@ -873,10 +873,9 @@ section {
   color: #2db6fa;
 }
 
-.services .service-box.blue:hover {
-  /* background: #2db6fa; */
+/* .services .service-box.blue:hover {
   background: red;
-}
+} */
 
 .services .service-box.orange {
   border-bottom: 3px solid green;
@@ -891,10 +890,9 @@ section {
   color: #f68c09;
 }
 
-.services .service-box.orange:hover {
-  /* background: #f68c09; */
+/* .services .service-box.orange:hover {
   background: green;
-}
+} */
 
 .services .service-box.green {
   border-bottom: 3px solid #08da4e;
@@ -909,9 +907,9 @@ section {
   color: #08da4e;
 }
 
-.services .service-box.green:hover {
+/* .services .service-box.green:hover {
   background: #08da4e;
-}
+} */
 
 .services .service-box.red {
   border-bottom: 3px solid blue;
@@ -926,9 +924,9 @@ section {
   color: #e9222c;
 }
 
-.services .service-box.red:hover {
+/* .services .service-box.red:hover {
   background: blue;
-}
+} */
 
 .services .service-box.purple {
   border-bottom: 3px solid #b50edf;
@@ -964,15 +962,15 @@ section {
   background: #f51f9c;
 }
 
-.services .service-box:hover h3,
+/* .services .service-box:hover h3,
 .services .service-box:hover p,
 .services .service-box:hover .read-more {
   color: #fff;
-}
+} */
 
-.services .service-box:hover .icon {
+/* .services .service-box:hover .icon {
   background: #fff;
-}
+} */
 
 /*--------------------------------------------------------------
 # Pricing

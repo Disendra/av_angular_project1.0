@@ -21,7 +21,6 @@ body {
 }
 
 .form-control {
-
   height: 50px;
   background-color: #eeeeee69;
 }
@@ -32,6 +31,11 @@ body {
   /* border-color: #eee; */
 }
 
+.search_Image {
+  width: 11%;
+  border-radius: 52px;
+  margin-right: 10px;
+}
 
 .list {
   padding-top: 20px;
@@ -59,13 +63,14 @@ body {
 }
 
 .our-team {
-  /* padding: 30px 0 40px; */
   margin-bottom: 30px;
-  background-color: #f7f5ec;
+  /* background-color: #f7f5ec; */
   text-align: center;
+  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
   overflow: hidden;
   position: relative;
-  width: 261px;
+  width: auto;
+  /* width: 261px; */
 }
 
 .our-team .picture {
@@ -169,9 +174,17 @@ body {
   margin-bottom: 0px;
 }
 
+.Search_Name {
+  font-size: 18px;
+}
+
+.company_Name {
+  font-size: 16px;
+}
+
 .title {
   font-family: sans-serif;
-  font-size: 16px!important;
+  font-size: 16px !important;
 }
 
 .top-text {
@@ -183,6 +196,10 @@ body {
 
 .arrow-Icon {
   margin-left: -22px;
+}
+
+.bi-twitter-x {
+  font-size: 15px !important;
 }
 
 /* .team-content {

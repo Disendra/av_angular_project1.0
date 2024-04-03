@@ -16,9 +16,11 @@
                   </div>
                       
               <div *ngFor="let item of pagedUserData" class="list" (click)="showDetails(item)">
-                <i class="fa fa-user-circle-o"></i>
+                <!-- <i class="fa fa-user-circle-o"></i> -->
+                <img class="search_Image" [src]="item.imagePath">
                 <div class="d-flex flex-column ml-3">
-                  <span>{{ item.userName }}</span>
+                  <span class="Search_Name">{{ item.userName }}</span>
+                  <span class="company_Name">{{ item.companyName }}</span>
                   <small>{{ item.role }}</small>
                 </div>
               </div>
@@ -49,7 +51,7 @@
             <p class="top-text">Congratulations! The individual you are seeking is a member of our community.</p>
                <div class="our-team">
                 <div class="picture">
-                    <img class="img-fluid" src="assets/img/disendra-Img.png">
+                    <img class="img-fluid" [src]="imagePath">
                 </div>
     
                 <div *ngFor="let item of clickedUserData" class="team-content">
@@ -59,11 +61,12 @@
                 </div>
     
                 <ul class="social">
-                    <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-facebook" aria-hidden="true"></a></li>
-                    <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-twitter" aria-hidden="true"></a></li>
-                    <!-- <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-google-plus" aria-hidden="true"></a></li> -->
-                    <li><a href="https://codepen.io/collection/XdWJOQ/" class="fa fa-linkedin" aria-hidden="true"></a></li>
-                </ul>
+                  <li *ngIf="facebookUrl"><a [href]="facebookUrl" target="_blank" class="fa fa-facebook" aria-hidden="true"></a></li>
+                  <li *ngIf="twitterUrl"><a [href]="twitterUrl" target="_blank" class="fa bi-twitter-x" aria-hidden="true"></a></li>
+                  <li *ngIf="instagramUrl"><a [href]="instagramUrl" target="_blank" class="fa fa-instagram" aria-hidden="true"></a></li>
+                  <li *ngIf="linkedInUrl"><a [href]="linkedInUrl" target="_blank" class="fa fa-linkedin" aria-hidden="true"></a></li>
+              </ul>
+              
             </div>
           </div>
     </div>

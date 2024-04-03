@@ -21,9 +21,9 @@ export class BussinessCardComponent implements OnInit {
   currentRoute: string = '';
   urlLink: any;
   userName: any;
-  mobileNumber: number = +91887837454
-  designation: string = 'Software Developer'
-  companyName: string = 'Softsol India LTD'
+  mobileNumber!: number;
+  designation!: string
+  companyName!: string;
   emailId: any;
   linkedIn: string = 'https://www.linkedin.com/in/disendra-yadav-b6b1a9220'
   instagram: string = 'https://www.instagram.com/'
@@ -86,24 +86,43 @@ export class BussinessCardComponent implements OnInit {
         this.emailId = response.records[0].emailId;
         this.userName = response.records[0].userName;
         this.qrCodeData();
-      } else {
-        console.error("No records found or invalid response format.");
       }
     }, error => {
       console.error("Error fetching business card data:", error);
     });
+
+    this.userService.getProfile(this.emailId).subscribe(response => {
+      this.showSpinner = false;
+      if (response && response.records && response.records.length > 0) {
+        let records = response.records[0];
+        this.companyName = records.emailId;
+        this.designation = records.jobTitle;
+        this.mobileNumber = records.mobileNumber;
+        this.qrCodeData();
+      }
+    }, error => {
+      console.error("Error fetching business card data:", error);
+    });
+
   }
   
   qrCodeData () {
-    this.qrdata =
-      this.userName +
-      '\n' +
-      this.mobileNumber +
-      '\n' +
-      this.emailId +
-      '\n' +
-      this.designation
-  }
+    let qrDataParts = [];    
+    if (this.userName) {
+        qrDataParts.push(this.userName);
+    }
+    if (this.mobileNumber) {
+        qrDataParts.push(this.mobileNumber);
+    }
+    if (this.emailId) {
+        qrDataParts.push(this.emailId);
+    }
+    if (this.designation) {
+        qrDataParts.push(this.designation);
+    }
+    this.qrdata = qrDataParts.join('\n');
+}
+
 
   closePopup () {
     this.popup.closeDialog()

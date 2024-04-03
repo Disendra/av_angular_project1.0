@@ -318,6 +318,10 @@ a.twitter:hover {
   background-color: #55ACEE !important;
 }
 
+.bi-twitter-x {
+  font-size: 14px!important;
+}
+
 a.facebook:hover {
   background-color: #3B5998 !important;
 }

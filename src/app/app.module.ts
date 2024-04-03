@@ -52,7 +52,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { ReportsComponent } from './av-enginner/reports/reports.component';
 import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule, DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { BussinessCardComponent } from './bussiness-card/bussiness-card.component';
 import { CommunityPageComponent } from './community-page/community-page.component';
@@ -105,8 +105,8 @@ import { CommunityPageComponent } from './community-page/community-page.componen
     MatButtonModule,
     MatCheckboxModule,
     HttpClientModule,
+    CommonModule,
     ReactiveFormsModule,
-    MatInputModule,
     GoogleSigninButtonModule,
     MatExpansionModule,
     MatTooltipModule,
@@ -120,6 +120,7 @@ import { CommunityPageComponent } from './community-page/community-page.componen
     MatListModule,
   ],
   providers: [
+    DatePipe,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

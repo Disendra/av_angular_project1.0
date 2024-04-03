@@ -18,6 +18,7 @@ export class FaServiceService {
     return this.http.post(`${this.url}/login`, { emailId, password })
   }
   
+  
   createUser (data: any) {
     return this.http.post(`${this.url}/insertData`, data)
   }

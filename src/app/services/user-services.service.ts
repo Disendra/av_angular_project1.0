@@ -1,23 +1,72 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServicesService {
   // url = 'https://av-nodejs.onrender.com'
-  
+
   url = 'http://localhost:3000'
 
-  // url = 'http://10.58.146.67:3000'
+  private refreshData$ = new Subject<void>();
 
   constructor (private http: HttpClient) {}
+
+  uploadProfile (data: FormData) {
+    return this.http.post(`${this.url}/insertProfile`, data)
+  }
+
+  updateProfile (data: FormData) {
+    return this.http.post(`${this.url}/updateProfile`, data)
+  }
+
+  uploadSocialMedia(data : FormData) {
+    return this.http.post(`${this.url}/insertSocialMedia`, data)
+  }
+
+  updateSocialMedia (data: FormData) {
+    return this.http.post(`${this.url}/updateSocialMedia`, data)
+  }
+
+  getProfileImage (emailId: string) {
+    return this.http.get<any>(`${this.url}/getProfileImage/${emailId}`)
+  }
+
+  getUserImages () {
+    return this.http.get(`${this.url}/getProfileImages`)
+  }
+
+  getProfileData() {
+    return this.http.get(`${this.url}/getProfile`);
+  }
+
+  uploadProfileImage(data : FormData) {
+    return this.http.post(`${this.url}/insertProfileImage`, data)
+  }
+
+  updateProfileImage (data: FormData) {
+    return this.http.post(`${this.url}/updateProfileImage`, data)
+  }
+
+  getProfile (emailId: string) {
+    return this.http.get<any>(`${this.url}/getProfile/${emailId}`)
+  }
+
+  getSocialMediaProfile (emailId: string) {
+    return this.http.get<any>(`${this.url}/getSocialMediaProfile/${emailId}`);
+  }
+
+  getProfileWeight (emailId: string) {
+    return this.http.get<any>(`${this.url}/getProfileWeight/${emailId}`)
+  }
 
   getCartData () {
     return this.http.get(`${this.url}/getCartData`)
   }
 
-  getUploadData(emailId: string) {
+  getUploadData (emailId: string) {
     return this.http.get<any>(`${this.url}/getUploadData/${emailId}`)
   }
 
@@ -25,15 +74,15 @@ export class UserServicesService {
     return this.http.post(`${this.url}/insertCart`, data)
   }
 
-  updateCartData(data: FormData) {
+  updateCartData (data: FormData) {
     return this.http.post(`${this.url}/updateCart`, data)
   }
 
-  soldOut(data: any) {
+  soldOut (data: any) {
     return this.http.post(`${this.url}/soldOutProduct`, data)
   }
 
-  deleteCartData(data : any) {
+  deleteCartData (data: any) {
     return this.http.post(`${this.url}/deleteCartRecords`, data)
   }
 
@@ -45,8 +94,17 @@ export class UserServicesService {
     return this.http.get(`${this.url}/getFeedBackData`)
   }
 
-  getBussinessCard(emailId: string) {
+  getBussinessCard (emailId: string) {
     return this.http.get<any>(`${this.url}/getBussinessCard/${emailId}`)
   }
+
+  getRefreshDataObservable() {
+    return this.refreshData$.asObservable();
+  }
+
+  refreshData() {
+    this.refreshData$.next();
+  }
+
 
 }
