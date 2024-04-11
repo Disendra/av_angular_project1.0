@@ -466,6 +466,13 @@ label {
 
 .filter_box {
   width: 250px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid black;
+}
+
+.filter_box::placeholder {
+  padding-left: 10px;
+  opacity: 0.3;
 }
 
 .person_Icon {

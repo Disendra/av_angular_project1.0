@@ -56,7 +56,6 @@ import { CommonModule, DatePipe, HashLocationStrategy, LocationStrategy } from '
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { BussinessCardComponent } from './bussiness-card/bussiness-card.component';
 import { CommunityPageComponent } from './community-page/community-page.component';
-
 @NgModule({
   declarations: [
     AppComponent,

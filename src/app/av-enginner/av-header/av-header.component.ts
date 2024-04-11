@@ -109,7 +109,7 @@ export class AvHeaderComponent implements OnInit {
   getImageSource (): string {
     this.showSpinner = true
     if (this.products && this.products.length > 0) {
-      this.showSpinner = false
+      this.showSpinner = false;
       this.profileImageType = 'updateImage'
       return this.products[0].imagePath;
     } else {
@@ -124,35 +124,33 @@ export class AvHeaderComponent implements OnInit {
   }
 
   onFileSelected (event: any) {
-    this.showSpinner = true
+    this.showSpinner = true;
     const file = event.target.files[0]
     const profileData = new FormData()
     if (this.emailId) profileData.append('emailId', this.emailId)
     if (file) profileData.append('image', file)
     if (this.profileImageType === 'insertImage') {
-      this.userService
-        .uploadProfileImage(profileData)
-        .subscribe((response: any) => {
-          this.showSpinner = false
-          this.userService.refreshData()
-          console.log(response)
-        })
+      this.userService.uploadProfileImage(profileData).subscribe((response: any) => {
+        this.showSpinner = false;
+        this.userService.refreshData()
+        console.log(response)
+     })
     } else {
-      this.showSpinner = true
-      this.userService
-        .updateProfileImage(profileData)
-        .subscribe((response: any) => {
-          // this.userService.refreshData();
-          window.location.reload()
-          console.log(response)
+      this.userService.updateProfileImage(profileData).subscribe((response: any) => {
+         console.log(response);
+         this.showSpinner = false;
+         this.userService.refreshData();
+         window.location.reload()
         })
     }
-    this.getProfile()
+    // this.getProfile()
   }
 
   getCart () {
-    // this.router.navigate(['/ekart-page']);
-    window.open('/ekart-page', '_blank')
+   let  sessionId = this.authService.getSessionId()
+    const url = '/ekart-page/' + sessionId;
+    const newTabUrl = this.router.serializeUrl(this.router.createUrlTree([url]));
+    window.open(newTabUrl, '_blank');
   }
 
   shareOnSocialMedia (media: string) {
@@ -172,6 +170,11 @@ export class AvHeaderComponent implements OnInit {
   }
 
   saveSocialMediaUrl () {
+    const urlRegex = /^(https?:\/\/)?(www\.)?(facebook|twitter|linkedin|instagram)\.com\/.+$/;
+    if (!this.inputValue || !urlRegex.test(this.inputValue)) {
+       alert("Invalid URL");
+       return;
+    }
     this.socialMediaUrls[this.CickedsocialMedia] = this.inputValue
     if (this.CickedsocialMedia === 'twitter') {
       this.twitterUrl = this.inputValue
@@ -182,7 +185,7 @@ export class AvHeaderComponent implements OnInit {
     } else if (this.CickedsocialMedia === 'linkedin') {
       this.linkedInUrl = this.inputValue
     }
-    this.onSubmit()
+    this.onSubmit();
   }
 
   onSubmit () {

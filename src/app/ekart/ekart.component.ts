@@ -11,22 +11,23 @@ import { image } from 'html2canvas/dist/types/css/types/image'
   styleUrls: ['./ekart.component.css']
 })
 export class EkartComponent implements OnInit {
-  userName : any;
+  userName: any
   title!: string
   description!: string
   location!: string
   selectedFile: any
   mobileNumber!: number
-  selectedFileName :any;
+  selectedFileName: any
   slNo!: number
   price!: number
   products: any[] = []
+  profileImg: any[] = []
   showUpload: boolean = false
   showContact: boolean = false
-  showSpinner: boolean = false;
-  showFile : boolean = true;
+  showSpinner: boolean = false
+  showFile: boolean = true
   showCart: boolean = false
-  showProducts: boolean = true;
+  showProducts: boolean = true
   selectedItem: any
   searchText: string = ''
   sellerButton: string = 'Upload'
@@ -43,40 +44,10 @@ export class EkartComponent implements OnInit {
   ) {}
   ngOnInit (): void {
     this.emailId = this.authService.getLoggedInEmail()
-    this.userName = this.authService.getLoginuserName();
+    this.userName = this.authService.getLoginuserName()
     this.getCartData()
+    this.getProfileImage()
   }
-
-  cartItems = [
-    {
-      imageUrl:
-        'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp',
-      name: 'Basic T-shirt',
-      size: 'M',
-      color: 'Grey',
-      quantity: 2,
-      price: 499.0
-    },
-    {
-      imageUrl:
-        'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp',
-      name: 'Basic T-shirt',
-      size: 'M',
-      color: 'Grey',
-      quantity: 2,
-      price: 499.0
-    },
-    {
-      imageUrl:
-        'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp',
-      name: 'Basic T-shirt',
-      size: 'M',
-      color: 'Grey',
-      quantity: 2,
-      price: 499.0
-    }
-    // Add more items if needed
-  ]
 
   onSelect (option: any): void {
     if (option === 'myPosts') {
@@ -84,7 +55,7 @@ export class EkartComponent implements OnInit {
       this.showCart = true
       this.showProducts = false
     } else if (option === 'products') {
-      window.location.reload();
+      window.location.reload()
     } else {
       this.logOut()
     }
@@ -93,8 +64,8 @@ export class EkartComponent implements OnInit {
   getUploadProducts () {
     this.showSpinner = true
     this.userService.getUploadData(this.emailId).subscribe(response => {
-      this.showSpinner = false
       console.log(response)
+      this.showSpinner = false
       this.products = response.records
     })
   }
@@ -106,6 +77,28 @@ export class EkartComponent implements OnInit {
       this.products = response.records
       console.log(response)
     })
+  }
+
+  getProfileImage () {
+    this.showSpinner = true
+    this.userService
+      .getProfileImage(this.emailId)
+      .subscribe((response: any) => {
+        console.log(response)
+        this.showSpinner = false
+        this.profileImg = response.records
+      })
+  }
+
+  getImageSource (): string {
+    this.showSpinner = true
+    if (this.profileImg && this.profileImg.length > 0) {
+      this.showSpinner = false
+      return this.profileImg[0].imagePath
+    } else {
+      this.showSpinner = false
+      return '../assets/img/blank-user-directory.png'
+    }
   }
 
   onFileSelected (event: any) {
@@ -124,13 +117,16 @@ export class EkartComponent implements OnInit {
       formData.append('mobileNumber', this.mobileNumber.toString()) // Convert number to string
       formData.append('price', this.price.toString()) // Convert number to string
       formData.append('image', this.selectedFile)
-      formData.append('userName',this.userName);
+      formData.append('userName', this.userName)
       this.userService.insertCart(formData).subscribe((response: any) => {
         console.log('Response from server:', response)
         this.showSpinner = false // Hide spinner after receiving response
         if (response && response.status) {
+          // alert(response.message)
+          // window.location.reload()
+          this.userService.refreshData()
           alert(response.message)
-          window.location.reload()
+          this.getCartData()
         } else {
           alert('An error occurred. Please try again later.')
         }
@@ -153,38 +149,37 @@ export class EkartComponent implements OnInit {
     formData.append('slNo', this.slNo.toString())
     this.userService.updateCartData(formData).subscribe((response: any) => {
       console.log('Response from server:', response)
-      this.showSpinner = false // Hide spinner after receiving response
       if (response && response.status) {
+        // alert(response.message)
+        // window.location.reload()
+        this.userService.refreshData()
+        this.showSpinner = false
         alert(response.message)
-        window.location.reload()
+        this.getUploadProducts()
       } else {
         alert('An error occurred. Please try again later.')
       }
     })
   }
 
-
-  checkboxClicked(event: MouseEvent,item:any) {
+  checkboxClicked (event: MouseEvent, item: any) {
     let productStatus = 'soldOut'
-    const confirmation = confirm('Are you sure your product as SoldOut?')
+    const confirmation = confirm('Are you sure that product is SoldOut?')
     if (!confirmation) {
-      return;
-    }
-    else {
+      return
+    } else {
       const soldOutData = {
-          'slNo' : item.slNo,
-          'productStatus' : productStatus
+        slNo: item.slNo,
+        productStatus: productStatus
       }
-      this.userService.soldOut(soldOutData).subscribe(
-        (response:any) => {
-          alert(response.message);
-          window.location.reload();
-        }
-      )
-    } 
-
+      this.userService.soldOut(soldOutData).subscribe((response: any) => {
+        this.userService.refreshData()
+        alert(response.message)
+        this.getUploadProducts()
+        // window.location.reload();
+      })
+    }
   }
-
 
   get filteredProducts () {
     return this.products.filter(product =>
@@ -207,8 +202,11 @@ export class EkartComponent implements OnInit {
       console.log('Response from server:', response)
       this.showSpinner = false // Hide spinner after receiving response
       if (response && response.status) {
+        // alert(response.message)
+        // window.location.reload()
+        this.userService.refreshData()
         alert(response.message)
-        window.location.reload()
+        this.getUploadProducts()
       } else {
         alert('An error occurred. Please try again later.')
       }
@@ -216,16 +214,16 @@ export class EkartComponent implements OnInit {
   }
 
   editItem (item: any) {
-    this.sellerButton = 'Update';
-    console.log(item);
-    (this.emailId = item.emailId),
+    this.sellerButton = 'Update'
+    console.log(item)
+    ;(this.emailId = item.emailId),
       (this.title = item.title),
       (this.description = item.description),
       (this.location = item.location),
       (this.mobileNumber = item.mobileNumber),
       (this.price = item.price),
       (this.slNo = item.slNo),
-    this.onCart('updateProduct')
+      this.onCart('updateProduct')
   }
 
   selectedProduct (index: any) {
@@ -238,7 +236,7 @@ export class EkartComponent implements OnInit {
     if (type === 'insertProduct') {
       this.sellerButton = 'Submit'
       this.insertionType = type
-      this.clearInputs();
+      this.clearInputs()
     } else {
       this.insertionType = type
       this.sellerButton = 'Update'
@@ -254,12 +252,12 @@ export class EkartComponent implements OnInit {
     }
   }
 
-  clearInputs() {
-    this.title = '',
-    this.description = '',
-    this.price = 0,
-    this.mobileNumber = 0,
-    this.location = ''
+  clearInputs () {
+    ;(this.title = ''),
+      (this.description = ''),
+      (this.price = 0),
+      (this.mobileNumber = 0),
+      (this.location = '')
   }
 
   logOut () {

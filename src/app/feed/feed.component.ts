@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FaServiceService } from '../services/fa-service.service';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-feed',
@@ -14,7 +15,10 @@ export class FeedComponent implements OnInit {
   showSpinner: boolean = false;
   searchTitle: string = '';
 
-  constructor(private faService: FaServiceService) {}
+  constructor(
+    private faService: FaServiceService,
+    private authService: AuthServiceService // Inject your session service
+  ) {}
 
   ngOnInit(): void {
     this.getData();
@@ -22,32 +26,32 @@ export class FeedComponent implements OnInit {
 
   getData() {
     this.showSpinner = true;
-    // const storedEmails = localStorage.getItem('email');
-    // if (storedEmails) {
-    //     this.email = JSON.parse(storedEmails);
-    //     this.showSpinner = false;
-    // } else {
-        this.faService.getFeedData().subscribe((response: any) => {
-            console.log('Response from server:', response);
-            this.email = response.records;
-            this.showSpinner = false;
-            localStorage.setItem('email', JSON.stringify(this.email)); // Store fetched emails in local storage
-        });
-    }
+    this.faService.getFeedData().subscribe((response: any) => {
+      console.log('Response from server:', response);
+      this.email = response.records;
+      this.showSpinner = false;
+      // Clear new image flag for opened emails
+      this.email.forEach(email => {
+        if (this.authService.isEmailOpened(email.title)) {
+          email.opened = true;
+        }
+      });
+    });
+  }
 
-    
   onBack() {
     this.showMails = true;
     this.selectedEmail = false;
   }
 
   selectEmail(email: any) {
+    console.log(email);
     this.showMails = false;
     this.selectedEmail = true;
-    console.log(email);
     this.clickedemails = [email];
-    email.opened = true; // Assuming you have an 'opened' property in your email object
-    localStorage.setItem('email', JSON.stringify(this.email)); // Store updated emails in local storage
+    email.opened = true;
+    // Save opened email status in session
+    this.authService.markEmailAsOpened(email.title);
   }
 
   get filteredEmails(): any[] {

@@ -50,24 +50,24 @@
           <div class="row gy-4">
 
             <div class="col-md-12">
-              <input type="text" name="name" class="form-control" [(ngModel)]="personName" placeholder="Your Name" required>
+              <input type="text" name="name" onKeyPress="if(this.value.length==40) return false;" class="form-control" [(ngModel)]="personName" placeholder="Your Name" required>
             </div>
 
             <div class="col-md-6 ">
-              <input type="email" class="form-control" name="email" [(ngModel)]="emailId" placeholder="Your Email" required>
+              <input type="email" class="form-control" onKeyPress="if(this.value.length==40) return false;" name="email" [(ngModel)]="emailId" placeholder="Your Email" required>
             </div>
 
 
             <div class="col-md-6">
-              <input type="text" class="form-control" name="MobileNumber" [(ngModel)]="mobileNumber" placeholder="Mobile Number" required>
+              <input type="text" class="form-control" name="MobileNumber" maxlength="10" [(ngModel)]="mobileNumber" placeholder="Mobile Number" required>
             </div>
 
             <div class="col-md-12">
-              <input type="text" class="form-control" name="subject" [(ngModel)]="subject" placeholder="Subject" required>
+              <input type="text" class="form-control" name="subject" onKeyPress="if(this.value.length==75) return false;" [(ngModel)]="subject" placeholder="Subject" required>
             </div>
 
             <div class="col-md-12">
-              <textarea class="form-control" name="message" rows="4" [(ngModel)]="message" placeholder="Message" required></textarea>
+              <textarea class="form-control" name="message" rows="4" onKeyPress="if(this.value.length==100) return false;" [(ngModel)]="message" placeholder="Message" required></textarea>
             </div>
 
             <div class="col-md-12 text-center">
@@ -75,7 +75,7 @@
               <div class="error-message"></div>
               <div class="sent-message">Your message has been sent. Thank you!</div>
 
-              <button type="submit" (click)="onSubmit()">Send Message</button>
+              <button type="submit" [disabled]="!personName || !emailId || !mobileNumber || !subject" (click)="onSubmit()">Send Message</button>
             </div>
 
           </div>

@@ -10,13 +10,24 @@
   <div class="container" id="pdfContent" [ngClass]="{'custom-card-Container': isBusinessCardStyles, 'card-Container': !isBusinessCardStyles}">
       <qrcode [qrdata]="qrdata" [width]="125" [errorCorrectionLevel]="'M'"></qrcode>
       <div class="text-container">
+        <div *ngIf="showErrorMsg" class="container">
+          <div class="row">
+            <div class="col-md-9 mt-4 ml-2">
+              <h2>Please Update the Profile....</h2>
+            </div>
+            <div class="col-md-3">
+              <img src="./assets/img/av-profile/sad_face.png" class="img-fluid emoji_img" alt="Sad face">
+            </div>
+          </div>
+        </div>
+        
         <p class="userName">{{ userName }}</p>
         <p class="designation">{{ designation }}</p>
         <p>{{ companyName }}</p>
       </div> 
     </div>
   
-    <div class="card-buttons">
+    <div class="card-buttons" *ngIf="!showErrorMsg">
       <a (click)="shareOnSocialMedia()" class="fa fa-share-alt"></a>
       <a (click)="downloadCard()" class="fa fa-download"></a>
     </div>

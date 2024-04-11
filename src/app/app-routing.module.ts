@@ -6,13 +6,15 @@ import { AvEnginnerComponent } from './av-enginner/av-enginner.component'
 import { AdminPageComponent } from './admin-page/admin-page.component'
 import { EkartComponent } from './ekart/ekart.component'
 import { BussinessCardComponent } from './bussiness-card/bussiness-card.component'
+import { CanActivateService } from './services/can-activate.service'
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'home-page', component: HomePageComponent },  
+  { path: '****', redirectTo: '' },
+  { path: 'home-page', redirectTo: '' },
   { path: 'login-page/:value', component: LoginPageComponent },
-  { path: 'ekart-page', component: EkartComponent },
-  { path: 'avEngineer-dashboard', component: AvEnginnerComponent },
+  { path: 'ekart-page/:sessionId', component: EkartComponent },
+  { path: 'avEngineer-dashboard/:sessionId', component: AvEnginnerComponent, canActivate: [CanActivateService] },
   { path: 'admin-page', component: AdminPageComponent },
   { path: 'bussiness-card/:emailId/:timeStamp', component: BussinessCardComponent },
   // { path: 'av-about', component: AvAboutComponent} 

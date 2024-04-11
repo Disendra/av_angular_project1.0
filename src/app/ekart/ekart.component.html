@@ -27,7 +27,7 @@
             </a>           
               
             <nav id="navbar" class="navbar">
-            <li class="dropdown"><a> <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"><span>{{ userName }}</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a> <img [src]="getImageSource()" alt="" class="img-fluid rounded-circle"><span>{{ userName }}</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 <!-- <li><a (click)="onSelect('products')">Products</a></li> -->
                 <li><a (click)="onSelect('myPosts')">My Posts</a></li>
@@ -108,7 +108,7 @@
                 <h5 class="mb-0">{{ item.location }}</h5>
               </div>
               <div class="col-md-2 col-lg-2 col-xl-2 text-end">
-                <input class="checkbox" matTooltip="Sold Out"  (click)="checkboxClicked($event,item)" type="checkbox">
+                <input class="checkbox" matTooltip="Sold Out"  (click)="checkboxClicked($event,item)" type="radio">
                 <span><i class="fa fa-edit" (click)="editItem(item)"></i></span>
                 <span class="text-danger" (click)="deleteItem(item)"><i class="fa fa-trash-o"></i></span>
               </div>

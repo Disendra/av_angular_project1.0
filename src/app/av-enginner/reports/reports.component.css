@@ -94,7 +94,15 @@ input {
 .mac_Search {
     width: 57%;
     height: 47px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 1px solid black;
 }
+
+.mac_Search::placeholder {
+    padding-left: 10px;
+    opacity: 0.3;
+  }
+  
 
 .company_Name {
     margin-left: 22%;

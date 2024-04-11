@@ -82,7 +82,11 @@ body {
   position: relative;
 }
 
-
+a.disabled {
+  pointer-events: none;
+  color: grey;
+  text-decoration: none;
+}
 
 .our-team .picture::before {
   content: "";
@@ -199,12 +203,17 @@ body {
 }
 
 .bi-twitter-x {
-  font-size: 15px !important;
+  font-size: 13px !important;
 }
 
 /* .team-content {
   margin-top: -22px;
 } */
+
+.no_company {
+  margin-top: -7px;
+  margin-bottom: 21px;
+}
 
 @media only screen and (max-width: 1366px) and (min-width: 1100px) {
   .show-box {

@@ -10,26 +10,27 @@ import { AuthServiceService } from 'src/app/services/auth-service.service'
   styleUrls: ['./av-directory.component.css']
 })
 export class AvDirectoryComponent implements OnInit {
-  userData: any[] = []
-  pagedUserData: any[] = []
-  clickedUserData: any[] = []
-  profileData: any[] = []
-  pageSize: number = 10
-  searchBox: boolean = true
-  companyName!: string
-  profileImage: any[] = []
-  showClickedData: boolean = false
-  showFilters: boolean = true
-  showSpinner: boolean = false
-  pageSizeOptions: number[] = [5, 10, 25, 100] // You can adjust these options
-  filterTerm: string = '' // Add filter term
-  @ViewChild(MatPaginator) paginator!: MatPaginator
   twitterUrl: any
   facebookUrl: any
   instagramUrl: any
   linkedInUrl: any
   userEmailId: any
   imagePath: any
+  userData: any[] = []
+  pagedUserData: any[] = []
+  clickedUserData: any[] = []
+  profileData: any[] = []
+  pageSize: number = 10
+  companyName!: string
+  profileImage: any[] = []
+  showClickedData: boolean = false
+  showFilters: boolean = true
+  searchBox: boolean = true
+  showSpinner: boolean = false
+  filterTerm: string = ''
+  emptyLinks: string = 'Not updated by User'
+  pageSizeOptions: number[] = [5, 10, 25, 100]
+  @ViewChild(MatPaginator) paginator!: MatPaginator
   constructor (
     private faService: FaServiceService,
     private userService: UserServicesService,
@@ -68,31 +69,30 @@ export class AvDirectoryComponent implements OnInit {
     })
   }
 
-  fetchProfileImages () {
+  fetchProfileImages() {
     this.userService.getUserImages().subscribe((response: any) => {
       console.log(response)
       const profileImages = response.records
       this.userData.forEach(user => {
-        const profileImage = profileImages.find(
-          (profile: { emailId: any }) => profile.emailId === user.emailId
-        )
-        const profileData = this.profileData.find(
-          (profile: { emailId: any }) => profile.emailId === user.emailId
-        )
-
-        if (profileImage || profileData) {
-          user.imagePath = profileImage.imagePath
-          user.companyName = profileData.companyName
+        const profileImage = profileImages.find((profile: { emailId: any }) => profile.emailId === user.emailId)
+        const profileData = this.profileData.find((profile: { emailId: any }) => profile.emailId === user.emailId)
+  
+        if (profileImage) {
+          user.imagePath = profileImage.imagePath;
         } else {
-          user.imagePath = '../assets/img/user-Icon.png'
+          user.imagePath = '../assets/img/user-Icon.png';
+        }
+        
+        if (profileData) {
+          user.companyName = profileData.companyName;
         }
       })
-
+  
       console.log(this.userData)
       this.showSpinner = false
     })
   }
-
+  
   updatePageData () {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize
     this.pagedUserData = this.userData.slice(
@@ -105,25 +105,27 @@ export class AvDirectoryComponent implements OnInit {
     this.updatePageData()
   }
 
-  applyFilter () {
+  applyFilter() {
     this.pagedUserData = this.userData.filter(
       item =>
         item.userName.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
         item.role.toLowerCase().includes(this.filterTerm.toLowerCase())
-    )
-
+    );  
     if (this.pagedUserData.length > 0) {
-      this.showFilters = true
-      this.paginator.length = this.pagedUserData.length
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize
-      this.pagedUserData = this.pagedUserData.slice(
-        startIndex,
-        startIndex + this.paginator.pageSize
-      )
+      this.showFilters = true;
+      if (this.paginator) {
+        this.paginator.length = this.pagedUserData.length;
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        this.pagedUserData = this.pagedUserData.slice(
+          startIndex,
+          startIndex + this.paginator.pageSize
+        );
+      }
     } else {
-      this.showFilters = false
+      this.showFilters = false;
     }
   }
+  
 
   showDetails (item: any) {
     this.searchBox = false

@@ -31,17 +31,17 @@ export class AvMyprofileComponent implements OnInit {
   userName: any
   userEmailId: any
   countryCode: string = '+91'
-  mobileNumber: any
+  mobileNumber!: string;
   dateOfBirth: any
-  gender: string = ''
+  gender: string | null = null;
   jobTitle: any
   companyName: any
   location: any
   address1: any
   address2: any
-  userCountry: any
-  userState: any
-  userCity: string = 'HI'
+  userCountry: string | null = null;
+  userState: string | null = null;
+  userCity: string | null = null;
   zipcode: any
   message: any
   showSpinner: boolean = false
@@ -117,56 +117,82 @@ export class AvMyprofileComponent implements OnInit {
     this.gender = event.target.value
   }
 
-  onSubmit () {
-    this.showSpinner = true
-    const profileData = new FormData()
-    if (this.emailId) profileData.append('emailId', this.emailId)
-    if (this.userName) profileData.append('userName', this.userName)
-    if (this.userEmailId) profileData.append('userEmailId', this.userEmailId)
-    if (this.mobileNumber) profileData.append('mobileNumber', this.mobileNumber)
-    if (this.dateOfBirth) profileData.append('dob', this.dateOfBirth)
-    if (this.gender) profileData.append('gender', this.gender)
-    if (this.jobTitle) profileData.append('jobTitle', this.jobTitle)
-    if (this.companyName) profileData.append('companyName', this.companyName)
-    if (this.location) profileData.append('location', this.location)
-    if (this.address1) profileData.append('address1', this.address1)
-    if (this.address2) profileData.append('address2', this.address2)
-    if (this.userCountry) profileData.append('country', this.userCountry)
-    if (this.userState) profileData.append('state', this.userState)
-    if (this.userCity) profileData.append('city', this.userCity)
-    if (this.zipcode) profileData.append('zipcode', this.zipcode)
-    if (this.countryCode) profileData.append('stdCode', this.countryCode)
-    console.log(profileData)
-    if (this.insertionType === 'saveProfile') {
-      this.userService.uploadProfile(profileData).subscribe(
-        (response: any) => {
-          this.showSpinner = false
-          this.message = response.message
-          this.onDialogue()
-        },
-        (error: any) => {
-          this.showSpinner = false
-          console.error('Error occurred while saving profile:', error)
-          this.message = 'Error occurred while saving profile'
-          this.onDialogue()
-        }
-      )
-    } else {
-      this.userService.updateProfile(profileData).subscribe(
-        (response: any) => {
-          this.showSpinner = false
-          this.message = response.message
-          this.onDialogue()
-        },
-        (error: any) => {
-          this.showSpinner = false
-          console.error('Error occurred while updating profile:', error)
-          this.message = 'Error occurred while saving profile'
-          this.onDialogue()
-        }
-      )
-    }
+  onSubmit() {
+    if (!this.validateMobileNumber()) {
+      return;
   }
+    // Only validate email if it's provided
+    if (this.userEmailId && !this.validateEmail()) {
+      return;
+    }
+    this.showSpinner = true;
+    const profileData = new FormData();
+    if (this.emailId) profileData.append('emailId', this.emailId);
+    if (this.userName) profileData.append('userName', this.userName);
+    if (this.userEmailId) profileData.append('userEmailId', this.userEmailId);
+    if (this.mobileNumber) profileData.append('mobileNumber', this.mobileNumber);
+    if (this.dateOfBirth) profileData.append('dob', this.dateOfBirth);
+    if (this.gender) profileData.append('gender', this.gender);
+    if (this.jobTitle) profileData.append('jobTitle', this.jobTitle);
+    if (this.companyName) profileData.append('companyName', this.companyName);
+    if (this.location) profileData.append('location', this.location);
+    if (this.address1) profileData.append('address1', this.address1);
+    if (this.address2) profileData.append('address2', this.address2);
+    if (this.userCountry) profileData.append('country', this.userCountry);
+    if (this.userState) profileData.append('state', this.userState);
+    if (this.userCity) profileData.append('city', this.userCity);
+    if (this.zipcode) profileData.append('zipcode', this.zipcode);
+    if (this.countryCode) profileData.append('stdCode', this.countryCode);
+    console.log(profileData);
+    if (this.insertionType === 'saveProfile') {
+        this.userService.uploadProfile(profileData).subscribe(
+            (response: any) => {
+                this.showSpinner = false;
+                this.message = response.message;
+                this.onDialogue();
+            },
+            (error: any) => {
+                this.showSpinner = false;
+                console.error('Error occurred while saving profile:', error);
+                this.message = 'Error occurred while saving profile';
+                this.onDialogue();
+            }
+        );
+    } else {
+        this.userService.updateProfile(profileData).subscribe(
+            (response: any) => {
+                this.showSpinner = false;
+                this.message = response.message;
+                this.onDialogue();
+            },
+            (error: any) => {
+                this.showSpinner = false;
+                console.error('Error occurred while updating profile:', error);
+                this.message = 'Error occurred while saving profile';
+                this.onDialogue();
+            }
+        );
+    }
+}
+
+validateMobileNumber() {
+  const mobileNumberString = this.mobileNumber.toString();
+  if (mobileNumberString.length !== 10) {
+      alert('Please enter a valid 10-digit mobile number');
+      return false;
+  }
+  return true;
+}
+
+validateEmail() {
+  const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
+  if (!emailRegex.test(this.userEmailId)) {
+      alert('Please enter a valid email address');
+      return false;
+  }
+  return true;
+}
+
 
   onCountryChange (event: any) {
     const countryName = event.target.value
@@ -228,7 +254,16 @@ export class AvMyprofileComponent implements OnInit {
   }
 
   refreshPage () {
+    if (!this.validateMobileNumber()) {
+      return;
+  }
+    // Only validate email if it's provided
+    if (this.userEmailId && !this.validateEmail()) {
+      return;
+    }
+    else {
     window.location.reload()
+    }
   }
 
   onClear () {

@@ -42,6 +42,7 @@ section {
 
 .image {
   border-bottom: 3px solid green;
+  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
 }
 
 @media (min-width: 1024px) {
@@ -59,9 +60,9 @@ section {
   }
 
   .image {
-    height: 280px;
+    height: 283px;
   }
-  
+
   .box {
     width: 28%;
   }
@@ -69,7 +70,7 @@ section {
   .user-data {
     width: 719px;
   }
-  
+
 }
 
 
@@ -234,9 +235,6 @@ section {
     transform: rotate(360deg);
   }
 }
-
-
-
 
 .form-dropdown {
   font-family: sans-serif;

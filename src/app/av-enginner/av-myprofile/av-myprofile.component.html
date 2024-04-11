@@ -14,14 +14,14 @@
                   <div class="col-md-6">
                       <label for="inputFirstName">Full Name</label>
                       <div class="input-group">
-                          <input class="form-control"  maxlength="50" name="userName" [(ngModel)]="userName" placeholder="Enter full name" type="text">
+                          <input class="form-control"  maxlength="30" name="userName" [(ngModel)]="userName" placeholder="Enter full name" type="text">
                           <span class="material-icons">person</span>
                       </div>
                   </div>
                   <div class="col-md-6">
                       <label for="inputLastName">Email</label>
                       <div class="input-group">
-                          <input type="email" class="form-control" [(ngModel)]="userEmailId" name="userEmailId" placeholder="Enter email ID">
+                          <input type="email" class="form-control" [(ngModel)]="userEmailId" maxlength="40" name="userEmailId" placeholder="Enter email ID">
                           <span class="material-icons">email</span>
                       </div>
                   </div>
@@ -33,7 +33,7 @@
                         <label>Phone</label>
                         <div class="col-md-3">
                           <div class="input-group">
-                            <input class="form-control std_code" maxlength="66" name="countryCode" [(ngModel)]="countryCode" type="text">
+                            <input class="form-control std_code"  readonly name="countryCode" [(ngModel)]="countryCode" type="text">
                             <img src="assets/img/av-profile/indian-flag.png" class="img-fluid material-icons" alt="">
                        </div>
                           <!-- <select #country name="country" class="form-control phone_codes" id="country" (change)="onCountryChange($event)">
@@ -45,7 +45,7 @@
                             </div>
                   <div class="col-md-9 ml-4">                  
                     <div class="input-group">
-                        <input class="form-control" [(ngModel)]="mobileNumber" maxlength="10" minlength="10" name="mobileNumber" placeholder="Enter phone number" type="text">
+                        <input class="form-control" [(ngModel)]="mobileNumber" onKeyPress="if(this.value.length==10) return false;"  name="mobileNumber" placeholder="Enter phone number" type="number">
                         <span class="material-icons">call</span>
                      </div>
                    </div>
@@ -79,7 +79,7 @@
                       <label>Job Title</label>
                       <!-- <input class="form-control" placeholder="Enter Job Title" type="text"> -->
                       <div class="input-group">
-                        <input class="form-control" [(ngModel)]="jobTitle" name="jobTitle" placeholder="Enter job title" type="text">
+                        <input class="form-control" [(ngModel)]="jobTitle" maxlength="33" name="jobTitle" placeholder="Enter job title" type="text">
                         <span class="material-icons">work</span>
                     </div>
                     </div>
@@ -87,7 +87,7 @@
                       <label>Company Name</label>
                       <!-- <input class="form-control" placeholder="Enter Company Name" type="text"> -->
                       <div class="input-group">
-                        <input class="form-control" [(ngModel)]="companyName" name="companyName" placeholder="Enter company name" type="text">
+                        <input class="form-control" [(ngModel)]="companyName" maxlength="40" name="companyName" placeholder="Enter company name" type="text">
                         <span class="material-icons">business</span>
                     </div>
                     </div>
@@ -152,7 +152,7 @@
                         <label>City</label>
                         <div class="input-group">
                           <select #city name="city" id="city" class="form-control" [(ngModel)]="userCity" (change)="onCityChange($event)">
-                            <option [value]="null" disabled selected>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Your City</option>
+                            <option value="null" disabled selected>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Your City</option>
                             <option *ngFor="let city of cities" [value]="city.name">
                                 {{ city.name }}
                             </option>

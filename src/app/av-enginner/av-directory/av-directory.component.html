@@ -53,8 +53,8 @@
                 <div class="picture">
                     <img class="img-fluid" [src]="imagePath">
                 </div>
-    
-                <div *ngFor="let item of clickedUserData" class="team-content">
+
+                <div *ngFor="let item of clickedUserData" [ngClass]="{'no_company': !item.companyName || item.companyName.trim() === ''}" class="team-content">
                     <p class="user_Name">{{ (item.userName) }}</p>
                     <span class="title">{{ companyName }}</span>
                     <span class="title">{{ item.role }}</span>
@@ -62,9 +62,13 @@
     
                 <ul class="social">
                   <li *ngIf="facebookUrl"><a [href]="facebookUrl" target="_blank" class="fa fa-facebook" aria-hidden="true"></a></li>
+                  <li *ngIf="!facebookUrl" matTooltip={{emptyLinks}}><a class="fa fa-facebook" aria-hidden="true" [ngClass]="{'disabled': !facebookUrl}"></a></li>              
                   <li *ngIf="twitterUrl"><a [href]="twitterUrl" target="_blank" class="fa bi-twitter-x" aria-hidden="true"></a></li>
+                  <li *ngIf="!twitterUrl" matTooltip={{emptyLinks}}><a class="bi-twitter-x" aria-hidden="true" [ngClass]="{'disabled': !twitterUrl}"></a></li>
                   <li *ngIf="instagramUrl"><a [href]="instagramUrl" target="_blank" class="fa fa-instagram" aria-hidden="true"></a></li>
+                  <li *ngIf="!instagramUrl" matTooltip={{emptyLinks}}><a class="fa fa-instagram" aria-hidden="true" [ngClass]="{'disabled': !instagramUrl}"></a></li>
                   <li *ngIf="linkedInUrl"><a [href]="linkedInUrl" target="_blank" class="fa fa-linkedin" aria-hidden="true"></a></li>
+                  <li *ngIf="!linkedInUrl" matTooltip={{emptyLinks}}><a class="fa fa-linkedin" aria-hidden="true" [ngClass]="{'disabled': !linkedInUrl}"></a></li>
               </ul>
               
             </div>

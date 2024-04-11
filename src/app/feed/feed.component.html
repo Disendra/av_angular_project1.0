@@ -16,12 +16,7 @@
           <div class="grid-body">
             <div class="row">
               <div class="col-md-12">
-
                  <div class="filters">
-                    <!-- <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                      Action <span class="caret"></span>
-                    </button> -->
-
                     <div class="input-group">
                       <div class="input-box input-group">
                         <input type="text" class="form-control input-sm" [(ngModel)]="searchTitle" placeholder="Search by title"/>
@@ -44,7 +39,6 @@
                           </td>
                           <td class="time">{{ email.createdDate | date:'hh:mm a' }} {{ email.createdDate | date:'MMM dd' }}</td>
                       </tr>
-                      
                           <!-- Show the image only when filteredEmails array is empty -->
                           <tr style="border-color: white;" *ngIf="filteredEmails.length === 0 && searchTitle !== ''">
                             <td colspan="100">
@@ -64,10 +58,7 @@
       </div>
     </div>
   </div>
-
-
-
-  
+    
   <div *ngIf="selectedEmail">
     <div class="arrow_Container">
       <div class="arrow-Icon" (click)="onBack()">

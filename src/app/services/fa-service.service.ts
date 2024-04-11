@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core'
   providedIn: 'root'
 })
 export class FaServiceService {
-  //  url = 'https://av-nodejs.onrender.com';
-  url = 'http://localhost:3000';
+   url = 'https://av-nodejs.onrender.com';
+  // url = 'http://localhost:3000';
   // url = 'http://10.58.146.67:3000'
   macVendor = 'https://macvendorlookup.com/api/v2'
 
@@ -18,8 +18,7 @@ export class FaServiceService {
     return this.http.post(`${this.url}/login`, { emailId, password })
   }
   
-  
-  createUser (data: any) {
+   createUser (data: any) {
     return this.http.post(`${this.url}/insertData`, data)
   }
 
@@ -40,8 +39,8 @@ export class FaServiceService {
     return this.http.get(`${this.macVendor}/${sysAdress}`)
   }
 
-  insertFeedData(sender:any, title:any, description:any,link:any ) {
-    return this.http.post(`${this.url}/insertFeed`, { sender, title, description,link })
+  insertFeedData(data :any ) {
+    return this.http.post(`${this.url}/insertFeed`, data)
   }
 
   getRoles() {

@@ -18,6 +18,7 @@ export class BussinessCardComponent implements OnInit {
   isBusinessCardStyles : boolean = false;
   linkCopied: boolean = false;
   showSpinner : boolean = false;
+  showErrorMsg : boolean = false;
   currentRoute: string = '';
   urlLink: any;
   userName: any;
@@ -79,31 +80,40 @@ export class BussinessCardComponent implements OnInit {
 
   getBussinessData() {
     this.showSpinner = true;
-    this.userService.getBussinessCard(this.emailId).subscribe(response => {
-      this.showSpinner = false;
-      console.log(response);
-      if (response && response.records && response.records.length > 0) {
-        this.emailId = response.records[0].emailId;
-        this.userName = response.records[0].userName;
-        this.qrCodeData();
-      }
-    }, error => {
-      console.error("Error fetching business card data:", error);
-    });
+    // this.userService.getBussinessCard(this.emailId).subscribe(response => {
+    //   this.showSpinner = false;
+    //   console.log(response);
+    //   if (response && response.records && response.records.length > 0) {
+    //     this.emailId = response.records[0].emailId;
+    //     this.userName = response.records[0].userName;
+    //     this.qrCodeData();
+    //   }
+    // }, error => {
+    //   console.error("Error fetching business card data:", error);
+    // });
 
     this.userService.getProfile(this.emailId).subscribe(response => {
       this.showSpinner = false;
       if (response && response.records && response.records.length > 0) {
         let records = response.records[0];
-        this.companyName = records.emailId;
-        this.designation = records.jobTitle;
-        this.mobileNumber = records.mobileNumber;
-        this.qrCodeData();
+        if (records.userName && records.userEmailId && records.companyName && records.jobTitle && records.mobileNumber) {
+          this.emailId = records.userEmailId;
+          this.userName = records.userName;
+          this.companyName = records.companyName;
+          this.designation = records.jobTitle;
+          this.mobileNumber = records.mobileNumber;
+          this.qrCodeData();
+        } else {
+          // alert("Some properties in the records are null or undefined.");
+           this.showErrorMsg = true;
+        }
+      } else {
+        console.log("No records found.");
       }
     }, error => {
       console.error("Error fetching business card data:", error);
     });
-
+    
   }
   
   qrCodeData () {
@@ -135,8 +145,8 @@ export class BussinessCardComponent implements OnInit {
     if (element) {
       element.style.borderRadius = '0px';
       const canvas = document.createElement('canvas');
-      canvas.width = 450; 
-      canvas.height = 250; 
+      canvas.width = 420; 
+      canvas.height = 230; 
       const context = canvas.getContext('2d');
       const rect = element.getBoundingClientRect();
 
@@ -149,7 +159,7 @@ export class BussinessCardComponent implements OnInit {
         link.download = fileName;
         link.click();
 
-        element.style.borderRadius = '';
+        element.style.borderRadius = '0px';
       });
     } else {
       console.error('Card container not found.');
