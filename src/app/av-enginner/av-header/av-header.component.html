@@ -21,7 +21,7 @@
           <div class="row justify-content-center">
             <div class="col-md-8 text-center">
               <!-- <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"  [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}"> -->
-              <img [src]="getImageSource()" alt="" class="img-fluid rounded-circle" [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}" (click)="openFileInput()"
+              <img [src]="getImageSource()" alt="" class="img-fluid profile-image  rounded-circle" [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}" (click)="openFileInput()"
 >              <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)">
               <button class="profile_Weight" [ngClass]="{'red': profileWeight <= 40, 'blue': profileWeight > 40 && profileWeight <= 80, 'green': profileWeight > 80}">{{ profileWeight }}%</button>
             </div>
@@ -51,7 +51,6 @@
        </div>
        <p class="version-tag">v1.0.0</p>
   </header><!-- End Header -->
-
   <div>
     <app-av-calculator *ngIf="isKnowledge"></app-av-calculator>
     <app-av-about *ngIf="isAbout"></app-av-about>
@@ -61,13 +60,12 @@
     <app-feed *ngIf="isFeed"></app-feed>
   </div>
   
-  <app-spinner *ngIf="showSpinner"></app-spinner>
   <!-- Dialog template -->
   <ng-template #myDialog>
     <h4 matDialogTitle class="mb-0">Social Media Links</h4>
     <hr class="mt-0" style="margin-bottom: -5px;">
     <mat-dialog-content class="d-flex align-items-center justify-content-center">
-      <div class="form-group">
+      <div class="form-group">  
         <mat-form-field style="width: 400px;">
           <input matInput [placeholder]="'Add ' + CickedsocialMedia + ' URL*'" name="inputValue" [(ngModel)]="inputValue">
         </mat-form-field>
@@ -117,6 +115,8 @@
       </div>
   </div>
 </div>
+
+<app-spinner *ngIf="showSpinner"></app-spinner>
 
 </body>
 </html>

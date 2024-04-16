@@ -501,11 +501,11 @@ label {
 }
 
 .checkbox {
-  transform: scale(1.5);
-  /* margin-right: 15px; */
-  position: relative;
-  right: 15px;
-  bottom: 2px;
+  transform: scale(1.0);
+    position: relative;
+    right: 5px;
+    font-size: 11px;
+    bottom: 4px;
 }
 
 select {
@@ -547,8 +547,10 @@ li::marker {
 
 .popup {
   overflow: hidden;
-  width: 218px;
-  height: 137px;
+  /* width: 218px;
+  height: 137px; */
+  width: auto;
+  height: auto;
   border-bottom: 4px solid #6D67E4;
 }
 
@@ -579,4 +581,25 @@ textarea {
 
 .cart_description {
   font-size: 14px;
+}
+
+
+.drop-area {
+  border: 2px dashed#0000ff7a;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+}
+
+.file-input {
+  display: none;
+}
+
+.drop-area.drag {
+  background-color: #f0f0f0;
+}
+
+.file_name {
+margin-bottom: 15px;
+    color: black;
 }

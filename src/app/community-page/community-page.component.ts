@@ -12,7 +12,8 @@ export class CommunityPageComponent {
   searchQuetion: any;
   userQuestion : any;
   questionURl : any;
-  expanded: boolean = false
+  userName : string = 'Disendra';
+  expanded: boolean = false;
   showUrlBox: boolean = false
   @ViewChild('myDialog') myDialog!: TemplateRef<any>
 

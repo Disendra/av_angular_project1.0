@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,6 @@
   </head>
 
   <body>
-<!-- your-component.component.html -->
 <div class="header-boxs">
     <div class="container">
         <h2>Welcome to Our Community!!</h2>
@@ -61,8 +60,6 @@
     </div>
 </div>
 
-<!-- matTooltip -->
-
  <ng-template #myDialog>
     <mat-dialog-content>
       <mat-icon class="cancel_Icon" (click)="closePopup()">cancel_presentation</mat-icon>
@@ -89,4 +86,92 @@
 
 
   </body>
+</html> -->
+
+
+
+<!-- <header class="header_section">
+  <div class="header_top">
+    <div class="container-fluid">
+      <div class="top_nav_container">
+        <div class="contact_nav">
+          <h1>AV Tech</h1>
+        </div>
+        <form class="search_form">
+          <input type="text" class="filter_box" placeholder="Search products..." name="searchText"/>
+          <button class="" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </form>      
+          <nav id="navbar" class="navbar">
+            <span class="material-icons">notifications</span>
+          <li class="dropdown"><a> <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"><span>{{ userName }}</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a>My Posts</a></li>
+               <li><a href="#">Drop Down 4</a></li>
+            </ul>
+          </li>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+</header> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Header</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome CSS for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+    /* Custom styles */
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-dark">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Your Logo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+          <form class="form-inline my-2 my-lg-0 mr-auto">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+          </form>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <img src="assets/img/disendra-Img.png" alt="Profile" class="profile-img">
+                <span>{{ userName }}</span> <i class="bi bi-chevron-down"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

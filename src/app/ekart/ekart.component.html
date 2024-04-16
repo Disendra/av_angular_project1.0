@@ -35,7 +35,7 @@
                 <!-- <li><a href="#">Drop Down 4</a></li> -->
               </ul>
             </li>
-  </nav>
+          </nav>
 
              </div>
         </div>
@@ -108,7 +108,8 @@
                 <h5 class="mb-0">{{ item.location }}</h5>
               </div>
               <div class="col-md-2 col-lg-2 col-xl-2 text-end">
-                <input class="checkbox" matTooltip="Sold Out"  (click)="checkboxClicked($event,item)" type="radio">
+                <!-- <input class="checkbox" matTooltip="Sold Out"  (click)="checkboxClicked($event,item)" type="radio"> -->
+                <mat-slide-toggle class="checkbox" matTooltip="Sold Out" (change)="toggleChanged($event, item)"></mat-slide-toggle>
                 <span><i class="fa fa-edit" (click)="editItem(item)"></i></span>
                 <span class="text-danger" (click)="deleteItem(item)"><i class="fa fa-trash-o"></i></span>
               </div>
@@ -133,7 +134,7 @@
   <!-- <h4 matDialogTitle class="mb-0">Social Media Links</h4> -->
   <mat-dialog-content class="d-flex align-items-center justify-content-center" style="overflow: hidden;">
     <div class="container custom-dialog-container">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label>Title</label><label class="red-asterisk">*</label>
         <input type="text" maxlength="75" class="form-control" [(ngModel)]="title" name="title">
       </div>
@@ -160,10 +161,16 @@
         </div>
       </div>
       
-       <div class="form-group">
-        <label>Image</label><br><label class="red-asterisk">*</label>
-        <input type="file" (change)="onFileSelected($event)">
-      </div>
+      <div class="form-group">
+        <label>Image</label><label class="red-asterisk">*</label>
+        <div id="drop-area" class="drop-area" (click)="selectFile()">
+            <input type="file" id="fileInput" class="file-input" (change)="onFileSelected($event)">
+            <p>Click here or drag & drop files</p>
+        </div> 
+    </div>
+    <p class="file_name">{{ selectedFileName }}</p>
+    
+
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end" class="mat-buttons">

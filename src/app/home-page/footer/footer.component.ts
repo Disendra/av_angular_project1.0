@@ -11,13 +11,13 @@ export class FooterComponent {
 
   socialLinks (type: any) {
     if (type === 'twitter') {
-      window.open('https://twitter.com', '_blank')
+      window.open('https://twitter.com/rgbaudiovideo', '_blank')
     } else if (type === 'faceBook') {
       window.open('https://faceBook.com', '_blank')
     } else if (type === 'instagram') {
       window.open('https://instagram.com', '_blank')
     } else if (type === 'linkedin') {
-      window.open('https://twitter.com', '_blank')
+      window.open('https://www.linkedin.com/in/av-universe-622053229/', '_blank')
     } else {
       window.open('https://youtube.com', '_blank')
     }

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { AuthServiceService } from 'src/app/services/auth-service.service'
+import { FaServiceService } from 'src/app/services/fa-service.service'
 import { UserServicesService } from 'src/app/services/user-services.service'
 
 @Component({
@@ -23,45 +24,68 @@ export class AvAboutComponent implements OnInit {
 
   constructor (
     private userService: UserServicesService,
-    private authService: AuthServiceService,
+    private authService: AuthServiceService,private faService : FaServiceService,
     private datePipe: DatePipe
   ) {
     this.emailId = authService.getLoggedInEmail()
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.getProfileImage();
     this.getProfileData();
   }
-
+  
   getProfileData() {
     this.showSpinner = true;
     this.userService.getProfile(this.emailId).subscribe((response: any) => {
-       console.log(response);
-        this.showSpinner = false;
+      console.log(response);
+      this.showSpinner = false;
+      if (response.records.length !== 0) {
         const record = response.records[0];
-        if(response.records.length != 0) {
-        this.userName = record.userName ? record.userName : "not updated";
-        this.userEmailId = record.userEmailId ? record.userEmailId : "not updated";
+        this.userName = record.userName || "not updated";
+        this.userEmailId = record.userEmailId || "not updated";
         this.mobileNumber = (record.stdCode && record.mobileNumber) ? record.stdCode + '' + record.mobileNumber : "not updated";
-        this.dateOfBirth = record.dob ? record.dob : "not updated";
-        this.gender = record.gender ? record.gender : "not updated";
+        this.dateOfBirth = record.dob || "not updated";
+        this.gender = record.gender || "not updated";
         this.userCity = (record.city && record.state) ? record.city + ',' + record.state : "not updated";
-        this.jobTitle = record.jobTitle ? record.jobTitle : "not updated";
-        this.companyName = record.companyName ? record.companyName : "not updated";
-        }
-        else {
-          this.userName = "not updated";
-          this.userEmailId = "not updated";
-          this.mobileNumber = "not updated";
-          this.dateOfBirth = "not updated";
-          this.gender = "not updated";
-          this.userCity = "not updated";
-          this.jobTitle = "not updated";
-          this.companyName = "not updated";
-        }
+        this.jobTitle = record.jobTitle || "not updated";
+        this.companyName = record.companyName || "not updated";
+      } else {
+        this.getSignUp(); // Call getSignUp() if no records found
+      }
     });
-}
+  }
+  
+  getSignUp() {
+    this.showSpinner = true;
+    this.faService.getLoginData(this.emailId).subscribe((response: any) => {
+      console.log(response);
+      this.showSpinner = false;
+      if (response.records.length !== 0) {
+        const record = response.records[0];
+        this.userName = record.userName || "not updated";
+        this.userEmailId = record.emailId || "not updated";
+        this.mobileNumber = "not updated";
+        this.dateOfBirth = "not updated";
+        this.gender = "not updated";
+        this.userCity = "not updated";
+        this.jobTitle = "not updated";
+        this.companyName = "not updated";
+      } else {
+        // If no records found in getSignUp(), set default values
+        this.userName = "not updated";
+        this.userEmailId = "not updated";
+        this.mobileNumber = "not updated";
+        this.dateOfBirth = "not updated";
+        this.gender = "not updated";
+        this.userCity = "not updated";
+        this.jobTitle = "not updated";
+        this.companyName = "not updated";
+      }
+    });
+  }
+  
+
 
   getProfileImage () {
     this.showSpinner = true;

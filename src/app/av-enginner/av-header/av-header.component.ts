@@ -27,17 +27,17 @@ export class AvHeaderComponent implements OnInit {
   showChatbotIcon: boolean = true
   isDialogOpen: boolean = false
   isCommunity: boolean = false
-  isDirectory: boolean = false;
-  isKnowledge: boolean = false;
-  panelOpenState = false;
-  isKnowledgeBaseExpanded: boolean = false;
-  showSpinner: boolean = false;
-  isSimultor: boolean = false;
-  isAbout: boolean = true;
-  isProfile: boolean = false;
-  isFeed: boolean = false;
+  isDirectory: boolean = false
+  isKnowledge: boolean = false
+  panelOpenState = false
+  isKnowledgeBaseExpanded: boolean = false
+  showSpinner: boolean = false
+  isSimultor: boolean = false
+  isAbout: boolean = true
+  isProfile: boolean = false
+  isFeed: boolean = false
   products: any[] = []
-  profileWeight!: number;
+  profileWeight!: number
   inputValue!: string
   twitterUrl!: string
   facebookUrl!: string
@@ -61,17 +61,21 @@ export class AvHeaderComponent implements OnInit {
   }
 
   ngOnInit (): void {
-    this.getProfile();
-    this.userService.getProfileWeight(this.emailId).subscribe(
-      (response : any) => {
-       this.profileWeight = response.profileWeight; 
-       console.log(response)
-      }
-    )
-    
+    this.showSpinner = true
+    this.getProfile()
+    this.userService
+      .getProfileWeight(this.emailId)
+      .subscribe((response: any) => {
+        this.profileWeight = response.profileWeight
+        console.log(response)
+        this.showSpinner = false
+      })
   }
 
   onClick (type: any) {
+    if (type === 'community') {
+      this.router.navigate(['av-community'])
+    }
     this.activeMenuItem = type
     this.isSimultor = type === 'simulator'
     this.isAbout = type === 'about'
@@ -79,12 +83,14 @@ export class AvHeaderComponent implements OnInit {
     this.isKnowledge = type === 'knowledge'
     this.isDirectory = type === 'directory'
     this.isFeed = type === 'feed'
-    this.isCommunity = type === 'community'
+    // this.isCommunity = type === 'community'
   }
 
   getProfile () {
     this.showSpinner = true
-    this.userService.getSocialMediaProfile(this.emailId).subscribe((response: any) => {     
+    this.userService
+      .getSocialMediaProfile(this.emailId)
+      .subscribe((response: any) => {
         this.showSpinner = false
         this.userService.refreshData()
         console.log(response)
@@ -99,7 +105,9 @@ export class AvHeaderComponent implements OnInit {
           this.insertionType = 'saveProfile'
         }
       })
-    this.userService.getProfileImage(this.emailId).subscribe((response: any) => {
+    this.userService
+      .getProfileImage(this.emailId)
+      .subscribe((response: any) => {
         this.showSpinner = false
         this.products = response.records
         console.log(response)
@@ -107,15 +115,12 @@ export class AvHeaderComponent implements OnInit {
   }
 
   getImageSource (): string {
-    this.showSpinner = true
     if (this.products && this.products.length > 0) {
-      this.showSpinner = false;
       this.profileImageType = 'updateImage'
-      return this.products[0].imagePath;
+      return this.products[0].imagePath
     } else {
-      this.showSpinner = false;
       this.profileImageType = 'insertImage'
-      return 'assets/img/empty_Image.png';
+      return 'assets/img/empty_Image.png'
     }
   }
 
@@ -124,33 +129,37 @@ export class AvHeaderComponent implements OnInit {
   }
 
   onFileSelected (event: any) {
-    this.showSpinner = true;
+    this.showSpinner = true
     const file = event.target.files[0]
     const profileData = new FormData()
     if (this.emailId) profileData.append('emailId', this.emailId)
     if (file) profileData.append('image', file)
     if (this.profileImageType === 'insertImage') {
-      this.userService.uploadProfileImage(profileData).subscribe((response: any) => {
-        this.showSpinner = false;
-        this.userService.refreshData()
-        console.log(response)
-     })
+      this.userService
+        .uploadProfileImage(profileData)
+        .subscribe((response: any) => {
+          this.userService.refreshData()
+          console.log(response)
+          this.showSpinner = false
+        })
     } else {
-      this.userService.updateProfileImage(profileData).subscribe((response: any) => {
-         console.log(response);
-         this.showSpinner = false;
-         this.userService.refreshData();
-         window.location.reload()
+      this.userService
+        .updateProfileImage(profileData)
+        .subscribe((response: any) => {
+          console.log(response)
+          this.userService.refreshData()
+          this.showSpinner = false
+          window.location.reload()
         })
     }
     // this.getProfile()
   }
 
   getCart () {
-   let  sessionId = this.authService.getSessionId()
-    const url = '/ekart-page/' + sessionId;
-    const newTabUrl = this.router.serializeUrl(this.router.createUrlTree([url]));
-    window.open(newTabUrl, '_blank');
+    let sessionId = this.authService.getSessionId()
+    const url = '/ekart-page/' + sessionId
+    const newTabUrl = this.router.serializeUrl(this.router.createUrlTree([url]))
+    window.open(newTabUrl, '_blank')
   }
 
   shareOnSocialMedia (media: string) {
@@ -170,26 +179,54 @@ export class AvHeaderComponent implements OnInit {
   }
 
   saveSocialMediaUrl () {
-    const urlRegex = /^(https?:\/\/)?(www\.)?(facebook|twitter|linkedin|instagram)\.com\/.+$/;
+    let urlRegex: RegExp
+    switch (this.CickedsocialMedia) {
+      case 'twitter':
+        urlRegex =
+          /^(https?:\/\/)?(www\.)?twitter\.com\/[a-zA-Z0-9_]{1,15}(\/\w+)*\/?$/
+        break
+      case 'facebook':
+        urlRegex = /^(https?:\/\/)?(www\.)?facebook\.com\/[^/]+$/
+        break
+      case 'instagram':
+        urlRegex =
+          /^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9_\-]+(\/\w+)*\/?$/
+        break
+      case 'linkedin':
+        urlRegex =
+          /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9\-]+(\/\w+)*\/?$/
+        break
+      default:
+        alert('Invalid social media platform')
+        return
+    }
+
     if (!this.inputValue || !urlRegex.test(this.inputValue)) {
-       alert("Invalid URL");
-       return;
+      alert('Invalid URL for ' + this.CickedsocialMedia)
+      return
     }
+
     this.socialMediaUrls[this.CickedsocialMedia] = this.inputValue
-    if (this.CickedsocialMedia === 'twitter') {
-      this.twitterUrl = this.inputValue
-    } else if (this.CickedsocialMedia === 'facebook') {
-      this.facebookUrl = this.inputValue
-    } else if (this.CickedsocialMedia === 'instagram') {
-      this.instagramUrl = this.inputValue
-    } else if (this.CickedsocialMedia === 'linkedin') {
-      this.linkedInUrl = this.inputValue
+    switch (this.CickedsocialMedia) {
+      case 'twitter':
+        this.twitterUrl = this.inputValue
+        break
+      case 'facebook':
+        this.facebookUrl = this.inputValue
+        break
+      case 'instagram':
+        this.instagramUrl = this.inputValue
+        break
+      case 'linkedin':
+        this.linkedInUrl = this.inputValue
+        break
     }
-    this.onSubmit();
+
+    this.onSubmit()
   }
 
   onSubmit () {
-    this.showSpinner = true
+    // this.showSpinner = true
     const profileData = new FormData()
     if (this.emailId) profileData.append('emailId', this.emailId)
     if (this.twitterUrl) profileData.append('twitter', this.twitterUrl)
@@ -200,24 +237,24 @@ export class AvHeaderComponent implements OnInit {
     if (this.insertionType === 'saveProfile') {
       this.userService.uploadSocialMedia(profileData).subscribe(
         (response: any) => {
-          this.showSpinner = false
+          // this.showSpinner = false
           console.log(response.message)
           this.userService.refreshData()
         },
         (error: any) => {
-          this.showSpinner = false
+          // this.showSpinner = false
           console.error('Error occurred while saving profile:', error)
         }
       )
     } else {
       this.userService.updateSocialMedia(profileData).subscribe(
         (response: any) => {
-          this.showSpinner = false
+          // this.showSpinner = false
           console.log(response.message)
           this.userService.refreshData()
         },
         (error: any) => {
-          this.showSpinner = false
+          // this.showSpinner = false
           console.error('Error occurred while updating profile:', error)
         }
       )

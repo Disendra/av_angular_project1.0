@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+ 
+<body>
  <!-- ======= Contact Section ======= -->
  <section id="contact" class="contact">
 
@@ -50,11 +59,11 @@
           <div class="row gy-4">
 
             <div class="col-md-12">
-              <input type="text" name="name" onKeyPress="if(this.value.length==40) return false;" class="form-control" [(ngModel)]="personName" placeholder="Your Name" required>
+              <input type="text" name="personName" onKeyPress="if(this.value.length==40) return false;" class="form-control" [(ngModel)]="personName" placeholder="Your Name" required>
             </div>
 
             <div class="col-md-6 ">
-              <input type="email" class="form-control" onKeyPress="if(this.value.length==40) return false;" name="email" [(ngModel)]="emailId" placeholder="Your Email" required>
+              <input type="email" class="form-control" onKeyPress="if(this.value.length==40) return false;" name="emailId" [(ngModel)]="emailId" placeholder="Your Email" required>
             </div>
 
 
@@ -70,12 +79,20 @@
               <textarea class="form-control" name="message" rows="4" onKeyPress="if(this.value.length==100) return false;" [(ngModel)]="message" placeholder="Message" required></textarea>
             </div>
 
+            <!-- <div class="col-md-12">
+            <re-captcha
+            (resolved)="resolved($event)"
+            siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"
+            formControlName="recaptcha"
+          ></re-captcha>
+           </div> -->
+
             <div class="col-md-12 text-center">
               <div class="loading">Loading</div>
               <div class="error-message"></div>
               <div class="sent-message">Your message has been sent. Thank you!</div>
-
               <button type="submit" [disabled]="!personName || !emailId || !mobileNumber || !subject" (click)="onSubmit()">Send Message</button>
+               <!-- <button type="submit" (click)="onSubmit()">Send Message</button> -->
             </div>
 
           </div>
@@ -84,7 +101,41 @@
       </div>
 
     </div>
-
   </div>
 
+
+
+  <ng-template #myDialog>
+    <mat-dialog-content class="d-flex flex-column align-items-end justify-content-start rounded">
+        <i class="fa fa-close cancel_Icon mb-3" [mat-dialog-close]="true"></i>
+        <div class="row details">
+            <div class="col-md-2 d-flex align-items-center">
+                <i *ngIf="showErrors" class="fa fa-warning mr-2"></i>
+                <i *ngIf="showSuccess" class="fa fa-check-circle mr-2"></i>
+            </div>
+            <div class="col-md-8" style="margin-left: -10px;">
+                <p class="error"> {{ alertSymbol }} </p>
+                <p class="error_message">{{ errorMsg }}</p>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="d-flex justify-content-center" style="margin-top: -20px;">
+        <button [mat-dialog-close]="true" class="btn btn-warning retry_Button" (click)="onClear()">{{ buttonType }}</button>
+    </mat-dialog-actions>
+</ng-template>
+
+
+<ng-template #captcha>
+  <mat-dialog-content class="d-flex flex-column align-items-end justify-content-start rounded">
+    <re-captcha (resolved)="resolved($event)"  siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"  formControlName="recaptcha"></re-captcha>
+  </mat-dialog-content>
+</ng-template>
+
+
+
+<app-spinner *ngIf="showSpinner"></app-spinner>
+
 </section><!-- End Contact Section -->
+
+</body>
+</html>

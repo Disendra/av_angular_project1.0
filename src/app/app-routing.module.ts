@@ -7,6 +7,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component'
 import { EkartComponent } from './ekart/ekart.component'
 import { BussinessCardComponent } from './bussiness-card/bussiness-card.component'
 import { CanActivateService } from './services/can-activate.service'
+import { CommunityPageComponent } from './community-page/community-page.component'
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'login-page/:value', component: LoginPageComponent },
   { path: 'ekart-page/:sessionId', component: EkartComponent },
   { path: 'avEngineer-dashboard/:sessionId', component: AvEnginnerComponent, canActivate: [CanActivateService] },
+  { path: 'av-community', component: CommunityPageComponent, canActivate: [CanActivateService] },
   { path: 'admin-page', component: AdminPageComponent },
   { path: 'bussiness-card/:emailId/:timeStamp', component: BussinessCardComponent },
   // { path: 'av-about', component: AvAboutComponent} 

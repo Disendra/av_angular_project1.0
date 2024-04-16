@@ -32,9 +32,10 @@ body {
 }
 
 .search_Image {
-  width: 11%;
-  border-radius: 52px;
+  width: 45px;
+  border-radius: 76px;
   margin-right: 10px;
+  height: 45px;
 }
 
 .list {
@@ -122,8 +123,10 @@ a.disabled {
 .our-team .picture img {
   width: 100%;
   height: auto;
+  max-height: fit-content;
   /* border-radius: 50%; */
   transform: scale(1);
+  margin-top: 5px;
   transition: all 0.9s ease 0s;
 }
 

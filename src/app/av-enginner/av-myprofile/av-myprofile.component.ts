@@ -176,6 +176,9 @@ export class AvMyprofileComponent implements OnInit {
 }
 
 validateMobileNumber() {
+  if (!this.mobileNumber) {
+      return true;
+  }
   const mobileNumberString = this.mobileNumber.toString();
   if (mobileNumberString.length !== 10) {
       alert('Please enter a valid 10-digit mobile number');
@@ -184,8 +187,9 @@ validateMobileNumber() {
   return true;
 }
 
+
 validateEmail() {
-  const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
+  const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])+/;
   if (!emailRegex.test(this.userEmailId)) {
       alert('Please enter a valid email address');
       return false;

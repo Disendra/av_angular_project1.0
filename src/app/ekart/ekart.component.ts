@@ -4,6 +4,7 @@ import { UserServicesService } from '../services/user-services.service'
 import { AuthServiceService } from '../services/auth-service.service'
 import { Router } from '@angular/router'
 import { image } from 'html2canvas/dist/types/css/types/image'
+import { MatSlideToggleChange } from '@angular/material/slide-toggle'
 
 @Component({
   selector: 'app-ekart',
@@ -101,8 +102,24 @@ export class EkartComponent implements OnInit {
     }
   }
 
+  selectFile(): void {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    } else {
+      console.error("File input element not found.");
+    }
+  }
+  
+
   onFileSelected (event: any) {
     this.selectedFile = event.target.files[0]
+     const file = event.target.files[0];
+    if (file) {
+      this.selectedFileName = file.name;
+    } else {
+      this.selectedFileName = '';
+    }
   }
 
   onUpload () {
@@ -162,24 +179,30 @@ export class EkartComponent implements OnInit {
     })
   }
 
-  checkboxClicked (event: MouseEvent, item: any) {
-    let productStatus = 'soldOut'
-    const confirmation = confirm('Are you sure that product is SoldOut?')
-    if (!confirmation) {
-      return
-    } else {
-      const soldOutData = {
-        slNo: item.slNo,
-        productStatus: productStatus
+  toggleChanged(event: MatSlideToggleChange, item: any) {
+    if (event.checked) {
+      let productStatus = 'soldOut';
+      const confirmation = confirm('Are you sure that product is SoldOut?');
+      if (!confirmation) {
+        // If user cancels, revert toggle state
+        event.source.checked = false;
+        return;
+      } else {
+        const soldOutData = {
+          slNo: item.slNo,
+          productStatus: productStatus
+        };
+        this.userService.soldOut(soldOutData).subscribe((response: any) => {
+          this.userService.refreshData();
+          alert(response.message);
+          this.getUploadProducts();
+        });
       }
-      this.userService.soldOut(soldOutData).subscribe((response: any) => {
-        this.userService.refreshData()
-        alert(response.message)
-        this.getUploadProducts()
-        // window.location.reload();
-      })
     }
   }
+  
+  
+  
 
   get filteredProducts () {
     return this.products.filter(product =>
@@ -253,11 +276,12 @@ export class EkartComponent implements OnInit {
   }
 
   clearInputs () {
-    ;(this.title = ''),
+    (this.title = ''),
       (this.description = ''),
       (this.price = 0),
       (this.mobileNumber = 0),
-      (this.location = '')
+      (this.location = ''),
+      (this.selectedFileName = '')
   }
 
   logOut () {
@@ -266,4 +290,6 @@ export class EkartComponent implements OnInit {
       window.location.reload()
     })
   }
+
+  
 }

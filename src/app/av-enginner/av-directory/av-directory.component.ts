@@ -28,7 +28,7 @@ export class AvDirectoryComponent implements OnInit {
   searchBox: boolean = true
   showSpinner: boolean = false
   filterTerm: string = ''
-  emptyLinks: string = 'Not updated by User'
+  emptyLinks: string = 'The user has not updated'
   pageSizeOptions: number[] = [5, 10, 25, 100]
   @ViewChild(MatPaginator) paginator!: MatPaginator
   constructor (

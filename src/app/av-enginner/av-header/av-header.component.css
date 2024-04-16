@@ -83,12 +83,16 @@ h6 {
   overflow-y: auto;
 }
 
-.profile img {
+.profile .img-fluid {
   width: 100%;
-  max-width: 120px;
-  /* border: 3px solid green; */
+   /* height: 120px; */
+   max-height: 135px;
   margin-bottom: -15px;
+  object-fit: cover; /* Ensure the image covers the entire box */
+  border-radius: 50%; /* Ensure the image is rounded */
 }
+
+
 
 /* Style for the profile weight button */
 .profile_Weight {
@@ -312,7 +316,6 @@ h6 {
 .mobile-nav-active #header {
   left: 0;
 }
-
 
 a.twitter:hover {
   background-color: #55ACEE !important;

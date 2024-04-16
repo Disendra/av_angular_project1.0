@@ -1,0 +1,49 @@
+.details {
+    margin-top: -15px;
+    border-radius: 15px;
+  }
+  
+  .fa-warning {
+    color: orangered;
+    font-size: 40px;
+  }
+
+  .fa-check-circle {
+    color: green;
+    font-size: 40px;
+  }
+
+  .cancel_Icon  {
+    color: red!important;
+  }
+  
+.error_message {
+    width: max-content;
+    margin-top: -10px;
+}
+
+  .error {
+    font-weight: 500;
+    color: black;
+  }
+  
+  .error_headline {
+    font-weight: 600;
+    font-size: 18px;
+    color: black;
+    margin-left: 5px;
+  }
+  
+  .retry_Button {
+    border: none;
+    color: white;
+    margin-left: 10px;
+    height: 35px;
+    width: auto;
+    background: orange;
+  }
+  
+  .btn-success {
+    background: green;
+  }
+  

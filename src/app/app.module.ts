@@ -55,7 +55,9 @@ import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { CommonModule, DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { BussinessCardComponent } from './bussiness-card/bussiness-card.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CommunityPageComponent } from './community-page/community-page.component';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,10 +100,13 @@ import { CommunityPageComponent } from './community-page/community-page.componen
     AppRoutingModule,
     FormsModule,
     MatInputModule,
+    RecaptchaFormsModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    MatSlideToggleModule,
     MatFormFieldModule,
     MatButtonModule,
+    RecaptchaModule,
     MatCheckboxModule,
     HttpClientModule,
     CommonModule,
