@@ -119,59 +119,310 @@
 </header> -->
 
 
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Header</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Font Awesome CSS for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-  <style>
-    /* Custom styles */
-    .profile-img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 </head>
+
 <body>
-  <header class="bg-dark">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="#">Your Logo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-          <form class="form-inline my-2 my-lg-0 mr-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="logo d-flex align-items-center">
+        <!-- <img src="assets/img/disendra-Img.png" alt=""> -->
+        <span class="d-none d-lg-block">Av Tech</span>
+      </a>
+    </div><!-- End Logo -->
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center">
+        <input type="text" name="query" [(ngModel)]="searchQuetion" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle" (click)="toggleSearch()">
+            <i class="bi bi-search"></i>
+          </a>
+        </li>
+        
+        <div *ngIf="showSearch" class="search-box">
+          <form class="search-form d-flex align-items-center">
+            <input type="text" name="query" [(ngModel)]="searchQuetion" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
           </form>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+        </div>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon" (click)="postQuetion()" data-bs-toggle="dropdown">
+            <i class="bi bi-pencil-square"></i>
+          </a><!-- End Notification Icon -->
+          </li>
+
+        <li class="nav-item dropdown header_Icons">
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have {{ notifications.length }} new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="assets/img/disendra-Img.png" alt="Profile" class="profile-img">
-                <span>{{ userName }}</span> <i class="bi bi-chevron-down"></i>
+            <li><hr class="dropdown-divider"></li>
+            <li *ngFor="let notification of notifications" class="notification-item">
+              <i [class]="notification.icon"></i>
+              <div>
+                <h4>{{ notification.title }}</h4>
+                <p>{{ notification.message }}</p>
+                <p>{{ notification.timestamp }}</p>
+              </div>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+          </ul><!-- End Notification Dropdown Items -->
+
+
+        </li><!-- End Notification Nav -->
+
+        <!-- <li class="nav-item dropdown header_Icons">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have {{ messages.length }} new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li *ngFor="let message of messages" class="message-item">
+              <a href="#">
+                <img [src]="message.imageUrl" alt="" class="rounded-circle">
+                <div>
+                  <h4>{{ message.sender }}</h4>
+                  <p>{{ message.message }}</p>
+                  <p>{{ message.timestamp }}</p>
+                </div>
               </a>
             </li>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
           </ul>
-        </div>
-      </nav>
-    </div>
-  </header>
 
-  <!-- Bootstrap JS and dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        </li> -->
+
+        <li class="nav-item dropdown pe-3 header_Icons">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/disendra-Img.png" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"> {{ userName }} </span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{userName}}</h6>
+              <span>{{role}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li> 
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" (click)="onSelect('myPosts')">
+                <i class="bi bi-file-text"></i>
+                <span>My Posts</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" (click)="onSelect('contact')">
+                <i class="bi bi-question-circle"></i>
+                <span>Help</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" (click)="onSelect('logout')">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+  </header><!-- End Header -->
+
+
+
+
+  <div class="content_info" *ngIf="showHomepage || showMyposts">
+    <div class="question" *ngFor="let question of filteredEmails">
+      <div class="profile_Info">
+          <img [src]="question.profile.image" alt="Profile Picture">
+          <div class="username">{{ question.profile.username }}</div>
+      </div>
+      <div class="posted_Date">
+          <p>{{ question.postedDate }}</p>
+      </div>
+      <div class="content">
+          <p class="main_question">{{ question.question }}</p>
+          <div class="comments">
+              <p>Answers:</p>
+              <p>{{ question.answers }}</p>
+              <!-- "More" button to show additional answers -->
+              <button (click)="showAdditionalAnswers(question)" class="more_button">{{ additionalAnswersVisible ? '...Less' : '...More' }}</button>
+              <!-- Additional answers -->
+              <ul *ngIf="additionalAnswersVisible">
+                  <li *ngFor="let addAnswer of additionalAnswers">
+                      <div class="profile_Info">
+                          <img [src]="addAnswer.profile.image" alt="Profile Picture">
+                          <div class="username">{{ addAnswer.profile.username }}</div>
+                      </div>
+                      <p>{{ addAnswer.answers }}</p>
+                  </li>
+              </ul>
+          </div>
+  
+
+
+
+  
+        <div class="vote-container">
+          <div class="vote-item">
+              <mat-icon>thumb_up</mat-icon>
+              <span>{{ question.voteCount.up }}</span>
+          </div>
+          <div class="vote-item">
+              <mat-icon>thumb_down</mat-icon>
+              <span>{{ question.voteCount.down }}</span>
+          </div>
+          <div class="vote-item">
+              <mat-icon>visibility_off</mat-icon>
+              <span>{{ question.voteCount.views }}</span>
+          </div>
+          <div class="vote-item">
+              <mat-icon>comment</mat-icon>
+              <span>{{ question.voteCount.comments }}</span>
+          </div>
+          <div class="vote-item" (click)="expandQuestion(question.slNo)">
+            <mat-icon>reply</mat-icon>
+          </div>
+          <div class="vote-item" *ngIf="showMyposts">
+            <mat-icon>edit</mat-icon>
+            <!-- <span>{{ question.voteCount.comments }}</span> -->
+         </div>
+          <div class="vote-item" *ngIf="showMyposts">
+            <mat-icon>delete</mat-icon>
+            </div>
+        </div>
+      
+      
+    </div>
+    <div *ngIf="isExpanded(question.slNo)" class="share-container">
+        <div class="row mt-2 ml-0 input-box input-group textarea_tools">
+           <div class="col">
+               <textarea cols="100" class="form-control input-sm" placeholder="Share your Answer here..."></textarea>
+               <mat-icon class="txt_Icons">insert_photo</mat-icon>
+               <mat-icon class="txt_Icons txt_link">link</mat-icon>
+           </div>
+       </div>
+       <div class="row">
+           <div class="col text-center">
+               <button class="btn btn-primary">Submit</button>
+           </div>
+       </div>
+   </div>
+</div>
+</div>
+
+
+
+
+<!-- <ng-template #myDialog>
+  <mat-dialog-content>
+    <mat-icon class="cancel_Icon" (click)="closePopup()">cancel_presentation</mat-icon>
+    <div class="form-group">
+      <mat-form-field class="popup_box">
+          <div class="row mt-2 input-box input-group textarea_tools">peka
+          <div class="col pop_txtarea">
+              <textarea cols="100" class="form-control input-sm" name="userQuestion" [(ngModel)]="userQuestion" placeholder="Share your Question here..."></textarea>
+              <mat-icon class="txt_Icons">insert_photo</mat-icon>
+              <mat-icon class="txt_Icons txt_link" (click)="urlExpand()">link</mat-icon>
+              <div class="url_box" *ngIf="showUrlBox">
+              <input type="text" class="form-control input-sm" name="questionURl" [(ngModel)]="questionURl" placeholder="Enter URL">
+              </div>
+          </div>
+          </div>          
+      </mat-form-field>   
+          <div class="col text-end" style="margin-bottom: -15px;">
+              <button class="btn btn-primary">Submit</button>
+      </div>        
+    </div>
+  </mat-dialog-content>
+</ng-template> -->
+
+  <app-contact *ngIf="showContactForm"></app-contact>
+  <app-spinner *ngIf="showSpinner"></app-spinner>
+
+<!-- Dialog template -->
+<ng-template #myDialog>
+  <!-- <h4 matDialogTitle class="mb-0">Social Media Links</h4> -->
+  <mat-dialog-content class="d-flex align-items-center justify-content-center" style="overflow: hidden;">
+    <div class="container custom-dialog-container">
+      <textarea cols="100" class="form-control input-sm" name="userQuestion" [(ngModel)]="userQuestion" placeholder="Share here..."></textarea>
+      <mat-icon class="txt_Icons">insert_photo</mat-icon>
+      <mat-icon class="txt_Icons txt_link" (click)="urlExpand()">link</mat-icon>
+      <div class="url_box" *ngIf="showUrlBox">
+        <input type="text" class="form-control input-sm" name="questionURl" [(ngModel)]="questionURl" placeholder="Enter URL">
+        </div>
+    </div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end" class="mat-buttons">
+        <button mat-dialog-close class="btn warning">Cancel</button>
+        <button [mat-dialog-close]="true" class="btn success">Submit</button>
+      </mat-dialog-actions>
+    </ng-template>
+
+
+
+
 </body>
+
 </html>
+

@@ -2,3 +2,7 @@
     width: 100%!important;
     border-radius: unset!important;
 }
+
+.testimonials {
+    margin-top: -100px;
+}

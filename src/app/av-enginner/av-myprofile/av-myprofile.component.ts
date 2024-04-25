@@ -184,9 +184,12 @@ validateMobileNumber() {
       alert('Please enter a valid 10-digit mobile number');
       return false;
   }
+  if (/(\d)\1{9}/.test(mobileNumberString)) {
+    alert('Mobile number should not have 10 repeating digits');
+    return false;
+  }
   return true;
 }
-
 
 validateEmail() {
   const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])+/;

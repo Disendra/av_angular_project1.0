@@ -2329,7 +2329,8 @@ li::marker {
 @media (max-width: 992px) {
   .footer .footer-top {
     background-position: center bottom;
-  }
+    margin-top: 550px;
+ }
 }
 
 .footer .footer-top .footer-info {

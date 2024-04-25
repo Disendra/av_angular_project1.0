@@ -26,8 +26,12 @@
 			<input type="text" placeholder="Email Address" name="emailId" [(ngModel)]="emailId" required>
 		  </div>
 		  <div class="field">
-			<input type="password" placeholder="Password" name="password" [(ngModel)]="password" required>
+			<input type="{{ showPassword ? 'text' : 'password' }}" placeholder="Password" name="password" [(ngModel)]="password" required>
+			<span class="toggle-password" (click)="togglePasswordVisibility()">
+			  <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+			</span>
 		  </div>
+		  
 		  <div class="pass-link"><a href="#">Forgot password?</a></div>
 		  <div class="field btn">
 			<div class="btn-layer"></div>
@@ -53,11 +57,11 @@
 			<select id="dropdownField" name="role" [(ngModel)]="role" required>
 			  <option value="default" disabled selected>Select Role</option>
 			  <option value="AvEngineer" class="options">AV Engineers</option>
-			  <option value="systemIntegrator" class="options">System Integrator</option>
+			  <!-- <option value="systemIntegrator" class="options">System Integrator</option>
 			  <option value="oem" class="options">OEM</option>
 			  <option value="client" class="options">Client</option>
 			  <option value="consultants" class="options">Consultants</option>
-			  <option value="distributor" class="options">Distributor</option>
+			  <option value="distributor" class="options">Distributor</option> -->
 			</select>
 		  </div>
             <p class="invalid_msg">{{ invalidMsg }}</p>

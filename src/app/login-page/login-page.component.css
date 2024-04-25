@@ -248,8 +248,8 @@ select {
 }
 
 .error_message {
- margin-top: -11px;
- color: black;
+  margin-top: -11px;
+  color: black;
 }
 
 .details {
@@ -257,8 +257,8 @@ select {
   border-radius: 15px;
 }
 
-.cancel_Icon  {
-  color: red!important;
+.cancel_Icon {
+  color: red !important;
 }
 
 .error {
@@ -289,4 +289,21 @@ select {
   font-size: 14px;
   margin-top: 10px;
   font-family: 'Poppins';
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.field {
+  position: relative;
+}
+
+.fa {
+  font-size: 18px;
+  /* color: #aaa; */
 }

@@ -28,12 +28,12 @@ export class ContactComponent {
 
   onSubmit() {
     this.showSpinner = true;
-
+    const isSubjectValid = this.validateSubject('subject');
     const isMobileValid = this.validateMobileNumber();
     const isEmailValid = this.emailId ? this.validateEmail() : true;
-    const isSubjectValid = this.validateSubject('subject');
+    const isNameValid = this.validateName(); 
 
-    if (!isMobileValid || !isEmailValid || !isSubjectValid) {
+    if (!isNameValid || !isEmailValid ||  !isMobileValid || !isSubjectValid) {
         this.showErrors = true;
         this.showSuccess = false;
         this.showSpinner = false;
@@ -52,8 +52,22 @@ validateMobileNumber() {
         this.errorMsg = 'Please enter a valid mobile number';
         return false;
     }
+     // Check for repeating digits
+     if (/(\d)\1{9}/.test(mobileNumberString)) {
+        this.errorMsg = 'Mobile number should not have 10 repeating digits';
+        return false;
+    }
     return true;
 }
+
+validateName() {
+    if (this.personName.length < 3) {
+        this.errorMsg = 'Please enter a Name with at least 3 characters';
+        return false;
+    }
+    return true;
+}
+
 
 validateEmail() {
     const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;

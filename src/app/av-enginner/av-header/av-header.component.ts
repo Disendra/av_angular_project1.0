@@ -202,7 +202,7 @@ export class AvHeaderComponent implements OnInit {
     }
 
     if (!this.inputValue || !urlRegex.test(this.inputValue)) {
-      alert('Invalid URL for ' + this.CickedsocialMedia)
+      alert('Invalid URL');
       return
     }
 

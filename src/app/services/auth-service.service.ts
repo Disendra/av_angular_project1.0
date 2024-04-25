@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core'
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private readonly EMAIL_KEY = 'loggedInEmail';
-  private readonly user_Name = 'loggedInuserName';
-  private readonly sessionIdKey = 'sessionId';
-  private readonly OPENED_EMAILS_KEY = 'openedEmails';
+  private readonly EMAIL_KEY = 'loggedInEmail'
+  private readonly user_Name = 'loggedInuserName'
+  private readonly sessionIdKey = 'sessionId'
+  private readonly OPENED_EMAILS_KEY = 'openedEmails'
 
   constructor () {}
 
@@ -35,20 +35,20 @@ export class AuthServiceService {
     return localStorage.getItem(this.sessionIdKey)
   }
 
-  markEmailAsOpened(emailTitle: string) {
-    const openedEmails = this.getOpenedEmails();
-    openedEmails.push(emailTitle);
-    sessionStorage.setItem(this.OPENED_EMAILS_KEY, JSON.stringify(openedEmails));
+  markEmailAsOpened (emailTitle: string) {
+    const openedEmails = this.getOpenedEmails()
+    openedEmails.push(emailTitle)
+    sessionStorage.setItem(this.OPENED_EMAILS_KEY, JSON.stringify(openedEmails))
   }
 
-  isEmailOpened(emailTitle: string): boolean {
-    const openedEmails = this.getOpenedEmails();
-    return openedEmails.includes(emailTitle);
+  isEmailOpened (emailTitle: string): boolean {
+    const openedEmails = this.getOpenedEmails()
+    return openedEmails.includes(emailTitle)
   }
 
-  private getOpenedEmails(): string[] {
-    const openedEmailsJSON = sessionStorage.getItem(this.OPENED_EMAILS_KEY);
-    return openedEmailsJSON ? JSON.parse(openedEmailsJSON) : [];
+  private getOpenedEmails (): string[] {
+    const openedEmailsJSON = sessionStorage.getItem(this.OPENED_EMAILS_KEY)
+    return openedEmailsJSON ? JSON.parse(openedEmailsJSON) : []
   }
 
   clearLoggedInEmail () {

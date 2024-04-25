@@ -30,6 +30,7 @@ export class LoginPageComponent implements OnInit {
   showSpinner: boolean = false
   receiveEmailsChecked: boolean = false
   nameSearchableChecked: boolean = false
+  showPassword: boolean = false
   @ViewChild('signUp') signUp!: TemplateRef<any>
   @ViewChild('myDialog') myDialog!: TemplateRef<any>
 
@@ -59,7 +60,7 @@ export class LoginPageComponent implements OnInit {
   // ) {}
   ngOnInit () {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/avEngineer-dashboard']);
+      this.router.navigate(['/avEngineer-dashboard'])
     }
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -88,8 +89,12 @@ export class LoginPageComponent implements OnInit {
     this.isSignup = false
   }
 
+  togglePasswordVisibility (): void {
+    this.showPassword = !this.showPassword
+  }
+
   onSubmit () {
-    this.showSpinner = true;
+    this.showSpinner = true
     if (this.emailId === 'abc@gmail.com' && this.password === '1234') {
       this.router.navigate(['/admin-page'])
     } else {
@@ -101,28 +106,15 @@ export class LoginPageComponent implements OnInit {
             if (response.status) {
               let emailId = response.records[0].emailId // Corrected
               let userName = response.records[0].userName // Corrected
-              let sessionId = response.sessionId;
+              let sessionId = response.sessionId
               this.authService.saveLoggedInEmail(emailId)
               this.authService.saveUserName(userName)
-              this.authService.saveSessionId(sessionId);
-              if (this.receivedValue === 'Dashboard') {
-                const url = '/avEngineer-dashboard/' + sessionId;
-                this.router.navigate([url]);
-              } else {
-                // this.router.navigate(['/ekart-page']);
-                const url = '/ekart-page/' + sessionId;
-                this.router.navigate([url]);
-              }
+              this.authService.saveSessionId(sessionId)
+              this.navigateBasedOnReceivedValue(sessionId);
             }
           },
           (error: any) => {
-            if (error && error.message && error.error && error.error.message) {
-              this.errorMsg = error.error.message
-            } else {
-              console.error('Error:', error)
-              this.errorMsg = 'An error occurred. Please try again later.'
-            }
-            this.popup.openDialogWithTemplateRef(this.myDialog)
+            this.handleError(error);
           }
         )
         .add(() => {
@@ -181,30 +173,22 @@ export class LoginPageComponent implements OnInit {
               this.invalidMsg = ''
               let emailId = this.emailId // Corrected
               let userName = this.userName // Corrected
-              let sessionId = response.sessionId;
+              let sessionId = response.sessionId
               this.authService.saveLoggedInEmail(emailId)
-              this.authService.saveUserName(userName);
-              this.authService.saveSessionId(sessionId);
-              
+              this.authService.saveUserName(userName)
+              this.authService.saveSessionId(sessionId)
+
               alert(response.message)
-              if (this.receivedValue === 'Dashboard') {
-                const url = '/avEngineer-dashboard/' + sessionId;
-                this.router.navigate([url]);
-              } else {
-                const url = '/ekart-page/' + sessionId;
-                this.router.navigate([url]);
-              }
-            } else {
+              this.navigateBasedOnReceivedValue(sessionId)
+            }
+             else {
               alert(
                 response.message || 'An error occurred. Please try again later.'
               )
             }
           },
           (error: any) => {
-            console.error('Error:', error)
-            this.invalidMsg =
-              error.error.message ||
-              'An error occurred. Please try again later.'
+            this.handleError(error);
           }
         )
         .add(() => {
@@ -213,6 +197,32 @@ export class LoginPageComponent implements OnInit {
     } else {
       alert('Please check both checkboxes before confirming.')
     }
+  }
+
+  navigateBasedOnReceivedValue(sessionId: string) {
+    let url: string;
+    switch (this.receivedValue) {
+      case 'Dashboard':
+        url = '/avEngineer-dashboard/';
+        break;
+      case 'eKart':
+        url = '/ekart-page/';
+        break;
+      default:
+        url = '/avCommunity/';
+        break;
+    }
+    this.router.navigate([url + sessionId]);
+  }
+
+  handleError(error: any) {
+    if (error && error.error && error.error.message) {
+      this.errorMsg = error.error.message;
+    } else {
+      console.error('Error:', error);
+      this.errorMsg = 'An error occurred. Please try again later.';
+    }
+    this.popup.openDialogWithTemplateRef(this.myDialog);
   }
 
   isValidEmail (email: string): boolean {

@@ -91,7 +91,7 @@ strong {
 }
 
 .red-asterisk {
-    color: red!important;
+    color: red !important;
 }
 
 .no-records {
@@ -136,6 +136,18 @@ a {
     outline: none;
 }
 
+.bi-box-arrow-right {
+    color: red;
+  }
+
+.bi-question-circle {
+    color: orange;
+}
+
+.bi-file-text {
+  color: blue;
+}
+
 @media (min-width: 1201px) {
     .custom_container {
         margin-left: 25%;
@@ -151,12 +163,6 @@ a {
         width: 88%;
     }
 }
-
-
-
-
-
-
 
 /* 
 @media (max-width: 1200px) {

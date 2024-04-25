@@ -5,6 +5,7 @@ import { AuthServiceService } from '../services/auth-service.service'
 import { Router } from '@angular/router'
 import { image } from 'html2canvas/dist/types/css/types/image'
 import { MatSlideToggleChange } from '@angular/material/slide-toggle'
+import { PopupService } from '../services/popup.service'
 
 @Component({
   selector: 'app-ekart',
@@ -24,11 +25,13 @@ export class EkartComponent implements OnInit {
   products: any[] = []
   profileImg: any[] = []
   showUpload: boolean = false
-  showContact: boolean = false
   showSpinner: boolean = false
+  showContact: boolean = false
   showFile: boolean = true
   showCart: boolean = false
   showProducts: boolean = true
+  showSearch: boolean = false
+  showContactForm: boolean = false
   selectedItem: any
   searchText: string = ''
   sellerButton: string = 'Upload'
@@ -38,7 +41,7 @@ export class EkartComponent implements OnInit {
   insertionType: any
 
   constructor (
-    private dialog: MatDialog,
+    private popup: PopupService,
     private userService: UserServicesService,
     private router: Router,
     private authService: AuthServiceService
@@ -50,13 +53,22 @@ export class EkartComponent implements OnInit {
     this.getProfileImage()
   }
 
+  toggleSearch () {
+    this.showSearch = !this.showSearch
+  }
+
   onSelect (option: any): void {
     if (option === 'myPosts') {
       this.getUploadProducts()
       this.showCart = true
       this.showProducts = false
+      this.showContactForm = false
     } else if (option === 'products') {
       window.location.reload()
+    } else if (option === 'contact') {
+      this.showContactForm = true
+      this.showCart = false
+      this.showProducts = false
     } else {
       this.logOut()
     }
@@ -66,17 +78,17 @@ export class EkartComponent implements OnInit {
     this.showSpinner = true
     this.userService.getUploadData(this.emailId).subscribe(response => {
       console.log(response)
-      this.showSpinner = false
       this.products = response.records
+      this.showSpinner = false
     })
   }
 
   getCartData () {
     this.showSpinner = true
     this.userService.getCartData().subscribe((response: any) => {
-      this.showSpinner = false
       this.products = response.records
       console.log(response)
+      this.showSpinner = false
     })
   }
 
@@ -92,40 +104,35 @@ export class EkartComponent implements OnInit {
   }
 
   getImageSource (): string {
-    this.showSpinner = true
     if (this.profileImg && this.profileImg.length > 0) {
-      this.showSpinner = false
       return this.profileImg[0].imagePath
     } else {
-      this.showSpinner = false
       return '../assets/img/blank-user-directory.png'
     }
   }
 
-  selectFile(): void {
-    const fileInput = document.getElementById('fileInput');
+  selectFile (): void {
+    const fileInput = document.getElementById('fileInput')
     if (fileInput) {
-      fileInput.click();
+      fileInput.click()
     } else {
-      console.error("File input element not found.");
+      console.error('File input element not found.')
     }
   }
-  
 
   onFileSelected (event: any) {
     this.selectedFile = event.target.files[0]
-     const file = event.target.files[0];
+    const file = event.target.files[0]
     if (file) {
-      this.selectedFileName = file.name;
+      this.selectedFileName = file.name
     } else {
-      this.selectedFileName = '';
+      this.selectedFileName = ''
     }
   }
 
   onUpload () {
     if (this.insertionType === 'insertProduct') {
-      this.showSpinner = true // Show spinner before making HTTP request
-      // this.showFile = true;
+      this.showSpinner = true
       const formData = new FormData()
       formData.append('emailId', this.emailId)
       formData.append('title', this.title)
@@ -137,7 +144,7 @@ export class EkartComponent implements OnInit {
       formData.append('userName', this.userName)
       this.userService.insertCart(formData).subscribe((response: any) => {
         console.log('Response from server:', response)
-        this.showSpinner = false // Hide spinner after receiving response
+        this.showSpinner = false
         if (response && response.status) {
           // alert(response.message)
           // window.location.reload()
@@ -154,7 +161,7 @@ export class EkartComponent implements OnInit {
   }
 
   updateProducts () {
-    this.showSpinner = true // Show spinner before making HTTP request
+    this.showSpinner = true
     const formData = new FormData()
     formData.append('emailId', this.emailId)
     formData.append('title', this.title)
@@ -167,8 +174,6 @@ export class EkartComponent implements OnInit {
     this.userService.updateCartData(formData).subscribe((response: any) => {
       console.log('Response from server:', response)
       if (response && response.status) {
-        // alert(response.message)
-        // window.location.reload()
         this.userService.refreshData()
         this.showSpinner = false
         alert(response.message)
@@ -179,30 +184,27 @@ export class EkartComponent implements OnInit {
     })
   }
 
-  toggleChanged(event: MatSlideToggleChange, item: any) {
+  toggleChanged (event: MatSlideToggleChange, item: any) {
     if (event.checked) {
-      let productStatus = 'soldOut';
-      const confirmation = confirm('Are you sure that product is SoldOut?');
+      let productStatus = 'soldOut'
+      const confirmation = confirm('Are you sure that product is SoldOut?')
       if (!confirmation) {
         // If user cancels, revert toggle state
-        event.source.checked = false;
-        return;
+        event.source.checked = false
+        return
       } else {
         const soldOutData = {
           slNo: item.slNo,
           productStatus: productStatus
-        };
+        }
         this.userService.soldOut(soldOutData).subscribe((response: any) => {
-          this.userService.refreshData();
-          alert(response.message);
-          this.getUploadProducts();
-        });
+          this.userService.refreshData()
+          alert(response.message)
+          this.getUploadProducts()
+        })
       }
     }
   }
-  
-  
-  
 
   get filteredProducts () {
     return this.products.filter(product =>
@@ -212,6 +214,7 @@ export class EkartComponent implements OnInit {
 
   deleteItem (item: any) {
     console.log(item)
+    this.showSpinner = true
     const productData = {
       emailId: item.emailId,
       postedDate: item.postedDate,
@@ -219,14 +222,12 @@ export class EkartComponent implements OnInit {
     }
     const confirmation = confirm('Are you sure you want to delete the Product?')
     if (!confirmation) {
-      return // Exit the function if user cancels the operation
+      return
     }
     this.userService.deleteCartData(productData).subscribe((response: any) => {
       console.log('Response from server:', response)
-      this.showSpinner = false // Hide spinner after receiving response
+      this.showSpinner = false
       if (response && response.status) {
-        // alert(response.message)
-        // window.location.reload()
         this.userService.refreshData()
         alert(response.message)
         this.getUploadProducts()
@@ -250,7 +251,7 @@ export class EkartComponent implements OnInit {
   }
 
   selectedProduct (index: any) {
-    this.openDialogWithTemplateRef(this.onContact)
+    this.popup.openDialogWithTemplateRef(this.onContact)
     console.log(index)
     this.selectedItem = [index]
   }
@@ -264,19 +265,17 @@ export class EkartComponent implements OnInit {
       this.insertionType = type
       this.sellerButton = 'Update'
     }
-    this.openDialogWithTemplateRef(this.sellerForm)
+    this.popup.openDialogWithTemplateRef(this.sellerForm)
   }
 
-  openDialogWithTemplateRef (templateRef: TemplateRef<any>) {
-    if (templateRef) {
-      this.dialog.open(templateRef)
-    } else {
-      console.error('TemplateRef is undefined')
-    }
+   isValidMobileNumber(): boolean {
+    const mobileStr = this.mobileNumber.toString();
+    const repeatedPattern = /(\d)\1{9}/;  
+    return mobileStr.length === 10 && !repeatedPattern.test(mobileStr);
   }
 
   clearInputs () {
-    (this.title = ''),
+    ;(this.title = ''),
       (this.description = ''),
       (this.price = 0),
       (this.mobileNumber = 0),
@@ -290,6 +289,4 @@ export class EkartComponent implements OnInit {
       window.location.reload()
     })
   }
-
-  
 }

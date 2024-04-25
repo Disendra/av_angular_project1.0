@@ -19,9 +19,12 @@ export class HeaderComponent {
     let value
     if (option === 'dashboardLogin') {
       value = 'Dashboard'
-    } else {
+    } else if(option === 'ekartLogin') {
       value = 'eKart'
+    } else {
+      value= 'community';
     }
+     
     this.router.navigate(['/login-page', value])
   }
 }
