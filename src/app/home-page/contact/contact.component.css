@@ -1,4 +1,4 @@
-.details {
+/* .details {
     margin-top: -15px;
     border-radius: 15px;
   }
@@ -46,4 +46,31 @@
   .btn-success {
     background: green;
   }
+   */
+
+   .info-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
   
+  .info-box p {
+    margin-bottom: 0; /* Remove bottom margin on paragraph */
+  }
+  
+.mat_Icon {
+  font-size: 26px;
+}
+
+.popup-msg {
+  margin-top: -10px;
+}
+
+@media (min-width: 1201px) {
+.popup_text {
+margin-left: -15px;
+}
+}

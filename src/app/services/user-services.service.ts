@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs';
 
@@ -6,8 +6,10 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserServicesService {
-  url = 'https://av-nodejs.onrender.com'
-
+  // url = 'https://av-nodejs.onrender.com'
+  
+  url = 'http://10.0.0.68:3000';
+  
   // url = 'http://localhost:3000'
 
   private refreshData$ = new Subject<void>();
@@ -62,12 +64,16 @@ export class UserServicesService {
     return this.http.get<any>(`${this.url}/getProfileWeight/${emailId}`)
   }
 
-  getCartData () {
-    return this.http.get(`${this.url}/getCartData`)
+  getCartData(offset: number, searchText: string) {
+    const params = new HttpParams()
+      .set('offset', offset.toString())
+      .set('searchText', searchText);
+    return this.http.get<any>(`${this.url}/getCartData`, { params });
   }
 
-  getUploadData (emailId: string) {
-    return this.http.get<any>(`${this.url}/getUploadData/${emailId}`)
+    getUploadData(emailId: string, offset: any) {
+      const params = new HttpParams().set('offset', offset.toString());
+      return this.http.get<any>(`${this.url}/getUploadData/${emailId}`, { params });
   }
 
   insertCart (data: FormData) {

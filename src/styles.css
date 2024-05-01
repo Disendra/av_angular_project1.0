@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
+/* 
 html, body {
     height: 100%;
 }
@@ -18,17 +17,14 @@ strong {
     background-color: white;
     color: black;
     padding: 5px 28px;
-    /* Adjust top and bottom padding */
     font-size: 16px;
     cursor: pointer;
     text-align: center;
     width: 100px;
-    /* Center text */
     margin-left: 5px;
     font-weight: 500;
 }
 
-/* Green */
 .success {
     border-color: #04AA6D;
     color: green;
@@ -39,7 +35,6 @@ strong {
     color: white;
 }
 
-/* Blue */
 .info {
     border-color: #2196F3;
     color: dodgerblue;
@@ -50,7 +45,6 @@ strong {
     color: white;
 }
 
-/* Orange */
 .warning {
     border-color: #ff9800;
     color: orange;
@@ -61,13 +55,6 @@ strong {
     color: white;
 }
 
-/* .arrow-Icon {
-    position: absolute;
-    top: 7px;
-    left: 23%;
-    color: orange;
-    cursor: pointer;
-  } */
 
 .arrow_Container {
     display: flex;
@@ -82,7 +69,6 @@ strong {
     height: 30px;
     margin-bottom: 7px;
     border-radius: 50%;
-    /* background-color: #ccc; */
     display: flex;
     background: black;
     align-items: center;
@@ -151,7 +137,6 @@ a {
 @media (min-width: 1201px) {
     .custom_container {
         margin-left: 25%;
-        /* border: 1px solid; */
         width: 74%;
     }
 }
@@ -159,15 +144,83 @@ a {
 @media (max-width: 767px) {
     .custom_container {
         margin-left: 8%;
-        /* border: 1px solid; */
         width: 88%;
     }
+} */
+
+
+.popup-msg {
+    white-space: nowrap;
+    color: black;
+    /* overflow: hidden;
+    text-overflow: ellipsis; */
 }
 
-/* 
-@media (max-width: 1200px) {
-    .arrow_Container {
-        display: flex;
-        padding-left: 17%;
-    }
-  } */
+a {
+    cursor: pointer;
+}
+
+.oops_error {
+    font-weight: 500;
+    margin-bottom: 0px !important;
+    color: black;
+}
+
+.cancel_Icon {
+    color: red;
+    margin-left: 120%;
+}
+
+.error_msg {
+    color: indianred;
+}
+
+.success_msg {
+    color: green;
+}
+
+.error_header {
+    color: black;
+    font-weight: 500;
+}
+
+
+.arrow_Container {
+    display: flex;
+    padding-left: 26%;
+    margin-top: 5px;
+}
+
+.arrow-Icon {
+    color: white;
+    cursor: pointer;
+    margin-top: 7px;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 7px;
+    border-radius: 50%;
+    display: flex;
+    background: black;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.bi-box-arrow-right {
+    color: red;
+    margin-right: 5px;
+}
+
+.bi-file-text {
+    color: blue;
+    margin-right: 5px;
+}
+
+.bi-question-circle {
+    color: green;
+    margin-right: 5px;
+}
+
+.button_left {
+    margin-left: 10px;
+}

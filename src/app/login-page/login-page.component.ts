@@ -123,35 +123,24 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  onSignUp () {
-    this.invalidMsg = ''
-    let isValid = true
+  onSignUp() {
+    this.invalidMsg = '';
 
-    if (!this.isValidEmail(this.emailId)) {
-      this.invalidMsg = 'Please enter a valid email address.'
-      isValid = false
+    if (this.userName.length < 3) {
+        this.invalidMsg = 'Username must be at least 3 characters.';
+    } else if (!this.isValidEmail(this.emailId)) {
+        this.invalidMsg = 'Please enter a valid email address.';
+    } else if (this.password !== this.reEnteredPswd) {
+        this.invalidMsg = 'Passwords do not match.';
+    } else if (!this.isValidPassword(this.password)) {
+        this.invalidMsg = 'Password must be at least 8 characters.';
+    } else if (!this.isValidPassword(this.role)) {
+        this.invalidMsg = 'Please Select the Role.';
+    } else {
+        this.popup.openDialogWithTemplateRef(this.signUp);
+        return;
     }
-
-    if (this.password !== this.reEnteredPswd) {
-      this.invalidMsg = 'Passwords do not match.'
-      isValid = false
-    }
-
-    if (!this.isValidPassword(this.role)) {
-      this.invalidMsg = 'Plese Select the Role'
-      isValid = false
-    }
-
-    if (!this.isValidPassword(this.password)) {
-      this.invalidMsg = 'Password must be at least 8 characters long.'
-      isValid = false
-    }
-
-    if (!isValid) {
-      return
-    }
-    this.popup.openDialogWithTemplateRef(this.signUp)
-  }
+}
 
   onConfirmSignUp () {
     if (this.receiveEmailsChecked && this.nameSearchableChecked) {
@@ -209,7 +198,7 @@ export class LoginPageComponent implements OnInit {
         url = '/ekart-page/';
         break;
       default:
-        url = '/avCommunity/';
+        url = '/av-Community/';
         break;
     }
     this.router.navigate([url + sessionId]);

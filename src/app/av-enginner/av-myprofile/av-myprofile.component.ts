@@ -118,10 +118,12 @@ export class AvMyprofileComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.validateUserName()) {
+      return;
+  }
     if (!this.validateMobileNumber()) {
       return;
   }
-    // Only validate email if it's provided
     if (this.userEmailId && !this.validateEmail()) {
       return;
     }
@@ -175,13 +177,24 @@ export class AvMyprofileComponent implements OnInit {
     }
 }
 
+validateUserName() {
+  if (!this.userName) {
+      return true;
+  }
+  if (this.userName.length < 3) {
+      alert('Please enter a Name with at least 3 characters');
+      return false;
+  }
+  return true;
+}
+
 validateMobileNumber() {
   if (!this.mobileNumber) {
       return true;
   }
   const mobileNumberString = this.mobileNumber.toString();
   if (mobileNumberString.length !== 10) {
-      alert('Please enter a valid 10-digit mobile number');
+      alert('Invalid Mobile Number');
       return false;
   }
   if (/(\d)\1{9}/.test(mobileNumberString)) {

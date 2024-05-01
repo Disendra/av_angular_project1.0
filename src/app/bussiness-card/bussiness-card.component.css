@@ -11,7 +11,7 @@
     width: 36%;
     border-radius: 15px;
     margin-left: 41%;
-    box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.56), 0 0 0 1px rgba(0, 0, 0, 0.3); */
     background: black;
     display: flex;
     align-items: center;
@@ -89,8 +89,6 @@ qrcode {
     color: #fff;
 }
 
-
-
 .fa-download {
     color: green;
 }
@@ -109,6 +107,11 @@ qrcode {
 
 .emoji_img {
     margin-left: -35px;
+}
+
+.cancel_Icon {
+    margin-left: 94%;
+    margin-bottom: 15px;
 }
 
 @media (max-width: 1200px) {
@@ -148,7 +151,12 @@ qrcode {
         margin-top: 50% !important;
         height: 225px !important;
         width: 85% !important;
-        margin-left: 9% !important;
+        margin-left: 7% !important;
+    }
+
+    .mobile_img {
+        width: 68px;
+        margin-left: 50%;
     }
 
     qrcode {

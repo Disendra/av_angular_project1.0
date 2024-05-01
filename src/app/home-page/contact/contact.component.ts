@@ -37,7 +37,7 @@ export class ContactComponent {
         this.showErrors = true;
         this.showSuccess = false;
         this.showSpinner = false;
-        this.alertSymbol = 'Oops!';
+        this.alertSymbol = 'OOPS!';
         this.buttonType = 'Retry';
         this.popup.openDialogWithTemplateRef(this.myDialog);
         return;
@@ -68,7 +68,6 @@ validateName() {
     return true;
 }
 
-
 validateEmail() {
     const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/;
     if (!emailRegex.test(this.emailId)) {
@@ -80,7 +79,7 @@ validateEmail() {
 
 validateSubject(type: string) {
     if (this.subject.length < 20) {
-        this.errorMsg = 'Please enter a ' + type + ' with at least 20 characters';
+        this.errorMsg = 'Please enter a subject with 20 characters';
         return false;
     }
     return true;
@@ -100,6 +99,18 @@ resolved(captchaResponse: string | null) {
         console.log('Captcha response is null');
     }
 }
+
+validateInput(event: any) {
+    const pattern = /[^a-zA-Z\s]/g;
+    event.target.value = event.target.value.replace(pattern, ''); 
+    this.personName = event.target.value;
+  }
+
+  validateMobileInput(event: any) {
+    const pattern = /[^0-9]/g;
+    event.target.value = event.target.value.replace(pattern, '');
+    this.mobileNumber = event.target.value; 
+  }
 
 submitForm() {
     const contactData = {

@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
- 
-<body>
  <!-- ======= Contact Section ======= -->
  <section id="contact" class="contact">
 
   <div class="container" data-aos="fade-up">
 
     <header class="section-header">
-      <!-- <h2>Contact</h2> -->
+      <h2>Contact</h2>
       <p>Contact Us</p>
     </header>
 
@@ -33,21 +24,21 @@
             <div class="info-box">
               <i class="bi bi-telephone"></i>
               <h3>Call Us</h3>
-              <p>+91 9966416417</p><br><br><br>
+              <p>+91 9966416417</p>
             </div>
           </div>
           <div class="col-md-6">
             <div class="info-box">
               <i class="bi bi-envelope"></i>
               <h3>Email Us</h3>
-              <p>info&#64;example.com<br>contact&#64;example.com</p>
+              <p>info@example.com<br>contact@example.com</p>
             </div>
           </div>
           <div class="col-md-6">
             <div class="info-box">
               <i class="bi bi-clock"></i>
               <h3>Open Hours</h3>
-              <p>Monday - Friday<br>9:00AM - 06:00PM</p>
+              <p>Monday - Friday<br>9:00AM - 05:00PM</p>
             </div>
           </div>
         </div>
@@ -59,16 +50,15 @@
           <div class="row gy-4">
 
             <div class="col-md-12">
-              <input type="text" name="personName" onKeyPress="if(this.value.length==40) return false;" class="form-control" [(ngModel)]="personName" placeholder="Your Name" required>
+              <input type="text" name="personName" onKeyPress="if(this.value.length==40) return false;" class="form-control" (input)="validateInput($event)" [(ngModel)]="personName" placeholder="Your Name" required>
             </div>
 
             <div class="col-md-6 ">
               <input type="email" class="form-control" onKeyPress="if(this.value.length==40) return false;" name="emailId" [(ngModel)]="emailId" placeholder="Your Email" required>
             </div>
 
-
             <div class="col-md-6">
-              <input type="text" class="form-control" name="MobileNumber" maxlength="10" [(ngModel)]="mobileNumber" placeholder="Mobile Number" required>
+              <input type="text" class="form-control" name="MobileNumber" maxlength="10" [(ngModel)]="mobileNumber" (input)="validateMobileInput($event)" placeholder="Mobile Number" required>
             </div>
 
             <div class="col-md-12">
@@ -79,43 +69,31 @@
               <textarea class="form-control" name="message" rows="4" onKeyPress="if(this.value.length==100) return false;" [(ngModel)]="message" placeholder="Message" required></textarea>
             </div>
 
-            <!-- <div class="col-md-12">
-            <re-captcha
-            (resolved)="resolved($event)"
-            siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"
-            formControlName="recaptcha"
-          ></re-captcha>
-           </div> -->
-
             <div class="col-md-12 text-center">
               <div class="loading">Loading</div>
               <div class="error-message"></div>
               <div class="sent-message">Your message has been sent. Thank you!</div>
               <button type="submit" [disabled]="!personName || !emailId || !mobileNumber || !subject" (click)="onSubmit()">Send Message</button>
-               <!-- <button type="submit" (click)="onSubmit()">Send Message</button> -->
             </div>
 
           </div>
         </form>
-
       </div>
 
     </div>
   </div>
-
-
 
   <ng-template #myDialog>
     <mat-dialog-content class="d-flex flex-column align-items-end justify-content-start rounded">
         <i class="fa fa-close cancel_Icon mb-3" [mat-dialog-close]="true"></i>
         <div class="row details">
             <div class="col-md-2 d-flex align-items-center">
-                <i *ngIf="showErrors" class="fa fa-warning mr-2"></i>
-                <i *ngIf="showSuccess" class="fa fa-check-circle mr-2"></i>
+               <span *ngIf="showErrors" class="error_msg"><mat-icon class="mat_Icon">warning</mat-icon></span>
+               <span *ngIf="showSuccess" class="success_msg"><mat-icon class="mat_Icon">check_circle</mat-icon></span>
             </div>
-            <div class="col-md-8" style="margin-left: -10px;">
-                <p class="error"> {{ alertSymbol }} </p>
-                <p class="error_message">{{ errorMsg }}</p>
+            <div class="col-md-8 popup_text">
+                <p class="error_header"> {{ alertSymbol }} </p>
+                <p class="popup-msg">{{ errorMsg }}</p>
             </div>
         </div>
     </mat-dialog-content>
@@ -127,15 +105,10 @@
 
 <ng-template #captcha>
   <mat-dialog-content class="d-flex flex-column align-items-end justify-content-start rounded">
-    <re-captcha (resolved)="resolved($event)"  siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"  formControlName="recaptcha"></re-captcha>
+    <re-captcha (resolved)="resolved($event)" siteKey="6Lfa-8spAAAAAKLel4ttg3wgR9iAyi6C3Ls8924k"  formControlName="recaptcha"></re-captcha>
   </mat-dialog-content>
 </ng-template>
-
-
 
 <app-spinner *ngIf="showSpinner"></app-spinner>
 
 </section><!-- End Contact Section -->
-
-</body>
-</html>

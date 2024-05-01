@@ -12,6 +12,7 @@ import { DOCUMENT, Location } from '@angular/common' // Import Location
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { AuthServiceService } from '../services/auth-service.service'
 import { UserServicesService } from '../services/user-services.service'
+import * as CryptoJS from 'crypto-js'
 
 @Component({
   selector: 'app-bussiness-card',
@@ -32,6 +33,7 @@ export class BussinessCardComponent implements OnInit {
   designation!: string
   companyName!: string
   emailId: any
+  key = 'encrypt!135790'
   linkedIn: string = 'https://www.linkedin.com/in/disendra-yadav-b6b1a9220'
   instagram: string = 'https://www.instagram.com/'
   @ViewChild('myDialog') myDialog!: TemplateRef<any>
@@ -52,25 +54,28 @@ export class BussinessCardComponent implements OnInit {
     })
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       if (params['emailId']) {
-        this.emailId = params['emailId']
+        const encodedString = params['emailId'];
+        const decryptedString = this.decrypt(decodeURIComponent(encodedString));
+        this.emailId = decryptedString;
       } else {
-        this.emailId = this.authSerice.getLoggedInEmail()
+        this.emailId = this.authSerice.getLoggedInEmail();
       }
-      this.getBussinessData()
-    })
-    this.urlLink =
-      this.document.location.origin +
-      '/bussiness-card' +
-      '/' +
-      this.emailId +
-      '/' +
-      Date.now()
-    console.log(
-      this.urlLink + '/bussiness-card' + '/' + this.emailId + '/' + Date.now()
-    )
+      this.getBussinessData();
+    });
+
+    const encryptedString = encodeURIComponent(this.encrypt(this.emailId));
+    this.urlLink = this.document.location.origin + '/bussiness-card/' + encryptedString;
+  }
+
+  encrypt(emailId: string): string {
+    return CryptoJS.AES.encrypt(emailId, this.key).toString();
+  }
+
+  decrypt(passwordToDecrypt: string): string {
+    return CryptoJS.AES.decrypt(passwordToDecrypt, this.key).toString(CryptoJS.enc.Utf8);
   }
 
   applyCustomCss () {

@@ -7,54 +7,19 @@
 </head>
 <body>
 
-  <!-- <header class="header_section">
-    <div class="header_top">
-      <div class="container-fluid">
-        <div class="top_nav_container">
-          <div class="contact_nav">
-            <h1>AV Tech</h1>
-          </div>
-          <form class="search_form">
-            <input type="text" class="filter_box" placeholder="Search products..." name="searchText" [(ngModel)]="searchText"/>
-            <button class="" type="submit">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </form>
-          <div class="user_option_box">
-            <a class="cart-link" (click)="onCart('insertProduct')">
-              <i class="fa fa-cart-plus" aria-hidden="true"></i>
-              <span>Post Ad</span>
-            </a>           
-              
-            <nav id="navbar" class="navbar">
-            <li class="dropdown"><a> <img [src]="getImageSource()" alt="" class="img-fluid rounded-circle"><span>{{ userName }}</span> <i class="bi bi-chevron-down"></i></a>
-              <ul>
-                <li><a (click)="onSelect('myPosts')">My Posts</a></li>
-                <li><a (click)="onSelect('logout')">Logout<i class="fa fa-sign-out"></i></a></li>
-              </ul>
-            </li>
-          </nav>
-
-             </div>
-        </div>
-
-      </div>
-    </div>
-  
-  </header> -->
-
+ 
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a class="logo d-flex align-items-center">
+      <a class="logo d-flex align-items-center" (click)="onSelect('products')">
         <!-- <img src="assets/img/disendra-Img.png" alt=""> -->
-        <span class="d-none d-lg-block">Av Tech</span>
+        <span class="d-block d-lg-block">Av Tech</span>
       </a>
     </div><!-- End Logo -->
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center">
-        <input type="text" name="searchText" [(ngModel)]="searchText" placeholder="Search" title="Enter search keyword">
+        <input type="text" name="searchText" [(ngModel)]="searchText" (keyup.enter)="onSearch()" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
@@ -92,25 +57,14 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <span class="header_userName">{{userName}}</span>
-              <!-- <span>{{role}}</span> -->
             </li>
-            <!-- <li>
-              <hr class="dropdown-divider">
-            </li> -->
-
-            <!-- <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li> -->
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
               <a class="dropdown-item d-flex align-items-center" (click)="onSelect('myPosts')">
-                <i class="bi bi-file-text"></i>
+                <i class="bi bi-file-text "></i>
                 <span>My Posts</span>
               </a>
             </li>
@@ -135,8 +89,8 @@
               </a>
             </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+          </ul>
+        </li>
 
       </ul>
     </nav>
@@ -173,21 +127,21 @@
       </div>
     </div>
     <div class="btn_box">
-      <a href="" class="view_more-link">View More</a>
+      <a class="view_more-link" (click)="loadMoreCartData()">View More</a>
     </div>
   </div>
 </section>
 
 <section *ngIf="showCart">
-  <div class="arrow_Container">
+  <!-- <div class="arrow_Container">
     <div class="arrow-Icon" (click)="onSelect('products')">
       <mat-icon>arrow_back</mat-icon>
     </div>
-  </div>
+  </div> -->
   <div class="container h-100 py-2">
     <div class="row d-flex justify-content-center h-100">
       <div class="col-10">
-        <div *ngFor="let item of filteredProducts" class="card rounded-3 mb-2" style="box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;">
+        <div *ngFor="let item of filteredUploadProducts" class="card rounded-3 mb-2" style="box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;">
           <div class="card-body p-4">
             <div class="row d-flex text-center justify-content-between align-items-center">
               <div class="col-md-2 col-lg-2 col-xl-2">
@@ -211,6 +165,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="btn_box" *ngIf="filteredUploadProducts.length !== 0">
+        <a class="view_more-link" (click)="loadMoreUploadData()">View More</a>
       </div>
     </div>
   </div>
@@ -239,7 +196,7 @@
       </div>
       <div class="form-group">
         <label>Location</label><label class="red-asterisk">*</label>
-        <input type="text" maxlength="50" class="form-control" [(ngModel)]="location" name="location">
+        <input type="text" maxlength="50" class="form-control"  (input)="validateInput($event)" [(ngModel)]="location" name="location">
       </div>
       <div class="row">
         <div class="col-md-6">
@@ -269,14 +226,14 @@
     </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end" class="mat-buttons">
-    <button mat-dialog-close class="btn warning">Cancel</button>
-    <button [mat-dialog-close]="true" class="btn success" [disabled]="!this.emailId || !this.title || !this.description || !this.location ||  !isValidMobileNumber() ||!this.price || !this.showFile"  (click)="onUpload()">{{sellerButton}}</button>
+    <button mat-dialog-close class="btn btn-warning">Cancel</button>
+    <button [mat-dialog-close]="true" class="btn btn-success button_left" [disabled]="!this.emailId || !this.title || !this.description || !this.location ||  !isValidMobileNumber() ||!this.price || !this.showFile"  (click)="onUpload()">{{sellerButton}}</button>
   </mat-dialog-actions>
 </ng-template>
 
 
 <ng-template #contact>
-<mat-dialog-content class="d-flex align-items-center justify-content-center popup">
+<mat-dialog-content class="d-flex align-items-center justify-content-center popup" style="width: 250px;">
   <div *ngFor="let item of selectedItem">
    <!-- <p> <mat-icon>person</mat-icon>{{ item.name }}</p> -->
    <mat-icon mat-dialog-close class="cancel_Icon mb-0">cancel</mat-icon>

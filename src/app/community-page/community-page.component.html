@@ -231,7 +231,7 @@
         <li class="nav-item dropdown pe-3 header_Icons">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/disendra-Img.png" alt="Profile" class="rounded-circle">
+            <img [src]="getImageSource()" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"> {{ userName }} </span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -292,29 +292,29 @@
 
 
   <div class="content_info" *ngIf="showHomepage || showMyposts">
-    <div class="question" *ngFor="let question of filteredEmails">
+    <div class="question" *ngFor="let question of filteredquestions">
       <div class="profile_Info">
-          <img [src]="question.profile.image" alt="Profile Picture">
-          <div class="username">{{ question.profile.username }}</div>
+          <img src="https://profile-image.cellar-c2.services.clever-cloud.com/disendra-Img.png" alt="Profile Picture">
+          <div class="username">{{ question.question_userName_name }}</div>
       </div>
       <div class="posted_Date">
-          <p>{{ question.postedDate }}</p>
+          <p>{{ question.question_posted_date }}</p>
       </div>
       <div class="content">
           <p class="main_question">{{ question.question }}</p>
           <div class="comments">
               <p>Answers:</p>
-              <p>{{ question.answers }}</p>
-              <!-- "More" button to show additional answers -->
-              <button (click)="showAdditionalAnswers(question)" class="more_button">{{ additionalAnswersVisible ? '...Less' : '...More' }}</button>
-              <!-- Additional answers -->
-              <ul *ngIf="additionalAnswersVisible">
-                  <li *ngFor="let addAnswer of additionalAnswers">
+              <p>{{ question.answer }}</p>
+              <button (click)="showAdditionalAnswers(question)" class="more_button">
+                {{ additionalAnswersVisibility[question.qId] ? '...Less' : '...More' }}
+              </button>
+              <ul *ngIf="additionalAnswersVisibility[question.qId]">
+                  <li *ngFor="let addAnswer of additionalAnswersData[question.qId]">
                       <div class="profile_Info">
-                          <img [src]="addAnswer.profile.image" alt="Profile Picture">
-                          <div class="username">{{ addAnswer.profile.username }}</div>
+                          <img src="https://profile-image.cellar-c2.services.clever-cloud.com/disendra-Img.png" alt="Profile Picture">
+                          <div class="username">{{ addAnswer.question_userName }}</div>
                       </div>
-                      <p>{{ addAnswer.answers }}</p>
+                      <p>{{ addAnswer.answer }}</p>
                   </li>
               </ul>
           </div>
@@ -326,19 +326,19 @@
         <div class="vote-container">
           <div class="vote-item">
               <mat-icon>thumb_up</mat-icon>
-              <span>{{ question.voteCount.up }}</span>
+              <span>{{ question.likes }}</span>
           </div>
           <div class="vote-item">
               <mat-icon>thumb_down</mat-icon>
-              <span>{{ question.voteCount.down }}</span>
+              <span>{{ question.dislikes }}</span>
           </div>
           <div class="vote-item">
               <mat-icon>visibility_off</mat-icon>
-              <span>{{ question.voteCount.views }}</span>
+              <span>{{ question.views }}</span>
           </div>
           <div class="vote-item">
               <mat-icon>comment</mat-icon>
-              <span>{{ question.voteCount.comments }}</span>
+              <span>{{ question.comments }}</span>
           </div>
           <div class="vote-item" (click)="expandQuestion(question.slNo)">
             <mat-icon>reply</mat-icon>
@@ -372,7 +372,9 @@
 </div>
 
 
-
+<div class="btn_box">
+  <a class="view_more-link" (click)="loadMore()">View More</a>
+</div>
 
 <!-- <ng-template #myDialog>
   <mat-dialog-content>

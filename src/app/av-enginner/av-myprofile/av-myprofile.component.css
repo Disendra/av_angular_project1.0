@@ -75,6 +75,7 @@ h4 {
 
 .btn-success {
   background-color: green;
+  margin-left: 10px;
 }
 
 .p_headline, .p_details {
@@ -136,6 +137,10 @@ input {
 .fa-check-circle {
   color: green;
   font-size: 38px;
+}
+
+.profile_container {
+  margin-top: -40px;
 }
 
 @media (min-width: 1024px) {

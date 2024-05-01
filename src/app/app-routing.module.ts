@@ -15,13 +15,12 @@ const routes: Routes = [
   { path: 'home-page', redirectTo: '' },
   { path: 'login-page/:value', component: LoginPageComponent },
   { path: 'ekart-page/:sessionId', component: EkartComponent },
-  { path: 'avCommunity/:sessionId', component: CommunityPageComponent, canActivate: [CanActivateService] },
+  { path: 'av-community/:sessionId', component: CommunityPageComponent, canActivate: [CanActivateService] },
   { path: 'avEngineer-dashboard/:sessionId', component: AvEnginnerComponent, canActivate: [CanActivateService] },
-  { path: 'av-community', component: CommunityPageComponent, canActivate: [CanActivateService] },
   { path: 'admin-page', component: AdminPageComponent, canActivate: [CanActivateService] },
-  { path: 'bussiness-card/:emailId/:timeStamp', component: BussinessCardComponent, canActivate: [CanActivateService] },
-  // { path: 'av-about', component: AvAboutComponent} 
+  { path: 'bussiness-card/:emailId', component: BussinessCardComponent, canActivate: [CanActivateService] }
 ]   
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -367,7 +367,7 @@ a:focus {
   opacity: .55;
 }
 
-.product_section .btn_box {
+.btn_box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -377,7 +377,7 @@ a:focus {
   margin-top: 45px;
 }
 
-.product_section .btn_box .view_more-link {
+.btn_box .view_more-link {
   display: inline-block;
   padding: 10px 45px;
   background-color: #6D67E4;
@@ -392,7 +392,7 @@ a:focus {
   color: #6D67E4 !important;
 }
 
-.product_section .btn_box .view_more-link:hover {
+.btn_box .view_more-link:hover {
   background-color: transparent;
   color: #f3c93e;
 }
@@ -523,10 +523,11 @@ li::marker {
   margin-bottom: 8px;
 }
 
+/* 
 .arrow_Container {
   padding-left: 1%;
   margin-top: 5%;
-}
+} */
 
 span {
   color: black;
@@ -699,18 +700,6 @@ textarea {
   margin-bottom: -4%;
 }
 
-.bi-box-arrow-right {
-  color: red;
-}
-
-.bi-file-text {
-  color: blue;
-}
-
-.bi-question-circle {
-  color: green;
-}
-
 @media (max-width: 767px) {
   .post_ad {
     display: none;
@@ -721,9 +710,9 @@ textarea {
     margin-right: 10px;
   }
 
-  .arrow_Container {
+  /* .arrow_Container {
     margin-top: 15%;
-  }
+  } */
 
   .contact_Back {
     margin-top: 15%;

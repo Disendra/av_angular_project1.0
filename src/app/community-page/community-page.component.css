@@ -1,5 +1,5 @@
 .header-boxs {
-    max-width: 97%;
+  max-width: 97%;
 }
 
 
@@ -264,7 +264,7 @@ textarea {
         margin-left: 24%;
         width: 75%
     }
-} */ 
+} */
 
 
 
@@ -576,11 +576,13 @@ textarea {
 .vote-item {
   display: flex;
   align-items: center;
-  margin-right: 10px; /* Adjust as needed */
+  margin-right: 10px;
+  /* Adjust as needed */
 }
 
 .vote-item mat-icon {
-  margin-right: 5px; /* Adjust as needed */
+  margin-right: 5px;
+  /* Adjust as needed */
 }
 
 .textarea_tools {
@@ -606,13 +608,39 @@ textarea {
   height: 100px;
 }
 
+.btn_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 45px;
+}
+
+.btn_box .view_more-link {
+  display: inline-block;
+  padding: 10px 45px;
+  background-color: #6D67E4;
+  color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #f3c93e;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.btn_box .view_more-link:hover {
+  background-color: transparent;
+  color: #f3c93e;
+}
+
 @media (max-width: 767.98px) {
-  
+
   .posted_Date {
-   margin-top: -11%;
+    margin-top: -11%;
   }
 
   .header_Icons {
-  margin-left: -12px;
+    margin-left: -12px;
   }
- }
+}

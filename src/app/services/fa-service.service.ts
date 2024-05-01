@@ -6,9 +6,9 @@ import { Injectable } from '@angular/core'
   providedIn: 'root'
 })
 export class FaServiceService {
-   url = 'https://av-nodejs.onrender.com';
+  //  url = 'https://av-nodejs.onrender.com';
+  url = 'http://10.0.0.68:3000'
   // url = 'http://localhost:3000'
-  // url = 'http://10.58.146.67:3000'
   macVendor = 'https://macvendorlookup.com/api/v2'
 
   constructor (private http: HttpClient) {}

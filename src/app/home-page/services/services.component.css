@@ -1,7 +1,7 @@
-h3 {
-    font-size: 24px;
+.custom_Image {
+    height: 150px;
 }
 
-.custom_Image {
-    height: 45%;
+.box {
+    height: 50%;
 }

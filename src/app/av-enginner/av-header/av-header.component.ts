@@ -22,7 +22,8 @@ export class AvHeaderComponent implements OnInit {
   activeMenuItem: any
   CickedsocialMedia: any
   userName: any
-  emailId: any
+  emailId: any;
+  sessionId : any;
   showChatbot: boolean = false
   showChatbotIcon: boolean = true
   isDialogOpen: boolean = false
@@ -35,7 +36,7 @@ export class AvHeaderComponent implements OnInit {
   isSimultor: boolean = false
   isAbout: boolean = true
   isProfile: boolean = false
-  isFeed: boolean = false
+  isFeed: boolean = false;
   products: any[] = []
   profileWeight!: number
   inputValue!: string
@@ -58,14 +59,14 @@ export class AvHeaderComponent implements OnInit {
   ) {
     this.userName = authService.getLoginuserName()
     this.emailId = authService.getLoggedInEmail()
+    this.sessionId = authService.getSessionId();
   }
 
   ngOnInit (): void {
-    this.showSpinner = true
+    this.showSpinner = true;
+    this.onClick('about');
     this.getProfile()
-    this.userService
-      .getProfileWeight(this.emailId)
-      .subscribe((response: any) => {
+    this.userService.getProfileWeight(this.emailId).subscribe((response: any) => {
         this.profileWeight = response.profileWeight
         console.log(response)
         this.showSpinner = false
@@ -74,7 +75,7 @@ export class AvHeaderComponent implements OnInit {
 
   onClick (type: any) {
     if (type === 'community') {
-      this.router.navigate(['av-community'])
+      this.router.navigate(['av-community/' + this.sessionId]);
     }
     this.activeMenuItem = type
     this.isSimultor = type === 'simulator'
@@ -83,7 +84,6 @@ export class AvHeaderComponent implements OnInit {
     this.isKnowledge = type === 'knowledge'
     this.isDirectory = type === 'directory'
     this.isFeed = type === 'feed'
-    // this.isCommunity = type === 'community'
   }
 
   getProfile () {
@@ -140,7 +140,8 @@ export class AvHeaderComponent implements OnInit {
         .subscribe((response: any) => {
           this.userService.refreshData()
           console.log(response)
-          this.showSpinner = false
+          this.showSpinner = false;
+          window.location.reload();
         })
     } else {
       this.userService
@@ -239,7 +240,8 @@ export class AvHeaderComponent implements OnInit {
         (response: any) => {
           // this.showSpinner = false
           console.log(response.message)
-          this.userService.refreshData()
+          this.userService.refreshData();
+          window.location.reload();
         },
         (error: any) => {
           // this.showSpinner = false
@@ -251,7 +253,8 @@ export class AvHeaderComponent implements OnInit {
         (response: any) => {
           // this.showSpinner = false
           console.log(response.message)
-          this.userService.refreshData()
+          this.userService.refreshData();
+          window.location.reload();
         },
         (error: any) => {
           // this.showSpinner = false

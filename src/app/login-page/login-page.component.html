@@ -15,7 +15,7 @@
 	<div class="form-container">
 	  <div class="slide-controls">
 		<input type="radio" name="slide" id="login" checked>
-		<input type="radio" name="slide" id="signup">
+		<input type="radio" name="slide" id="signup"  [checked]="!isLogin">
 		<label for="login" (click)="onLoginClick()" class="slide login">Login</label>
 		<label for="signup" (click)="onSignupClick()" class="slide signup">Signup</label>
 		<div class="slider-tab"></div>
@@ -37,7 +37,7 @@
 			<div class="btn-layer"></div>
 			<input type="submit" (click)="onSubmit()" [disabled]="!emailId || !password" value="Login">
 		  </div>
-		  <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
+		  <div class="signup-link">Not a member? <a (click)="onSignupClick()">Signup now</a></div>
 		</form>
 		<form action="#" class="signup" *ngIf="isSignup">
 			<div class="field signup_field">
@@ -65,7 +65,7 @@
 			</select>
 		  </div>
             <p class="invalid_msg">{{ invalidMsg }}</p>
-		  <div class="field btn">
+		  <div class="field btn mb-4">
 			<div class="btn-layer"></div>
 			<input type="submit" (click)="onSignUp()" value="Signup">
 		  </div>
@@ -78,12 +78,12 @@
     <mat-dialog-content class="d-flex flex-column align-items-end justify-content-start rounded" style="border-radius: 15px;">
         <i class="fa fa-close cancel_Icon mb-3" [mat-dialog-close]="true"></i>
         <div class="row details">
-            <div class="col-md-2 d-flex align-items-center">
-                <i class="fa fa-warning mr-2"></i>
-            </div>
+			<div class="col-md-2 d-flex align-items-center justify-content-center"> <!-- Modified class -->
+				<i class="fa fa-warning mr-2"></i>
+			</div>
             <div class="col-md-8" style="margin-left: 5px;">
-                <p class="error">Oops!</p>
-                <p class="error_message">{{ errorMsg }}</p>
+                <p class="oops_error">Oops!</p>
+                <p class="popup-msg">{{ errorMsg }}</p>
             </div>
         </div>
     </mat-dialog-content>
@@ -101,33 +101,10 @@
 	</mat-dialog-content>
 	<mat-dialog-actions align="center" class="d-flex justify-content-center" style="margin-top: -20px;">
 	  <button [mat-dialog-close]="true" class="btn btn-warning retry_Button">Cancel</button>
-	  <button *ngIf="receiveEmailsChecked && nameSearchableChecked" (click)="onConfirmSignUp()" [mat-dialog-close]="true" class="mr-4 btn btn-success retry_Button">Confirm</button>
+	  <button *ngIf="receiveEmailsChecked && nameSearchableChecked" (click)="onConfirmSignUp()" [mat-dialog-close]="true" class="btn btn-success retry_Button">Confirm</button>
 	</mat-dialog-actions>
   </ng-template>
   
     <app-spinner *ngIf="showSpinner"></app-spinner>
   </body>
 </html>
-
-<!-- <div class="container" style="max-width: 550px">
-	<h2 class="text-center mb-5">Angular Login with Google</h2>
-	<div *ngIf="!isLoggedin">
-	  <asl-google-signin-button (click)="loginWithGoogle()" class="btn btn-danger">Login with Google</asl-google-signin-button>
-	</div>
-	<div *ngIf="isLoggedin">
-	  <div class="form-group">
-		<label>First Name</label>
-		<input type="text" class="form-control" [value]="socialUser?.firstName" id="firstname" readonly>
-	  </div>
-	  <div class="form-group">
-		<label>Last Name</label>
-		<input type="text" class="form-control" [value]="socialUser?.lastName" id="lastname" readonly>
-	  </div>
-	  <div class="form-group">
-		<label>Email</label>
-		<input type="text" class="form-control" [value]="socialUser?.email" id="email" readonly>
-	  </div>
-	  <button type="button" (click)="logOut()" class="btn btn-primary">Log Out</button>
-	</div>
-  </div> -->
-  

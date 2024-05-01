@@ -23,6 +23,7 @@ export class EkartComponent implements OnInit {
   slNo!: number
   price!: number
   products: any[] = []
+  uploadProducts: any[] = []
   profileImg: any[] = []
   showUpload: boolean = false
   showSpinner: boolean = false
@@ -32,7 +33,9 @@ export class EkartComponent implements OnInit {
   showProducts: boolean = true
   showSearch: boolean = false
   showContactForm: boolean = false
+  showViewMOre: boolean = true
   selectedItem: any
+  offset: number = 0
   searchText: string = ''
   sellerButton: string = 'Upload'
   emailId: any
@@ -49,8 +52,18 @@ export class EkartComponent implements OnInit {
   ngOnInit (): void {
     this.emailId = this.authService.getLoggedInEmail()
     this.userName = this.authService.getLoginuserName()
-    this.getCartData()
+    this.getCartData(this.offset)
     this.getProfileImage()
+  }
+
+  loadMoreCartData () {
+    this.offset += 5
+    this.getCartData(this.offset)
+  }
+
+  loadMoreUploadData () {
+    this.offset += 5
+    this.getUploadProducts(this.offset)
   }
 
   toggleSearch () {
@@ -59,10 +72,10 @@ export class EkartComponent implements OnInit {
 
   onSelect (option: any): void {
     if (option === 'myPosts') {
-      this.getUploadProducts()
       this.showCart = true
       this.showProducts = false
       this.showContactForm = false
+      this.getUploadProducts(0)
     } else if (option === 'products') {
       window.location.reload()
     } else if (option === 'contact') {
@@ -74,22 +87,24 @@ export class EkartComponent implements OnInit {
     }
   }
 
-  getUploadProducts () {
+  getUploadProducts (offset: any) {
     this.showSpinner = true
-    this.userService.getUploadData(this.emailId).subscribe(response => {
+    this.userService.getUploadData(this.emailId, offset).subscribe(response => {
       console.log(response)
-      this.products = response.records
+      this.uploadProducts = this.uploadProducts.concat(response.records)
       this.showSpinner = false
     })
   }
 
-  getCartData () {
+  getCartData (offset: number) {
     this.showSpinner = true
-    this.userService.getCartData().subscribe((response: any) => {
-      this.products = response.records
-      console.log(response)
-      this.showSpinner = false
-    })
+    this.userService
+      .getCartData(offset, this.searchText)
+      .subscribe((response: any) => {
+        this.products = this.products.concat(response.records)
+        console.log(response)
+        this.showSpinner = false
+      })
   }
 
   getProfileImage () {
@@ -101,6 +116,13 @@ export class EkartComponent implements OnInit {
         this.showSpinner = false
         this.profileImg = response.records
       })
+  }
+
+  onSearch () {
+    alert(this.showUpload)
+    // alert(this.showProducts)
+    this.products = []
+    this.getCartData(0)
   }
 
   getImageSource (): string {
@@ -130,6 +152,12 @@ export class EkartComponent implements OnInit {
     }
   }
 
+  validateInput (event: any) {
+    const pattern = /[^a-zA-Z\s]/g
+    event.target.value = event.target.value.replace(pattern, '') // Remove non-digits from input
+    this.location = event.target.value // Update the model with the sanitized value
+  }
+
   onUpload () {
     if (this.insertionType === 'insertProduct') {
       this.showSpinner = true
@@ -146,11 +174,9 @@ export class EkartComponent implements OnInit {
         console.log('Response from server:', response)
         this.showSpinner = false
         if (response && response.status) {
-          // alert(response.message)
-          // window.location.reload()
           this.userService.refreshData()
           alert(response.message)
-          this.getCartData()
+          window.location.reload()
         } else {
           alert('An error occurred. Please try again later.')
         }
@@ -177,7 +203,8 @@ export class EkartComponent implements OnInit {
         this.userService.refreshData()
         this.showSpinner = false
         alert(response.message)
-        this.getUploadProducts()
+        // this.getUploadProducts(this.offset);
+        window.location.reload()
       } else {
         alert('An error occurred. Please try again later.')
       }
@@ -200,7 +227,7 @@ export class EkartComponent implements OnInit {
         this.userService.soldOut(soldOutData).subscribe((response: any) => {
           this.userService.refreshData()
           alert(response.message)
-          this.getUploadProducts()
+          this.getUploadProducts(this.offset)
         })
       }
     }
@@ -208,6 +235,12 @@ export class EkartComponent implements OnInit {
 
   get filteredProducts () {
     return this.products.filter(product =>
+      product.title.toLowerCase().includes(this.searchText.toLowerCase())
+    )
+  }
+
+  get filteredUploadProducts () {
+    return this.uploadProducts.filter(product =>
       product.title.toLowerCase().includes(this.searchText.toLowerCase())
     )
   }
@@ -230,7 +263,7 @@ export class EkartComponent implements OnInit {
       if (response && response.status) {
         this.userService.refreshData()
         alert(response.message)
-        this.getUploadProducts()
+        this.getUploadProducts(this.offset)
       } else {
         alert('An error occurred. Please try again later.')
       }
@@ -268,10 +301,10 @@ export class EkartComponent implements OnInit {
     this.popup.openDialogWithTemplateRef(this.sellerForm)
   }
 
-   isValidMobileNumber(): boolean {
-    const mobileStr = this.mobileNumber.toString();
-    const repeatedPattern = /(\d)\1{9}/;  
-    return mobileStr.length === 10 && !repeatedPattern.test(mobileStr);
+  isValidMobileNumber (): boolean {
+    const mobileStr = this.mobileNumber.toString()
+    const repeatedPattern = /(\d)\1{9}/
+    return mobileStr.length === 10 && !repeatedPattern.test(mobileStr)
   }
 
   clearInputs () {

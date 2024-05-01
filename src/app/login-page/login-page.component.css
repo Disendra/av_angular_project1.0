@@ -231,7 +231,6 @@ select {
   border-radius: 15px;
   border: 1px solid lightgrey;
   border-bottom-width: 2px;
-  /* color: #808080d9; */
   font-size: 17px;
   transition: all 0.3s ease;
 }
@@ -239,17 +238,18 @@ select {
 .invalid_msg {
   position: absolute;
   margin-left: 5px;
-  color: red;
+  font-size: 14px;
+  color: rgba(255, 0, 0, 0.842);
 }
 
 .fa-warning {
   color: orangered;
-  font-size: 40px
+  font-size: 30px !important;
 }
 
-.error_message {
-  margin-top: -11px;
-  color: black;
+.retry_Button {
+  padding: 6px;
+  margin-left: 10px;
 }
 
 .details {
@@ -257,28 +257,11 @@ select {
   border-radius: 15px;
 }
 
-.cancel_Icon {
-  color: red !important;
-}
-
-.error {
-  font-weight: 500;
-  color: black;
-}
-
 .error_headline {
   font-weight: 600;
   font-size: 18px;
   color: black;
   margin-left: 5px;
-}
-
-.retry_Button {
-  border: none;
-  color: white;
-  margin-left: 10px;
-  height: 35px;
-  background: orange;
 }
 
 .btn-success {
@@ -306,4 +289,12 @@ select {
 .fa {
   font-size: 18px;
   /* color: #aaa; */
+}
+
+@media (max-width: 768px) { /* Apply styles only on mobile devices */
+  .col-md-2 {
+      width: 100%; /* Set width to 100% to occupy the entire width */
+      justify-content: center !important; /* Center content horizontally */
+      text-align: center; /* Center content horizontally for older browsers */
+  }
 }

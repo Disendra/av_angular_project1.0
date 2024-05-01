@@ -3,6 +3,8 @@ import { PopupService } from '../services/popup.service'
 import { FormControl } from '@angular/forms'
 import { AuthServiceService } from '../services/auth-service.service';
 import { Router } from '@angular/router';
+import { UserServicesService } from '../services/user-services.service';
+import { CommunityService } from '../services/community.service';
 
 @Component({
   selector: 'app-community-page',
@@ -14,18 +16,69 @@ export class CommunityPageComponent {
   searchQuetion: any;
   userQuestion : any;
   questionURl : any;
-  userName : string = 'Disendra';
+  emailId : any;
+  userName : any;
+  currentPage = 1;
+  pageSize = 1;
   role : string = 'Av Engineeer';
+  profileImg : any[] = [];
+  mainQuestions : any[] = [];
+  additionalAnswers : any[] = [];
   expanded: boolean = false;
   showUrlBox: boolean = false;
   showSearch: boolean = false;
   showContactForm : boolean = false;
+  additionalAnswersVisible : boolean = false;
   showHomepage : boolean = true;
   showMyposts : boolean = false;
   showSpinner : boolean = false;
   @ViewChild('myDialog') myDialog!: TemplateRef<any>
 
-  constructor (private popup: PopupService,private router: Router, private authService : AuthServiceService) {}
+  constructor (private popup: PopupService,private router: Router, private authService : AuthServiceService,private commintyService: CommunityService, private userService: UserServicesService) {}
+
+  
+  ngOnInit (): void {
+    this.emailId = this.authService.getLoggedInEmail()
+    this.userName = this.authService.getLoginuserName()
+    this.getProfileImage();
+    this.loadQuestions()
+    this.getQuestions();
+  }
+
+
+  getProfileImage () {
+    this.showSpinner = true
+    this.userService
+      .getProfileImage(this.emailId)
+      .subscribe((response: any) => {
+        console.log(response)
+        this.showSpinner = false
+        this.profileImg = response.records
+      })
+  }
+
+  getImageSource (): string {
+    if (this.profileImg && this.profileImg.length > 0) {
+      return this.profileImg[0].imagePath
+    } else {
+      return '../assets/img/blank-user-directory.png'
+    }
+  }
+  
+  getQuestions() {
+    this.showSpinner = true;
+    this.commintyService.getCommunityQuestions(this.pageSize, (this.currentPage - 1) * this.pageSize, this.searchQuetion).subscribe((response: any) => {
+      this.mainQuestions = [...this.mainQuestions, ...response.records];
+      console.log(response);
+      this.showSpinner = false;
+    });
+  }
+  
+  loadMore() {
+    this.currentPage++;
+    this.getQuestions();
+  }
+  
 
 
    notifications = [
@@ -107,33 +160,19 @@ export class CommunityPageComponent {
   ]
 
 
-
-
-  additionalAnswers = [
-    {
-      slNo: 2,
-      profile: { username: 'Harish', image: 'assets/img/disendra-Img.png' },
-      postedDate: '28/03/2024',
-      answers: 'Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with.',
-      // voteCount: { up: 34, down: 20, views:10, comments: 30 }
-    },
-    {
-      slNo: 3,
-      profile: { username: 'Harish', image: 'assets/img/disendra-Img.png' },
-      postedDate: '28/03/2024',
-      answers: 'Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with.',
-      // voteCount: { up: 34, down: 20, views:10, comments: 40 }
-    }
-  ]
-
-
-  ngOnInit (): void {
-    this.loadQuestions()
-  }
+  additionalAnswersVisibility: { [key: string]: boolean } = {};
+  additionalAnswersData: { [key: string]: any[] } = {};
   
-  additionalAnswersVisible : boolean = false;
-  showAdditionalAnswers(question:any)  {
-    this.additionalAnswersVisible = !this.additionalAnswersVisible;
+  showAdditionalAnswers(question: any) {
+    this.additionalAnswersVisibility[question.qId] = !this.additionalAnswersVisibility[question.qId];
+    console.log(question);
+    let qId = question.qId;
+    this.commintyService.getMoreCommunityAnswers(qId).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.additionalAnswersData[question.qId] = response.records;
+      }
+    );
   }
 
 
@@ -176,12 +215,13 @@ export class CommunityPageComponent {
     this.questions = this.questions
   }
 
-  get filteredEmails(): any[] {
+  get filteredquestions(): any[] {
     if (!this.searchQuetion || this.searchQuetion.trim() === '') {
-      return this.questions; // Return all questions directly
+      return this.mainQuestions; // Return all questions directly
     }  
-    return this.questions.filter(question =>
-      question.question.toLowerCase().includes(this.searchQuetion.toLowerCase())
+    return this.mainQuestions.filter(question =>
+      question.question.toLowerCase().includes(this.searchQuetion.toLowerCase()) ||
+      (question.answer && question.answer.toLowerCase().includes(this.searchQuetion.toLowerCase()))
     );
   }
   
@@ -191,8 +231,8 @@ export class CommunityPageComponent {
     this.expandedQuestion = this.expandedQuestion === slNo ? null : slNo
   }
 
-  isExpanded (slNo: number): boolean {
-    return this.expandedQuestion === slNo
+  isExpanded (slNo: number) {
+    // return this.expandedQuestion === slNo
   }
 
   urlExpand () {

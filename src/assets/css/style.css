@@ -1,7 +1,7 @@
 /**
 * Template Name: FlexStart
-* Updated: Jan 29 2024 with Bootstrap v5.3.2
 * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+* Updated: Mar 17 2024 with Bootstrap v5.3.3
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
@@ -41,7 +41,7 @@ h6 {
 # Sections
 --------------------------------------------------------------*/
 section {
-  padding: 20px 0;
+  padding: 60px 0;
   overflow: hidden;
 }
 
@@ -173,7 +173,7 @@ section {
 --------------------------------------------------------------*/
 .header {
   transition: all 0.5s;
-  /* z-index: 1000; */
+  z-index: 997;
   padding: 20px 0;
 }
 
@@ -624,7 +624,6 @@ section {
 .values .box {
   padding: 30px;
   box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
-  /* box-shadow: 0px 0 5px rgba(1, 41, 112, 0.08); */
   text-align: center;
   transition: 0.3s;
   height: 100%;
@@ -633,7 +632,6 @@ section {
 .values .box img {
   padding: 30px 50px;
   transition: 0.5s;
-  margin-bottom: -22px;
   transform: scale(1.1);
 }
 
@@ -662,12 +660,11 @@ section {
 .counts .count-box {
   display: flex;
   align-items: center;
-  flex-direction: column;
-  /* padding: 10px; */
+  padding: 10px;
+  margin-bottom: 5px;
   width: 100%;
   background: #fff;
   box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
-  /* box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08); */
 }
 
 .counts .count-box i {
@@ -820,9 +817,8 @@ section {
 # Services
 --------------------------------------------------------------*/
 .services .service-box {
-  /* box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08); */
   box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
-  height: 80%;
+  height: 100%;
   padding: 60px 30px;
   text-align: center;
   transition: 0.3s;
@@ -860,8 +856,8 @@ section {
   font-size: 18px;
 }
 
-.services .service-box.blue {
-  border-bottom: 3px solid red;
+/* .services .service-box.blue {
+  border-bottom: 3px solid #2db6fa;
 }
 
 .services .service-box.blue .icon {
@@ -873,12 +869,12 @@ section {
   color: #2db6fa;
 }
 
-/* .services .service-box.blue:hover {
-  background: red;
-} */
+.services .service-box.blue:hover {
+  background: #2db6fa;
+}
 
 .services .service-box.orange {
-  border-bottom: 3px solid green;
+  border-bottom: 3px solid #f68c09;
 }
 
 .services .service-box.orange .icon {
@@ -890,9 +886,9 @@ section {
   color: #f68c09;
 }
 
-/* .services .service-box.orange:hover {
-  background: green;
-} */
+.services .service-box.orange:hover {
+  background: #f68c09;
+}
 
 .services .service-box.green {
   border-bottom: 3px solid #08da4e;
@@ -907,12 +903,12 @@ section {
   color: #08da4e;
 }
 
-/* .services .service-box.green:hover {
+.services .service-box.green:hover {
   background: #08da4e;
-} */
+}
 
 .services .service-box.red {
-  border-bottom: 3px solid blue;
+  border-bottom: 3px solid #e9222c;
 }
 
 .services .service-box.red .icon {
@@ -924,9 +920,9 @@ section {
   color: #e9222c;
 }
 
-/* .services .service-box.red:hover {
-  background: blue;
-} */
+.services .service-box.red:hover {
+  background: #e9222c;
+}
 
 .services .service-box.purple {
   border-bottom: 3px solid #b50edf;
@@ -960,15 +956,15 @@ section {
 
 .services .service-box.pink:hover {
   background: #f51f9c;
-}
+} */
 
 /* .services .service-box:hover h3,
 .services .service-box:hover p,
 .services .service-box:hover .read-more {
   color: #fff;
-} */
+}
 
-/* .services .service-box:hover .icon {
+.services .service-box:hover .icon {
   background: #fff;
 } */
 
@@ -979,8 +975,7 @@ section {
   padding: 40px 20px;
   background: #fff;
   text-align: center;
-  /* box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08); */
-  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
   border-radius: 4px;
   position: relative;
   overflow: hidden;
@@ -989,8 +984,7 @@ section {
 
 .pricing .box:hover {
   transform: scale(1.1);
-  /* box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1); */
-  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
 }
 
 .pricing h3 {
@@ -1024,16 +1018,12 @@ section {
 
 .pricing ul {
   padding: 0;
-  list-style-type: disclosure-closed;
+  list-style: none;
   color: #444444;
   text-align: center;
   line-height: 26px;
   font-size: 16px;
   margin-bottom: 25px;
-}
-
-li::marker {
-  color: orange;
 }
 
 .pricing ul li {
@@ -1354,8 +1344,7 @@ li::marker {
   box-sizing: content-box;
   padding: 30px;
   margin: 40px 30px;
-  /* box-shadow: 0px 0 20px rgba(1, 41, 112, 0.1); */
-  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+  box-shadow: 0px 0 20px rgba(1, 41, 112, 0.1);
   background: #fff;
   min-height: 320px;
   display: flex;
@@ -1631,8 +1620,8 @@ li::marker {
 # Contact
 --------------------------------------------------------------*/
 .contact .info-box {
-  color: #444444;
   box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+  color: #444444;
   background: #fafbff;
   padding: 30px;
 }
@@ -1658,8 +1647,8 @@ li::marker {
 }
 
 .contact .php-email-form {
-  background: #fafbff;
   box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
+  background: #fafbff;
   padding: 30px;
   height: 100%;
 }
@@ -2264,7 +2253,6 @@ li::marker {
   background: #f6f9ff;
   padding: 0 0 30px 0;
   font-size: 14px;
-  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
 }
 
 .footer .footer-newsletter {
@@ -2318,10 +2306,10 @@ li::marker {
 }
 
 .footer .footer-top {
+  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
   background: white url(../img/footer-bg.png) no-repeat right top;
   background-size: contain;
   border-top: 1px solid #e1ecff;
-  box-shadow: 4px 4px 10px #d1d9e6, -4px -4px 10px #f9f9f9;
   border-bottom: 1px solid #e1ecff;
   padding: 60px 0 30px 0;
 }
@@ -2329,8 +2317,7 @@ li::marker {
 @media (max-width: 992px) {
   .footer .footer-top {
     background-position: center bottom;
-    margin-top: 550px;
- }
+  }
 }
 
 .footer .footer-top .footer-info {

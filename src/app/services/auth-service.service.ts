@@ -9,7 +9,11 @@ export class AuthServiceService {
   private readonly sessionIdKey = 'sessionId'
   private readonly OPENED_EMAILS_KEY = 'openedEmails'
 
-  constructor () {}
+  constructor () {
+    // window.addEventListener('beforeunload', () => {
+    //   this.clearLoggedInEmail();
+    // });
+  }
 
   saveLoggedInEmail (email: string) {
     localStorage.setItem(this.EMAIL_KEY, email)
