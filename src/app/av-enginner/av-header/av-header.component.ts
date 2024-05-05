@@ -64,7 +64,7 @@ export class AvHeaderComponent implements OnInit {
 
   ngOnInit (): void {
     this.showSpinner = true;
-    this.onClick('about');
+    this.onClick('feed');
     this.getProfile()
     this.userService.getProfileWeight(this.emailId).subscribe((response: any) => {
         this.profileWeight = response.profileWeight

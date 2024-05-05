@@ -23,7 +23,7 @@
               <!-- <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"  [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}"> -->
               <img [src]="getImageSource()" alt="" class="img-fluid profile-image  rounded-circle" [ngStyle]="{'border': profileWeight <= 40 ? '2px solid red' : (profileWeight > 40 && profileWeight <= 80 ? '2px solid blue' : '2px solid green')}" (click)="openFileInput()"
 >              <input type="file" #fileInput style="display: none;" accept="image/*" (change)="onFileSelected($event)">
-              <button class="profile_Weight" [ngClass]="{'red': profileWeight <= 40, 'blue': profileWeight > 40 && profileWeight <= 80, 'green': profileWeight > 80}">{{ profileWeight }}%</button>
+              <button class="profile_Weight" [ngClass]="{'red': profileWeight <= 40, 'blue': profileWeight > 40 && profileWeight <= 80, 'green': profileWeight > 80}">{{ profileWeight }}%completed</button>
             </div>
           </div>        
         </div>

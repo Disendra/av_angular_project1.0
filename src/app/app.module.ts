@@ -58,6 +58,7 @@ import { BussinessCardComponent } from './bussiness-card/bussiness-card.componen
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { CommunityPageComponent } from './community-page/community-page.component';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { CommunityMyPostsComponent } from './community-page/community-my-posts/community-my-posts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,7 +94,8 @@ import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
     EkartComponent,
     ReportsComponent,
     BussinessCardComponent,
-    CommunityPageComponent
+    CommunityPageComponent,
+    CommunityMyPostsComponent
   ],
   imports: [
     BrowserModule,

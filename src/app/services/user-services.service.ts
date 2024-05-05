@@ -6,11 +6,11 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserServicesService {
-  url = 'https://av-nodejs.onrender.com'
+  // url = 'https://av-nodejs.onrender.com'
   
   // url = 'http://10.0.0.68:3000';
   
-  // url = 'http://localhost:3000'
+  url = 'http://localhost:3000'
 
   private refreshData$ = new Subject<void>();
 

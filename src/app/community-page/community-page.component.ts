@@ -1,10 +1,10 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core'
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core'
 import { PopupService } from '../services/popup.service'
 import { FormControl } from '@angular/forms'
-import { AuthServiceService } from '../services/auth-service.service';
-import { Router } from '@angular/router';
-import { UserServicesService } from '../services/user-services.service';
-import { CommunityService } from '../services/community.service';
+import { AuthServiceService } from '../services/auth-service.service'
+import { Router } from '@angular/router'
+import { UserServicesService } from '../services/user-services.service'
+import { CommunityService } from '../services/community.service'
 
 @Component({
   selector: 'app-community-page',
@@ -13,39 +13,70 @@ import { CommunityService } from '../services/community.service';
 })
 export class CommunityPageComponent {
   expandedQuestion: any
-  searchQuetion: any;
-  userQuestion : any;
-  questionURl : any;
-  emailId : any;
-  userName : any;
-  currentPage = 1;
-  pageSize = 1;
-  role : string = 'Av Engineeer';
-  profileImg : any[] = [];
-  mainQuestions : any[] = [];
-  additionalAnswers : any[] = [];
-  expanded: boolean = false;
-  showUrlBox: boolean = false;
-  showSearch: boolean = false;
-  showContactForm : boolean = false;
-  additionalAnswersVisible : boolean = false;
-  showHomepage : boolean = true;
-  showMyposts : boolean = false;
-  showSpinner : boolean = false;
+  searchQuetion: any
+  userQuestion: any
+  replyAnswer: any
+  emailId: any;
+  feedbackInfo : any;
+  userName: any
+  currentPage = 1
+  pageSize = 5
+  selectedFile: any
+  selectedFileName: any
+  questionURl: any
+  role: string = 'Av Engineeer'
+  profileImg: any[] = []
+  mainQuestions: any[] = []
+  additionalAnswers: any[] = []
+  expanded: boolean = false
+  showUrlBox: boolean = false
+  showSearch: boolean = false
+  showContactForm: boolean = false
+  additionalAnswersVisible: boolean = false;
+  showHomepage: boolean = true
+  showMyposts: boolean = false
+  updateQid: any
+  buttonType: string = 'Save'
+  showSpinner: boolean = false
   @ViewChild('myDialog') myDialog!: TemplateRef<any>
+  @ViewChild('fileInput') fileInput!: ElementRef
+  additionalAnswersVisibility: { [key: string]: boolean } = {}
+  additionalAnswersData: { [key: string]: any[] } = {}
+  showFullContent : { [key: string]: boolean } = {}
 
-  constructor (private popup: PopupService,private router: Router, private authService : AuthServiceService,private commintyService: CommunityService, private userService: UserServicesService) {}
+  constructor (
+    private popup: PopupService,
+    private router: Router,
+    private authService: AuthServiceService,
+    private commintyService: CommunityService,
+    private userService: UserServicesService
+  ) {}
 
-  
   ngOnInit (): void {
     this.emailId = this.authService.getLoggedInEmail()
     this.userName = this.authService.getLoginuserName()
-    this.getProfileImage();
-    this.loadQuestions()
-    this.getQuestions();
+    this.getProfileImage()
+    this.onSelect('homePage')
   }
 
+  onSelect (option: any): void {
+    this.currentPage = 1
+    this.pageSize = 5
+    if (option === 'homePage') {
+      this.showHomepage = true
+      this.getQuestions()
+    } else if (option === 'contact') {
+      this.showContactForm = true
+    } else if (option === 'myPosts') {
+      this.mainQuestions = []
+      this.getUploadedQuestions()
+      this.showMyposts = true
+    } else {
+      this.logOut()
+    }
+  }
 
+  //Image
   getProfileImage () {
     this.showSpinner = true
     this.userService
@@ -64,24 +95,78 @@ export class CommunityPageComponent {
       return '../assets/img/blank-user-directory.png'
     }
   }
-  
-  getQuestions() {
-    this.showSpinner = true;
-    this.commintyService.getCommunityQuestions(this.pageSize, (this.currentPage - 1) * this.pageSize, this.searchQuetion).subscribe((response: any) => {
-      this.mainQuestions = [...this.mainQuestions, ...response.records];
-      console.log(response);
-      this.showSpinner = false;
-    });
-  }
-  
-  loadMore() {
-    this.currentPage++;
-    this.getQuestions();
-  }
-  
 
+  //Questions
+  getQuestions () {
+    this.showSpinner = true
+    this.commintyService
+      .getCommunityQuestions(
+        this.pageSize,
+        (this.currentPage - 1) * this.pageSize,
+        this.searchQuetion
+      )
+      .subscribe((response: any) => {
+        this.mainQuestions = [...this.mainQuestions, ...response.records]
+        console.log(response)
+        this.showSpinner = false
+      })
+  }
 
-   notifications = [
+  loadMore () {
+    if (this.showHomepage) {
+      this.currentPage++
+      this.getQuestions()
+    } else {
+      this.currentPage++
+      this.getUploadedQuestions()
+    }
+  }
+
+  //uplaod Questions
+
+  getUploadedQuestions () {
+    this.showSpinner = true
+    this.commintyService
+      .getUploadedCommunityQuestions(
+        this.emailId,
+        this.pageSize,
+        (this.currentPage - 1) * this.pageSize,
+        this.searchQuetion
+      )
+      .subscribe((response: any) => {
+        console.log(response)
+        this.mainQuestions = [...this.mainQuestions, ...response.records]
+        this.showSpinner = false
+      })
+  }
+
+  //Update Question
+
+  updateCommunity () {
+    this.showSpinner = true
+    const formData = new FormData()
+    formData.append('emailId', this.emailId)
+    formData.append('question', this.userQuestion)
+    formData.append('image', this.selectedFile)
+    formData.append('urlLink', this.questionURl)
+    formData.append('qId', this.updateQid)
+
+    this.commintyService
+      .updateCommunity(formData)
+      .subscribe((response: any) => {
+        console.log('Response from server:', response)
+        if (response && response.status) {
+          this.userService.refreshData()
+          this.showSpinner = false
+          alert(response.message)
+          // window.location.reload()
+        } else {
+          alert('An error occurred. Please try again later.')
+        }
+      })
+  }
+
+  notifications = [
     {
       icon: 'bi-exclamation-circle text-warning',
       title: 'Lorem Ipsum',
@@ -106,133 +191,112 @@ export class CommunityPageComponent {
       message: 'Quae dolorem earum veritatis oditseno',
       timestamp: '4 hrs. ago'
     }
-  ];
-
-
-  messages = [
-    {
-      sender: 'Maria Hudson',
-      imageUrl: 'assets/img/messages-1.jpg',
-      message: 'Velit asperiores et ducimus soluta repudiandae labore officia est ut...',
-      timestamp: '4 hrs. ago'
-    },
-    {
-      sender: 'Anna Nelson',
-      imageUrl: 'assets/img/messages-2.jpg',
-      message: 'Velit asperiores et ducimus soluta repudiandae labore officia est ut...',
-      timestamp: '6 hrs. ago'
-    },
-    {
-      sender: 'David Muldon',
-      imageUrl: 'assets/img/messages-3.jpg',
-      message: 'Velit asperiores et ducimus soluta repudiandae labore officia est ut...',
-      timestamp: '8 hrs. ago'
-    }
-  ];
-
-
-
-  questions = [
-    {
-      slNo: 1,
-      profile: { username: 'Disendra', image: 'assets/img/disendra-Img.png' },
-      postedDate: '28/03/2024',
-      question: 'How to create linkedin login in angular 9?',
-      answers: 'Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with.',
-      voteCount: { up: 34, down: 45, views:10, comments: 20 }
-    },
-    {
-      slNo: 2,
-      profile: { username: 'Harish', image: 'assets/img/disendra-Img.png' },
-      postedDate: '28/03/2024',
-      question: 'why am I getting an undefined error?',
-      answers: 'Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with.',
-      voteCount: { up: 34, down: 20, views:10, comments: 30 }
-    },
-    {
-      slNo: 3,
-      profile: { username: 'Harish', image: 'assets/img/disendra-Img.png' },
-      postedDate: '28/03/2024',
-      question: 'why am I getting an undefined error?',
-      answers: 'Angular is an open-source, JavaScript framework written in TypeScript. Google maintains it, and its primary purpose is to develop single-page applications. As a framework, Angular has clear advantages while also providing a standard structure for developers to work with.',
-      voteCount: { up: 34, down: 20, views:10, comments: 40 }
-    }
   ]
 
+  selectPhoto () {
+    this.fileInput.nativeElement.click()
+  }
 
-  additionalAnswersVisibility: { [key: string]: boolean } = {};
-  additionalAnswersData: { [key: string]: any[] } = {};
-  
-  showAdditionalAnswers(question: any) {
-    this.additionalAnswersVisibility[question.qId] = !this.additionalAnswersVisibility[question.qId];
-    console.log(question);
-    let qId = question.qId;
-    this.commintyService.getMoreCommunityAnswers(qId).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.additionalAnswersData[question.qId] = response.records;
+  onFileSelected (event: any) {
+    const file = event.target.files[0]
+    console.log('Selected file:', file)
+    this.selectedFile = file
+  }
+
+  // Upload
+  onUpload () {
+    if (this.buttonType === 'Save') {
+      this.showSpinner = true
+      const formData = new FormData()
+      formData.append('emailId', this.emailId)
+      formData.append('question', this.userQuestion)
+      formData.append('image', this.selectedFile)
+      formData.append('userName', this.userName)
+      if (this.questionURl) {
+        formData.append('urlLink', this.questionURl)
       }
-    );
+      this.commintyService
+        .insertCommunity(formData)
+        .subscribe((response: any) => {
+          console.log('Response from server:', response)
+          this.showSpinner = false
+          if (response && response.status) {
+            alert(response.message)
+            window.location.reload()
+          } else {
+            alert('An error occurred. Please try again later.')
+          }
+        })
+    } else {
+      this.updateCommunity()
+    }
+  }
+
+  uploadAnswer () {
+    this.showSpinner = true
+    const formData = new FormData()
+    formData.append('emailId', this.emailId)
+    formData.append('answer', this.replyAnswer)
+    formData.append('userName', this.userName)
+    formData.append('qId', this.expandedQuestion)
+    this.commintyService
+      .insertCommunityAnswer(formData)
+      .subscribe((response: any) => {
+        console.log('Response from server:', response)
+        this.showSpinner = false
+        if (response && response.status) {
+          alert(response.message)
+          window.location.reload()
+        } else {
+          alert('An error occurred. Please try again later.')
+        }
+      })
+  }
+
+  //ViewMore
+  showAdditionalAnswers (question: any) {
+    this.showSpinner = true
+    this.additionalAnswersVisibility[question.qId] =
+      !this.additionalAnswersVisibility[question.qId]
+    console.log(question)
+    let qId = question.qId
+    this.commintyService
+      .getMoreCommunityAnswers(qId)
+      .subscribe((response: any) => {
+        console.log(response)
+        this.additionalAnswersData[question.qId] = response.records
+        this.showSpinner = false
+      })
   }
 
 
 
-  onSelect(option: any): void {
-    if (option === 'contact') {
-      this.showContactForm = true;
-      this.showHomepage = false;
-      this.showMyposts = false;
-    } else if (option === 'myPosts') {
-      this.showMyposts = false;
-      this.showContactForm = false;
-      this.showHomepage = false;
-  
-      this.showSpinner = true;
-      setTimeout(() => {
+  showContent(question: any) {
+    if (!this.showFullContent[question.qId]) {
+      this.commintyService.getFeedback(question.qId).subscribe((response: any) => {
+        console.log(response);
+        this.feedbackInfo = response.records;
+        this.showFullContent[question.qId] = !this.showFullContent[question.qId];
         this.showSpinner = false;
-        this.showMyposts = true;
-      }, 2000);
-    }
-   
-    
-    else {
-      this.logOut()
+        this.performActions(question.qId, 'view');
+      });
+    } else {
+      this.showFullContent[question.qId] = !this.showFullContent[question.qId];
     }
   }
-
-
-
-
-
-
- 
-
-  toggleSearch() {
-    this.showSearch = !this.showSearch;
-  }
-
-  loadQuestions (): void {
-    this.questions = this.questions
-  }
-
-  get filteredquestions(): any[] {
-    if (!this.searchQuetion || this.searchQuetion.trim() === '') {
-      return this.mainQuestions; // Return all questions directly
-    }  
-    return this.mainQuestions.filter(question =>
-      question.question.toLowerCase().includes(this.searchQuetion.toLowerCase()) ||
-      (question.answer && question.answer.toLowerCase().includes(this.searchQuetion.toLowerCase()))
-    );
-  }
-  
   
 
-  expandQuestion (slNo: number): void {
-    this.expandedQuestion = this.expandedQuestion === slNo ? null : slNo
+  toggleSearch () {
+    this.showSearch = !this.showSearch
   }
 
-  isExpanded (slNo: number) {
-    // return this.expandedQuestion === slNo
+  //Expand
+  expandQuestion (qId: number): void {
+    this.expandedQuestion = this.expandedQuestion === qId ? null : qId
+  }
+
+  isExpanded (qId: number): boolean {
+    return this.expandedQuestion === qId && this.expandedQuestion !== null
   }
 
   urlExpand () {
@@ -243,9 +307,99 @@ export class CommunityPageComponent {
     this.popup.openDialogWithTemplateRef(this.myDialog)
   }
 
+  //edit
+
+  editQuestion (question: any) {
+    this.buttonType = 'update'
+    console.log('question', question)
+    this.userQuestion = question.question
+    this.questionURl = question.urlLink
+    this.updateQid = question.qId
+    this.popup.openDialogWithTemplateRef(this.myDialog)
+  }
+
+  //delete
+  deleteQuestion (question: any) {
+    console.log(question)
+    this.showSpinner = true
+    const questionData = {
+      emailId: question.question_owner_email,
+      qId: question.qId
+    }
+    const confirmation = confirm('Are you sure you want to delete the Product?')
+    if (!confirmation) {
+      return
+    }
+    this.commintyService
+      .deleteCommunity(questionData)
+      .subscribe((response: any) => {
+        console.log('Response from server:', response)
+        this.showSpinner = false
+        if (response && response.status) {
+          alert(response.message);
+          this.onSelect('myPosts');
+        } else {
+          alert('An error occurred. Please try again later.')
+        }
+      })
+  }
+
+
+//Like and Dislikes operations
+
+performActions(questionId: number, type: string) {
+  this.showSpinner = true;
+  const data = {
+    "qId": questionId,
+    "emailId": this.emailId,
+    "action": type // Adding action type ('like' or 'dislike')
+  };
+
+  let serviceCall;
+  serviceCall = this.commintyService.postFeedback(data);
+
+  serviceCall.subscribe(
+    (response:any) => {
+      console.log('Response from server:', response);
+      this.showSpinner = false;
+    },
+    (error:any) => {
+      this.handleError(error);
+    }
+  );
+}
+
+
+private handleError(error: any) {
+  console.error('Error:', error);
+  this.showSpinner = false;
+}
+
+
   closePopup () {
     this.popup.closeDialog()
-    this.showUrlBox = false;
+    this.showUrlBox = false
+  }
+
+  get filteredquestions (): any[] {
+    if (!this.searchQuetion || this.searchQuetion.trim() === '') {
+      return this.mainQuestions // Return all questions directly
+    }
+    return this.mainQuestions.filter(
+      question =>
+        question.question
+          .toLowerCase()
+          .includes(this.searchQuetion.toLowerCase()) ||
+        (question.answer &&
+          question.answer
+            .toLowerCase()
+            .includes(this.searchQuetion.toLowerCase()))
+    )
+  }
+
+  onBack () {
+    this.onSelect('homePage')
+    window.scrollTo(0, 0)
   }
 
   logOut () {
@@ -254,5 +408,4 @@ export class CommunityPageComponent {
       window.location.reload()
     })
   }
-
 }

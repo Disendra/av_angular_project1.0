@@ -1,123 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </head>
-
-  <body>
-<div class="header-boxs">
-    <div class="container">
-        <h2>Welcome to Our Community!!</h2>
-        <div class="input-group">
-            <div class="input-box input-group">
-                <div class="upload_button" (click)="postQuetion()">
-                <mat-icon>upload</mat-icon>
-                </div>
-              <input type="text" class="form-control input-sm" [(ngModel)]="searchQuetion" placeholder="Search by Question ..."/>
-            <i class="fa fa-search"></i>
-          </div>
-          </div>
-
-        <div class="question" *ngFor="let question of filteredEmails">
-            <div class="profile">
-                <img [src]="question.profile.image" alt="Profile Picture">
-                <div class="username">{{ question.profile.username }}</div>
-            </div>
-            <div class="posted_Date">
-                <p>{{ question.postedDate }}</p>
-            </div>
-            <div class="content">
-                <p class="main_question">{{ question.question }}</p>
-                <div class="comments">
-                    <p>Answers:</p>
-                    <ul>
-                        <li *ngFor="let answer of question.answers">{{ answer }}</li>
-                    </ul>
-                </div>
-                <div class="vote">
-                    <button class="btn btn-outline-success"><mat-icon>thumb_up</mat-icon><span><span>{{ question.voteCount.up }}</span></span></button>                      
-                    <button class="btn btn-outline-danger"><mat-icon>thumb_down</mat-icon><span>{{ question.voteCount.down }}</span></button>
-                    <button class="btn btn-outline-primary" (click)="expandQuestion(question.slNo)"><mat-icon>comment</mat-icon></button>                       
-                </div>
-            </div>
-            <div *ngIf="isExpanded(question.slNo)" class="share-container">
-                <div class="row mt-2 input-box input-group textarea_tools">
-                   <div class="col">
-                       <textarea cols="100" class="form-control input-sm" placeholder="Share your Answer here..."></textarea>
-                       <mat-icon class="txt_Icons">insert_photo</mat-icon>
-                       <mat-icon class="txt_Icons txt_link">link</mat-icon>
-                   </div>
-               </div>
-               <div class="row">
-                   <div class="col text-center">
-                       <button class="btn btn-primary">Submit</button>
-                   </div>
-               </div>
-           </div>
-        </div>        
-    </div>
-</div>
-
- <ng-template #myDialog>
-    <mat-dialog-content>
-      <mat-icon class="cancel_Icon" (click)="closePopup()">cancel_presentation</mat-icon>
-      <div class="form-group">
-        <mat-form-field class="popup_box">
-            <div class="row mt-2 input-box input-group textarea_tools">
-            <div class="col pop_txtarea">
-                <textarea cols="100" class="form-control input-sm" name="userQuestion" [(ngModel)]="userQuestion" placeholder="Share your Question here..."></textarea>
-                <mat-icon class="txt_Icons">insert_photo</mat-icon>
-                <mat-icon class="txt_Icons txt_link" (click)="urlExpand()">link</mat-icon>
-                <div class="url_box" *ngIf="showUrlBox">
-                <input type="text" class="form-control input-sm" name="questionURl" [(ngModel)]="questionURl" placeholder="Enter URL">
-                </div>
-            </div>
-            </div>
-        </mat-form-field>   
-            <div class="col text-end" style="margin-bottom: -15px;">
-                <button class="btn btn-primary">Submit</button>
-        </div>        
-      </div>
-    </mat-dialog-content>
-  </ng-template>
-
-
-
-  </body>
-</html> -->
-
-
-
-<!-- <header class="header_section">
-  <div class="header_top">
-    <div class="container-fluid">
-      <div class="top_nav_container">
-        <div class="contact_nav">
-          <h1>AV Tech</h1>
-        </div>
-        <form class="search_form">
-          <input type="text" class="filter_box" placeholder="Search products..." name="searchText"/>
-          <button class="" type="submit">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
-        </form>      
-          <nav id="navbar" class="navbar">
-            <span class="material-icons">notifications</span>
-          <li class="dropdown"><a> <img src="assets/img/disendra-Img.png" alt="" class="img-fluid rounded-circle"><span>{{ userName }}</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a>My Posts</a></li>
-               <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-        </nav>
-
-      </div>
-    </div>
-  </div>
-</header> -->
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -131,7 +11,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between" (click)="onBack()">
       <a class="logo d-flex align-items-center">
         <!-- <img src="assets/img/disendra-Img.png" alt=""> -->
         <span class="d-none d-lg-block">Av Tech</span>
@@ -293,122 +173,91 @@
 
   <div class="content_info" *ngIf="showHomepage || showMyposts">
     <div class="question" *ngFor="let question of filteredquestions">
-      <div class="profile_Info">
-          <img src="https://profile-image.cellar-c2.services.clever-cloud.com/disendra-Img.png" alt="Profile Picture">
-          <div class="username">{{ question.question_userName_name }}</div>
-      </div>
-      <div class="posted_Date">
-          <p>{{ question.question_posted_date }}</p>
-      </div>
-      <div class="content">
-          <p class="main_question">{{ question.question }}</p>
-          <div class="comments">
-              <p>Answers:</p>
-              <p>{{ question.answer }}</p>
-              <button (click)="showAdditionalAnswers(question)" class="more_button">
-                {{ additionalAnswersVisibility[question.qId] ? '...Less' : '...More' }}
-              </button>
-              <ul *ngIf="additionalAnswersVisibility[question.qId]">
-                  <li *ngFor="let addAnswer of additionalAnswersData[question.qId]">
-                      <div class="profile_Info">
-                          <img src="https://profile-image.cellar-c2.services.clever-cloud.com/disendra-Img.png" alt="Profile Picture">
-                          <div class="username">{{ addAnswer.question_userName }}</div>
-                      </div>
-                      <p>{{ addAnswer.answer }}</p>
-                  </li>
-              </ul>
-          </div>
-  
+        <div class="profile_Info">
+            <img [src]="question.question_owner_imagePath" alt="Profile Picture">
+            <div class="username">{{ question.question_userName_name }}</div>
+        </div>
+        <div class="posted_Date">
+            <p>{{ question.question_posted_date | date }}</p>
+        </div>
+        <div class="content">
+            <p class="main_question" (click)="showContent(question)">{{ question.question }}</p>
 
-
-
-  
-        <div class="vote-container">
-          <div class="vote-item">
-              <mat-icon>thumb_up</mat-icon>
-              <span>{{ question.likes }}</span>
-          </div>
-          <div class="vote-item">
-              <mat-icon>thumb_down</mat-icon>
-              <span>{{ question.dislikes }}</span>
-          </div>
-          <div class="vote-item">
-              <mat-icon>visibility_off</mat-icon>
-              <span>{{ question.views }}</span>
-          </div>
-          <div class="vote-item">
-              <mat-icon>comment</mat-icon>
-              <span>{{ question.comments }}</span>
-          </div>
-          <div class="vote-item" (click)="expandQuestion(question.slNo)">
-            <mat-icon>reply</mat-icon>
-          </div>
-          <div class="vote-item" *ngIf="showMyposts">
-            <mat-icon>edit</mat-icon>
-            <!-- <span>{{ question.voteCount.comments }}</span> -->
-         </div>
-          <div class="vote-item" *ngIf="showMyposts">
-            <mat-icon>delete</mat-icon>
+            <div *ngIf="showFullContent[question.qId]">
+                <div class="image_wrapper" *ngIf="question.imagePath != null">
+                    <img [src]="question.imagePath" alt="Description of the image">
+                </div>
+                <p class="main_question" *ngIf="question.urlLink !== null">URL: <a [href]="question.urlLink">{{ question.urlLink }}</a></p>
+                <div class="comments">
+                    <ul *ngIf="additionalAnswersVisibility[question.qId]" class="mt-1">
+                        <li *ngFor="let addAnswer of additionalAnswersData[question.qId]">
+                            <div class="profile_Info">
+                                <img [src]="addAnswer.answer_owner_imagePath" alt="Profile Picture">
+                                <div class="username">{{ addAnswer.answer_userName }}</div>
+                                <p class="answer_posted_date">{{ question.answer_posted_date | date }}</p>
+                            </div>
+                            <p>{{ addAnswer.answer }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="vote-container mt-2" *ngFor="let feedback of feedbackInfo">
+                    <div class="vote-item">
+                        <mat-icon class="like_Icon" (click)="performActions(question.qId,'like')">thumb_up</mat-icon>
+                        <span>{{ feedback.total_likes }}</span>
+                    </div>
+                    <div class="vote-item">
+                        <mat-icon class="dislike_Icon" (click)="performActions(question.qId,'dislike')">thumb_down</mat-icon>
+                        <span>{{ feedback.total_dislikes }}</span>
+                    </div>
+                    <div class="vote-item">
+                        <mat-icon class="view_Icon">visibility_off</mat-icon>
+                        <span>{{ feedback.total_views }}</span>
+                    </div>
+                    <div class="vote-item" (click)="showAdditionalAnswers(question)">
+                        <mat-icon class="comment_Icon">comment</mat-icon>
+                        <span>{{ question.comments }}</span>
+                    </div>
+                    <div class="vote-item" (click)="expandQuestion(question.qId)">
+                        <mat-icon class="reply_Icon">reply</mat-icon>
+                    </div>
+                    <div class="vote-item" *ngIf="showMyposts" (click)="editQuestion(question)">
+                        <mat-icon class="edit_Icon">edit</mat-icon>
+                    </div>
+                    <div class="vote-item" *ngIf="showMyposts" (click)="deleteQuestion(question)">
+                        <mat-icon class="delete_Icon">delete</mat-icon>
+                    </div>
+                </div>
+                <div *ngIf="isExpanded(question.qId) && expandedQuestion !== null" class="share-container">
+                    <div class="row mt-2 ml-0 input-box input-group textarea_tools">
+                        <div class="col">
+                            <textarea cols="100" class="form-control input-sm" [(ngModel)]="replyAnswer" placeholder="Share your Answer here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <button class="btn btn-primary mt-2" (click)="uploadAnswer()">Submit</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-      
-      
     </div>
-    <div *ngIf="isExpanded(question.slNo)" class="share-container">
-        <div class="row mt-2 ml-0 input-box input-group textarea_tools">
-           <div class="col">
-               <textarea cols="100" class="form-control input-sm" placeholder="Share your Answer here..."></textarea>
-               <mat-icon class="txt_Icons">insert_photo</mat-icon>
-               <mat-icon class="txt_Icons txt_link">link</mat-icon>
-           </div>
-       </div>
-       <div class="row">
-           <div class="col text-center">
-               <button class="btn btn-primary">Submit</button>
-           </div>
-       </div>
-   </div>
-</div>
-</div>
-
-
-<div class="btn_box">
-  <a class="view_more-link" (click)="loadMore()">View More</a>
-</div>
-
-<!-- <ng-template #myDialog>
-  <mat-dialog-content>
-    <mat-icon class="cancel_Icon" (click)="closePopup()">cancel_presentation</mat-icon>
-    <div class="form-group">
-      <mat-form-field class="popup_box">
-          <div class="row mt-2 input-box input-group textarea_tools">peka
-          <div class="col pop_txtarea">
-              <textarea cols="100" class="form-control input-sm" name="userQuestion" [(ngModel)]="userQuestion" placeholder="Share your Question here..."></textarea>
-              <mat-icon class="txt_Icons">insert_photo</mat-icon>
-              <mat-icon class="txt_Icons txt_link" (click)="urlExpand()">link</mat-icon>
-              <div class="url_box" *ngIf="showUrlBox">
-              <input type="text" class="form-control input-sm" name="questionURl" [(ngModel)]="questionURl" placeholder="Enter URL">
-              </div>
-          </div>
-          </div>          
-      </mat-form-field>   
-          <div class="col text-end" style="margin-bottom: -15px;">
-              <button class="btn btn-primary">Submit</button>
-      </div>        
+    <div class="btn_box">
+        <a class="view_more-link" (click)="loadMore()">View More</a>
     </div>
-  </mat-dialog-content>
-</ng-template> -->
+</div>
+
 
   <app-contact *ngIf="showContactForm"></app-contact>
   <app-spinner *ngIf="showSpinner"></app-spinner>
 
 <!-- Dialog template -->
 <ng-template #myDialog>
-  <!-- <h4 matDialogTitle class="mb-0">Social Media Links</h4> -->
   <mat-dialog-content class="d-flex align-items-center justify-content-center" style="overflow: hidden;">
     <div class="container custom-dialog-container">
-      <textarea cols="100" class="form-control input-sm" name="userQuestion" [(ngModel)]="userQuestion" placeholder="Share here..."></textarea>
-      <mat-icon class="txt_Icons">insert_photo</mat-icon>
+      <textarea cols="100" class="form-control input-sm mb-2" name="userQuestion" [(ngModel)]="userQuestion" placeholder="Share here..."></textarea>
+      <mat-icon class="txt_Icons" (click)="selectPhoto()">insert_photo</mat-icon>
+      <input type="file" style="display: none;" #fileInput (change)="onFileSelected($event)">      
       <mat-icon class="txt_Icons txt_link" (click)="urlExpand()">link</mat-icon>
       <div class="url_box" *ngIf="showUrlBox">
         <input type="text" class="form-control input-sm" name="questionURl" [(ngModel)]="questionURl" placeholder="Enter URL">
@@ -416,12 +265,10 @@
     </div>
       </mat-dialog-content>
       <mat-dialog-actions align="end" class="mat-buttons">
-        <button mat-dialog-close class="btn warning">Cancel</button>
-        <button [mat-dialog-close]="true" class="btn success">Submit</button>
+        <button mat-dialog-close class="btn btn-warning">Cancel</button>
+        <button [mat-dialog-close]="true" class="btn btn-success button_left" (click)="onUpload()">{{ buttonType }}</button>
       </mat-dialog-actions>
     </ng-template>
-
-
 
 
 </body>

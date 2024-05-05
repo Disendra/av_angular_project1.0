@@ -198,7 +198,7 @@ export class LoginPageComponent implements OnInit {
         url = '/ekart-page/';
         break;
       default:
-        url = '/av-Community/';
+        url = '/av-community/';
         break;
     }
     this.router.navigate([url + sessionId]);
