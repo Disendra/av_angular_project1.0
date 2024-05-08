@@ -141,7 +141,8 @@ export class BussinessCardComponent implements OnInit {
             this.showErrorMsg = true
           }
         } else {
-          console.log('No records found.')
+          console.log('No records found.');
+          this.showErrorMsg = true;
         }
       },
       error => {

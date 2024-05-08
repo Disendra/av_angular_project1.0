@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core'
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core'
 import { FaServiceService } from 'src/app/services/fa-service.service'
 import { PopupService } from 'src/app/services/popup.service'
 
@@ -24,8 +24,7 @@ export class ContactComponent {
   @ViewChild('myDialog') myDialog!: TemplateRef<any>  
   @ViewChild('captcha') captcha!: TemplateRef<any>
   constructor (private faService: FaServiceService,  private popup: PopupService) {}
-
-
+  
   onSubmit() {
     this.showSpinner = true;
     const isSubjectValid = this.validateSubject('subject');

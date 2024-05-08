@@ -6,19 +6,21 @@ import { AvEnginnerComponent } from './av-enginner/av-enginner.component'
 import { AdminPageComponent } from './admin-page/admin-page.component'
 import { EkartComponent } from './ekart/ekart.component'
 import { BussinessCardComponent } from './bussiness-card/bussiness-card.component'
-import { CanActivateService } from './services/can-activate.service'
 import { CommunityPageComponent } from './community-page/community-page.component'
+import { ContactComponent } from './home-page/contact/contact.component'
+import { AuthGuardService } from './services/auth-guard.service'
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: '****', redirectTo: '' },
   { path: 'home-page', redirectTo: '' },
+  { path: 'contactUs', component: ContactComponent },
   { path: 'login-page/:value', component: LoginPageComponent },
-  { path: 'ekart-page/:sessionId', component: EkartComponent },
-  { path: 'av-community/:sessionId', component: CommunityPageComponent, canActivate: [CanActivateService] },
-  { path: 'avEngineer-dashboard/:sessionId', component: AvEnginnerComponent, canActivate: [CanActivateService] },
-  { path: 'admin-page', component: AdminPageComponent, canActivate: [CanActivateService] },
-  { path: 'bussiness-card/:emailId', component: BussinessCardComponent, canActivate: [CanActivateService] }
+  { path: 'ekart-page', component: EkartComponent },
+  { path: 'av-community', component: CommunityPageComponent, canActivate: [AuthGuardService] },
+  { path: 'avEngineer-dashboard', component: AvEnginnerComponent, canActivate: [AuthGuardService] },
+  { path: 'admin-page', component: AdminPageComponent, canActivate: [AuthGuardService] },
+  { path: 'bussiness-card/:emailId', component: BussinessCardComponent }
 ]   
 
 

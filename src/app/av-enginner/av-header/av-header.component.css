@@ -196,6 +196,8 @@ h6 {
   padding: 0;
   list-style: none;
   display: flow;
+  font-weight: 500;
+  margin-bottom: -5px;
   font-size: 16px;
 }
 

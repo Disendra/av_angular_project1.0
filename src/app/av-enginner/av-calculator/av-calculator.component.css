@@ -8,7 +8,7 @@
 }
 
 .counts .col-lg-3 {
-  flex: 0 0 25%;
+  flex: 0 0 auto;
   /* Each column takes up 25% of the container */
 }
 
@@ -75,7 +75,9 @@
   bottom: 0;
 }
 
-
+.custom-images {
+  max-height: 100px; /* Adjust as needed */
+}
 
 @media (min-width: 1275px) {
   .counts {

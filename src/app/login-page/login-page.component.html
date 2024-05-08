@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+ <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -62,7 +62,7 @@
 			  <option value="client" class="options">Client</option>
 			  <option value="consultants" class="options">Consultants</option>
 			  <option value="distributor" class="options">Distributor</option> -->
-			</select>
+			<!-- </select>
 		  </div>
             <p class="invalid_msg">{{ invalidMsg }}</p>
 		  <div class="field btn mb-4">
@@ -72,13 +72,13 @@
 		</form>
 	  </div>
 	</div>
-  </div>
+  </div> --> 
 
-<ng-template #myDialog>
+<!-- <ng-template #myDialog>
     <mat-dialog-content class="d-flex flex-column align-items-end justify-content-start rounded" style="border-radius: 15px;">
         <i class="fa fa-close cancel_Icon mb-3" [mat-dialog-close]="true"></i>
         <div class="row details">
-			<div class="col-md-2 d-flex align-items-center justify-content-center"> <!-- Modified class -->
+			<div class="col-md-2 d-flex align-items-center justify-content-center">
 				<i class="fa fa-warning mr-2"></i>
 			</div>
             <div class="col-md-8" style="margin-left: 5px;">
@@ -107,4 +107,21 @@
   
     <app-spinner *ngIf="showSpinner"></app-spinner>
   </body>
-</html>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<ng-template #myDialog>
+    <mat-dialog-content class="d-flex flex-column align-items-end justify-content-start rounded" style="border-radius: 15px;">
+		<div>
+			<a mat-button [href]="googleUrl" class="social_btn google_button"><i class="fa fa-google text-white"></i> Google</a>
+			<a mat-button [href]="linkedInUrl" class="social_btn linkedIn_button"><i class="fa fa-linkedin text-white"></i> LinkedIn</a>
+		  </div>  
+		  </mat-dialog-content>
+</ng-template>
+</body>

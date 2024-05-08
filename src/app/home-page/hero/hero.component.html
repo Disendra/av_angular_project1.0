@@ -1,18 +1,54 @@
- <!-- ======= Hero Section ======= -->
- <section id="hero" class="hero d-flex align-items-center">
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 d-flex flex-column justify-content-center">
-        <h1 data-aos="fade-up" data-aos-delay="400" class="title_header">Sharpen your AV skills and knowledge within an outstanding community</h1>
-        <h2 data-aos="fade-up" data-aos-delay="400">Take your collaboration to new heights with top-tier AV professionals. Share insights, stay informed about cutting-edge technologies, upcoming trade shows, and training opportunities. Gain exclusive access to AV calculators and other valuable benefits!</h2>
-        <div data-aos="fade-up" data-aos-delay="600">
-        </div>
-      </div>
-      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-        <img src="assets/img/home-page/hero-img.png" width="87%" class="img-fluid" alt="">
-      </div>
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <!-- Mobile Metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <link rel="shortcut icon" href="images/favicon.png" type="">
+   </head>
+   <body>
+      <div class="hero_area">
+ 
+ <!-- slider section -->
+ <section class="slider_section ">
+    <div class="slider_bg_box" style="z-index: unset;">
+       <img src="./assets/img/slider-bg.jpg" alt="">
     </div>
-  </div>
+    <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+         <div class="carousel-item" *ngFor="let item of carouselItems; let i = index" [class.active]="i === 0">
+           <div class="container">
+             <div class="row">
+               <div class="col-md-7 col-lg-6">
+                 <div class="detail-box">
+                   <h1>
+                     <span>{{ item.title }}</span><br>
+                     On Everything
+                   </h1>
+                   <p>{{ item.description }}</p>
+                   <div class="btn-box" (click)="onLogin()">
+                     <a>Get Started</a>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       
+       <div class="container">
+          <ol class="carousel-indicators">
+             <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+             <li data-target="#customCarousel1" data-slide-to="1"></li>
+             <li data-target="#customCarousel1" data-slide-to="2"></li>
+          </ol>
+       </div>
+    </div>
+ </section>
+ <!-- end slider section -->
+ </div>
 
-</section><!-- End Hero -->
+ </body>
+</html>

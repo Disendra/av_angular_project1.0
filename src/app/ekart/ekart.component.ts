@@ -6,6 +6,7 @@ import { Router } from '@angular/router'
 import { image } from 'html2canvas/dist/types/css/types/image'
 import { MatSlideToggleChange } from '@angular/material/slide-toggle'
 import { PopupService } from '../services/popup.service'
+import { AuthGuardService } from '../services/auth-guard.service'
 
 @Component({
   selector: 'app-ekart',
@@ -47,7 +48,8 @@ export class EkartComponent implements OnInit {
     private popup: PopupService,
     private userService: UserServicesService,
     private router: Router,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private authGuard : AuthGuardService
   ) {}
   ngOnInit (): void {
     this.emailId = this.authService.getLoggedInEmail()
@@ -317,9 +319,6 @@ export class EkartComponent implements OnInit {
   }
 
   logOut () {
-    this.authService.clearLoggedInEmail()
-    this.router.navigate(['/home-page']).then(() => {
-      window.location.reload()
-    })
+   this.authGuard.logout();
   }
 }

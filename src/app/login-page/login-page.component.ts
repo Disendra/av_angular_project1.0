@@ -22,7 +22,9 @@ export class LoginPageComponent implements OnInit {
   password: any
   invalidMsg: any
   loginRepsonse: any
-  receivedValue: any
+  receivedValue: any;
+  googleUrl :any;
+  linkedInUrl : any;
   reEnteredPswd: string = ''
   role: string = 'default'
   isLogin: boolean = true
@@ -59,6 +61,8 @@ export class LoginPageComponent implements OnInit {
   //   private socialAuthService: SocialAuthService
   // ) {}
   ngOnInit () {
+   this.onSocialLogin();
+   this.socialMediaUrl();
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/avEngineer-dashboard'])
     }
@@ -72,9 +76,19 @@ export class LoginPageComponent implements OnInit {
       console.log(this.socialUser)
     })
   }
-  loginWithGoogle (): void {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
+
+
+  socialMediaUrl() {
+    this.googleUrl = `http://localhost:3000/auth/google?destination=${this.receivedValue}`;
+    this.linkedInUrl = `http://localhost:3000/auth/linkedin?destination=${this.receivedValue}`
   }
+  
+  onSocialLogin() {
+    setTimeout(() => {
+      this.popup.openDialogWithTemplateRef(this.myDialog);
+    }, 200);
+  }
+
   logOut (): void {
     this.socialAuthService.signOut()
   }

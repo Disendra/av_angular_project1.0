@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 import { Router } from '@angular/router'
 
 @Component({
@@ -7,24 +7,17 @@ import { Router } from '@angular/router'
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor (private router: Router) { }
-
-  activeTab: string = 'hero'; // Set default active tab
-
-  setActiveTab(tab: string) {
-    this.activeTab = tab;
-  }
+  showContact: boolean = false
+  constructor (private router: Router) {}
 
   onLogin (option: any) {
     let value
-    if (option === 'dashboardLogin') {
-      value = 'Dashboard'
-    } else if(option === 'ekartLogin') {
-      value = 'eKart'
+    if (option === 'ekartLogin') {
+      value = 'ekart-page'
     } else {
-      value= 'community';
+      value = 'av-community'
     }
-     
+
     this.router.navigate(['/login-page', value])
   }
 }

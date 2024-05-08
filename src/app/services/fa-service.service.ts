@@ -12,6 +12,14 @@ export class FaServiceService {
   macVendor = 'https://macvendorlookup.com/api/v2'
 
   constructor (private http: HttpClient) {}
+  
+  getSession() {
+    return this.http.get<any>(`${this.url}/getSession`);
+  }
+  
+  logout() {
+    return this.http.get<any>(`${this.url}/logout`);
+  }
 
   login (emailId: string, password: string) {
     return this.http.post(`${this.url}/login`, { emailId, password })

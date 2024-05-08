@@ -90,11 +90,11 @@ qrcode {
 }
 
 .fa-download {
-    color: green;
+    color: green!important;
 }
 
 .fa-share-alt {
-    color: darkblue;
+    color: darkblue!important;
 }
 
 .custom-body {
@@ -106,7 +106,7 @@ qrcode {
 }
 
 .emoji_img {
-    margin-left: -35px;
+    margin-left: 125px;
 }
 
 .cancel_Icon {

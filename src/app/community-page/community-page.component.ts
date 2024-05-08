@@ -5,6 +5,7 @@ import { AuthServiceService } from '../services/auth-service.service'
 import { Router } from '@angular/router'
 import { UserServicesService } from '../services/user-services.service'
 import { CommunityService } from '../services/community.service'
+import { AuthGuardService } from '../services/auth-guard.service'
 
 @Component({
   selector: 'app-community-page',
@@ -49,7 +50,8 @@ export class CommunityPageComponent {
     private router: Router,
     private authService: AuthServiceService,
     private commintyService: CommunityService,
-    private userService: UserServicesService
+    private userService: UserServicesService,
+    private authGuard : AuthGuardService
   ) {}
 
   ngOnInit (): void {
@@ -403,9 +405,6 @@ private handleError(error: any) {
   }
 
   logOut () {
-    this.authService.clearLoggedInEmail()
-    this.router.navigate(['/home-page']).then(() => {
-      window.location.reload()
-    })
-  }
+    this.authGuard.logout();
+}
 }

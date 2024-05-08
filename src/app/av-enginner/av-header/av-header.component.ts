@@ -8,6 +8,7 @@ import {
 import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { ClientsComponent } from 'src/app/home-page/clients/clients.component'
+import { AuthGuardService } from 'src/app/services/auth-guard.service'
 import { AuthServiceService } from 'src/app/services/auth-service.service'
 import { PopupService } from 'src/app/services/popup.service'
 import { UserServicesService } from 'src/app/services/user-services.service'
@@ -15,7 +16,7 @@ import { UserServicesService } from 'src/app/services/user-services.service'
 @Component({
   selector: 'app-av-header',
   templateUrl: './av-header.component.html',
-  styleUrls: ['./av-header.component.css']
+  styleUrls: ['./av-header.component.css'],
 })
 export class AvHeaderComponent implements OnInit {
   dialogRef: any
@@ -55,7 +56,8 @@ export class AvHeaderComponent implements OnInit {
     private dialog: MatDialog,
     private authService: AuthServiceService,
     private popup: PopupService,
-    private userService: UserServicesService
+    private userService: UserServicesService,
+    private authGuard : AuthGuardService
   ) {
     this.userName = authService.getLoginuserName()
     this.emailId = authService.getLoggedInEmail()
@@ -266,10 +268,7 @@ export class AvHeaderComponent implements OnInit {
   }
 
   logOut () {
-    this.authService.clearLoggedInEmail()
-    this.router.navigate(['/home-page']).then(() => {
-      window.location.reload()
-    })
+    this.authGuard.logout();
   }
 
   toggleKnowledgeBase () {
